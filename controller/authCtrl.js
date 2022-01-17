@@ -105,9 +105,8 @@ const authCtrl = {
                 if(err) return res.status(400).json({msg: "Please Login"})
 
                 const user = await Users.findById(result.id).select("-password")
-                .populate("followers following", "avatar username fullname followers following")
-
-                if(!user) return res.status(400).json({msg: "This is not exist"})
+    
+                if(!user) return res.status(400).json({msg: "This user is not exist"})
 
                 const access_token = createAccessToken({id:result.id})
 

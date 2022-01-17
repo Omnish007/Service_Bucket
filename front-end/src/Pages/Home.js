@@ -3,7 +3,10 @@ import "../CSS/Home.css"
 import Navbar from "../components/Navbar"
 import Card from "../components/home/Card"
 
+
+
 const Home = () => {
+
     return (
         <div className='home_container'>
             <Navbar />
@@ -30,9 +33,9 @@ const Home = () => {
                     <h2>Safe Service Safe Home.</h2>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Read More</button>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal_container">
-                            <div class="modal-content ">
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog modal_container">
+                            <div className="modal-content ">
                                 <div>
                                     trgr
 
@@ -40,8 +43,8 @@ const Home = () => {
                                 <div>
                                     fefefe
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
