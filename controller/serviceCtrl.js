@@ -3,6 +3,22 @@ const Service = require("../models/serviceModel")
 
 const serviceCtrl = {
 
+    getServices: async (req, res) => {
+        try {
+
+            const services = await Service.find()
+
+            res.json({
+                msg: "Getting Services",
+                services: services,
+                user: req.user
+            })
+
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
+    },
+
     createService: async (req, res) => {
         try {
 
@@ -20,8 +36,8 @@ const serviceCtrl = {
                 msg: "Service Created",
                 newService: {
                     ...newService._doc,
-                    user: req.user
-                }
+                },
+                user: req.user
             })
 
         } catch (error) {

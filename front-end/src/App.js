@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import React, { useEffect } from "react"
+
 
 import Login from "./Pages/Login"
 import Register from "./Pages/Register"
@@ -14,9 +15,8 @@ import { Routes, Route } from 'react-router-dom';
 
 function App() {
 
-  const { auth } = useSelector(state => state)
+  const { auth, services } = useSelector(state => state)
   const dispatch = useDispatch()
-
   useEffect(() => {
     dispatch(refreshToken())
   }, [dispatch])
@@ -26,18 +26,12 @@ function App() {
     <div className="App">
       <Alert />
       <Routes>
-        <Route exact path='/' element={< Home />}></Route>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/adminPanel' element={<AdminPanel />} />
       </Routes>
-      <Routes>
-        <Route exact path='/register' element={< Register />}></Route>
-      </Routes>
-      <Routes>
-        <Route exact path='/login' element={< Login />}></Route>
-      </Routes>
-      <Routes>
-        <Route exact path='/adminPanel' element={< AdminPanel />}></Route>
-      </Routes>
-      
+
     </div>
 
   );

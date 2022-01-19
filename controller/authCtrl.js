@@ -112,7 +112,10 @@ const authCtrl = {
 
                 res.json({
                     access_token,
-                    user
+                    user:{
+                        ...user._doc,
+                        password:""
+                    }
                 })
             })
 

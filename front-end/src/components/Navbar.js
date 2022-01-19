@@ -38,8 +38,10 @@ const Navbar = () => {
                             }
                             <li className="nav-item">
                                 {
-                                    auth.user?.role === "1" ? <Link to="/adminPanel">Admin Panel</Link>
-                                        : ""
+                                    auth.token 
+                                        ? auth.user.role === "1" ? <Link to="/adminPanel">Admin Panel</Link>
+                                                                 : ""
+                                        :"" 
                                 }
                             </li>
 

@@ -3,7 +3,7 @@ const serviceCtrl = require("../controller/serviceCtrl")
 const adminAuth = require("../middleware/adminAuth")
 const auth = require("../middleware/auth")
 
-// router.post("/getService", auth , adminAuth, authCtrl.getService)
+router.get("/getServices",auth, adminAuth, serviceCtrl.getServices)
 
 router.post("/createService", auth , adminAuth, serviceCtrl.createService)
 
