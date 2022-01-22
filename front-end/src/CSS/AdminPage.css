@@ -33,3 +33,41 @@
     border: 1px solid #ccc;
     border-top: none;
   }
+
+
+  .admin_serviceName{
+    width: 300px;
+    margin: auto;
+    display: flex;
+  }
+
+  .admin_serviceName p{
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .admin_serviceName i.fa-trash{
+    line-height: 20px;
+  }
+
+  .admin_serviceName i.fa-trash:hover{
+    color: tomato;
+    cursor: pointer;
+  }
+
+  .admin_get_service_btn{
+    border: none;
+    background: rgb(42, 42, 42);
+    width: 200px;
+    margin: auto;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+
+  }
+
+  .tabcontent{
+    height: 400px;
+    overflow-y: auto;
+  }

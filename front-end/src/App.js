@@ -9,17 +9,29 @@ import AdminPanel from "./Pages/AdminPanel "
 import Alert from "./components/alert/Alert";
 import { useSelector, useDispatch } from "react-redux"
 import { refreshToken } from "./redux/actions/authActions"
+import { getServices } from "./redux/actions/serviceActions"
 
 import { Routes, Route } from 'react-router-dom';
 
 
+
 function App() {
 
-  const { auth, services } = useSelector(state => state)
+  const { auth, service } = useSelector(state => state)
   const dispatch = useDispatch()
+
+ 
+
   useEffect(() => {
     dispatch(refreshToken())
-  }, [dispatch])
+    if(auth.token){
+      localStorage.setItem("auth", auth.token)
+    }
+  }, [])
+
+ 
+
+
 
   return (
 

@@ -6,13 +6,11 @@ export const getServices = (token) => async (dispatch) => {
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
 
-        const res = await getDataAPI("getServices",token)
+        const res = await getDataAPI("getServices")
 
         dispatch({
             type: GLOBALTYPES.SERVICE,
-            payload: {
-                service: res.data.services
-            }
+            payload: [...res.data.services],
         })
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
