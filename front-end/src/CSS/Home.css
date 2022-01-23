@@ -5,6 +5,10 @@
     padding: 50px 0 80px 0;
 }
 
+.home_service_link a{
+    text-decoration: none;
+}
+
 .home_header{
     text-align: center;
 }

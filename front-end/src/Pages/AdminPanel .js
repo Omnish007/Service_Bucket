@@ -29,7 +29,7 @@ const AdminPanel = () => {
         dispatch(getServices(auth.token))
     }
 
-    const tabs = (cityName, e) => {
+    const tabs = (tabName, e) => {
         var i, tabcontent, tablinks;
 
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -42,8 +42,8 @@ const AdminPanel = () => {
             tablinks[i].className = tablinks[i].className.replace("active", " ");
         }
 
-        document.getElementById(cityName).style.display = "block";
-        document.getElementsByClassName(cityName).classlist += "active";
+        document.getElementById(tabName).style.display = "block";
+        document.getElementsByClassName(tabName).classlist += "active";
 
     }
 

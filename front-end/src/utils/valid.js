@@ -1,4 +1,4 @@
-const valid = ({name, email, password, cf_password}) => {
+const valid = ({name, email, phone, password, cf_password}) => {
     const error = {}
 
     if(!name){
@@ -11,6 +11,13 @@ const valid = ({name, email, password, cf_password}) => {
         error.email = "Please enter your email"
     }else if(!validateEmail(email)){
         error.email = "Email format is incorrect"
+    }
+    if(!phone){
+        error.phone = "Please enter your phone no."
+    }else if(phone.length !== 10){
+        error.phone = "Invalid Phone no."
+    }else if(isNaN(phone)){
+        error.phone = "Invalid Phone no."
     }
 
     if(!password){

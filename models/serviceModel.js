@@ -9,6 +9,13 @@ const serviceSchema = new mongoose.Schema({
         required: true
     },
 
+    subService:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:"subService"
+        },
+    ]
+
 }, {
     timestamps: true
 })

@@ -1,0 +1,27 @@
+.service_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.bg-1{
+    background: #ededed;
+}
+.bg-2{
+    background: white;
+}
+
+.service_container h1{
+    margin-bottom: 50px;
+}
+
+.service_subService{
+    display: flex;
+}
+
+.service_card{
+    width: 200px;
+}

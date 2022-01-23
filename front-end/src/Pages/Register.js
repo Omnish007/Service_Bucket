@@ -15,12 +15,13 @@ const Register = () => {
 	const initialState = {
 		name: '',
 		email: '',
+		phone: '',
 		password: '',
 		cf_password: '',
 	};
 
 	const [ userData, setUserData ] = useState(initialState);
-	const { name, email, password, cf_password } = userData;
+	const { name, email, phone, password, cf_password } = userData;
 
 	useEffect(
 		() => {
@@ -69,6 +70,18 @@ const Register = () => {
 								style={{ background: `${alert.email ? '#fd2d6a14' : ''}` }}
 							/>
 							<small className="form-text text-danger">{alert.email ? alert.email : ''}</small>
+						</div>
+						<div className="input_container">
+							<label htmlFor="Phone">Phone</label>
+							<input
+								type="tel"
+								placeholder="Enter Your Phone No."
+								onChange={handleChangeInput}
+								value={phone}
+								name="phone"
+								style={{ background: `${alert.email ? '#fd2d6a14' : ''}` }}
+							/>
+							<small className="form-text text-danger">{alert.phone ? alert.phone : ''}</small>
 						</div>
 						<div className="input_container">
 							<label htmlFor="Password">Password</label>

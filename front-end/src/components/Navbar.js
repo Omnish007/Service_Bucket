@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../CSS/navbar.css"
 
 import { useSelector, useDispatch } from "react-redux"
-import {logout} from "../redux/actions/authActions"
+import { logout } from "../redux/actions/authActions"
 
 const Navbar = () => {
 
@@ -21,27 +21,30 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                {/* <Link className="nav-link active" aria-current="page" href="#">Home</Link> */}
+                                <Link to="/service">Service</Link>
                             </li>
                             {
                                 auth.token
-                                    ? <li className="nav-item">
+                                    ? <> <li className="nav-item">
                                         <Link to="/" onClick={() => dispatch(logout())}>LogOut</Link>
-                                        </li>
-
-                                    :   <><li className="nav-item">
-                                            <Link to="/login">Login</Link>
-                                        </li>
+                                    </li>
                                         <li className="nav-item">
-                                           <Link to="/register">Register</Link>
+                                            <Link to="/profile">Profile</Link>
+                                        </li></>
+
+                                    : <><li className="nav-item">
+                                        <Link to="/login">Login</Link>
+                                    </li>
+                                        <li className="nav-item">
+                                            <Link to="/register">Register</Link>
                                         </li></>
                             }
                             <li className="nav-item">
                                 {
-                                    auth.token 
+                                    auth.token
                                         ? auth.user.role === "1" ? <Link to="/adminPanel">Admin Panel</Link>
-                                                                 : ""
-                                        :"" 
+                                            : ""
+                                        : ""
                                 }
                             </li>
 

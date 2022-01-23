@@ -16,15 +16,28 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
 
+    phone: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
     password: {
         type: String,
         required: true,
     },
 
-    role:{
+    role: {
         type: String,
-        default:"0"
-    }
+        default: "0"
+    },
+
+    serviceProfile: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "serviceProfile"
+        }
+    ]
 }, {
     timestamps: true
 })

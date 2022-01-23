@@ -22,13 +22,15 @@ const serviceCtrl = {
     createService: async (req, res) => {
         try {
 
-            const { name, image } = req.body
+            const { name, image, sname, simage } = req.body
 
             if (image.length === 0)
                 return res.status(400).json({ msg: "Please add image photo" })
 
             const newService = new Service({
-                name, image })
+                name, image, sname, simage })
+
+            console.log(newService)
 
             await newService.save()
 

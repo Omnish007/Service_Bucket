@@ -1,14 +1,22 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom"
 
-const Card = ({src}) => {
+const Card = ({src, name}) => {
+    const navigate = useNavigate()
+
+    const cardClick = () => {
+        navigate("/serviceForm")
+    }
+
+
     return (
         <div>
-            <div className='home_card_body'>
+            <div onClick={cardClick} className='home_card_body'>
                     <div>
                         <img src={src} alt='efre' />
                     </div>
                     <div>
-                        <h4>Name of Service</h4>
+                        <h4>{name}</h4>
                     </div>
                     
                 </div>

@@ -6,7 +6,7 @@ const authCtrl = {
     register: async (req, res) =>{
         try {
             
-            const { name, email, password} = req.body
+            const { name, email, phone, password} = req.body
             
 
             //if emai is already exist
@@ -17,11 +17,14 @@ const authCtrl = {
             if(password.length < 6)
             return res.status(400).json({msg: "Password Must be atleast 6 characters"})
 
+            if(phone.length !== 10)
+            return res.status(400).json({msg: "Invalid Phone No."})
+
             //hash the password
             const passwordHash = await bcrypt.hash(password, 12)
 
             const newUser = new Users({
-                name, email, password:passwordHash
+                name, email, phone, password:passwordHash
             })
 
             const access_token = createAccessToken({id: newUser._id})
