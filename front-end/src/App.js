@@ -6,7 +6,6 @@ import Register from "./Pages/Register"
 import Home from "./Pages/Home"
 import AdminPanel from "./Pages/AdminPanel "
 import Service from "./Pages/Service"
-import ServiceForm from "./Pages/ServiceForm"
 
 import Alert from "./components/alert/Alert";
 import { useSelector, useDispatch } from "react-redux"
@@ -14,6 +13,8 @@ import { refreshToken } from "./redux/actions/authActions"
 
 import { Routes, Route } from 'react-router-dom';
 import Profile from "./Pages/Profile"
+import PrivateRouter from "./components/Private Router/PrivateRouter"
+import PageRender from "./components/Private Router/PageRender"
 
 
 
@@ -46,7 +47,7 @@ function App() {
         <Route path='/adminPanel' element={<AdminPanel />} />
         <Route path='/service' element={< Service />} />
         <Route path='/profile' element={< Profile />} />
-        <Route path='/serviceForm' element={< ServiceForm />} />
+        <Route exact path='/:page/:id' element={< PageRender />} />
       </Routes>
 
     </div>

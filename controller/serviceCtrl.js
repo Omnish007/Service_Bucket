@@ -1,12 +1,14 @@
 const Service = require("../models/serviceModel")
 
 
+
 const serviceCtrl = {
 
     getServices: async (req, res) => {
         try {
 
-            const services = await Service.find()
+            const services = await Service.find().populate("subService")
+            console.log(services)
 
             res.json({
                 msg: "Getting Services",
@@ -22,15 +24,15 @@ const serviceCtrl = {
     createService: async (req, res) => {
         try {
 
-            const { name, image, sname, simage } = req.body
+            const { name, image } = req.body
 
             if (image.length === 0)
-                return res.status(400).json({ msg: "Please add image photo" })
+                return res.status(400).json({ msg: "Please add image" })
 
             const newService = new Service({
-                name, image, sname, simage })
+                name, image})
+                console.log(newService)
 
-            console.log(newService)
 
             await newService.save()
 

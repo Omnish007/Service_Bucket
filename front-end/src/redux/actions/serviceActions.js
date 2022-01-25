@@ -1,7 +1,7 @@
 import { GLOBALTYPES } from "./globalType"
 import { getDataAPI } from "../../utils/fetchData"
 
-export const getServices = (token) => async (dispatch) => {
+export const getServices = () => async (dispatch) => {
     try {
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })

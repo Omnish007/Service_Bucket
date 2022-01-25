@@ -1,62 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../components/home/Card';
 import "../CSS/Service.css"
 import Footer from "../components/footer"
 import Navbar from '../components/Navbar';
+import { useSelector, useDispatch } from 'react-redux';
+import { getServices } from '../redux/actions/serviceActions';
+import LoadIcon from "../images/loading.gif"
+import { Link } from 'react-router-dom';
 
 const Service = () => {
+
+    const { auth, service } = useSelector(state => state)
+    const dispatch = useDispatch()
+    const [load, setLoad] = useState(false)
+
+    useEffect(() => {
+        setLoad(true)
+        dispatch(getServices())
+        setLoad(false)
+    }, [dispatch]);
+
+
     return (
         <div className>
-            <Navbar/>
-            <div className="service_container bg-1">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
+            <Navbar />
+            <div className="service_main_container">
+                {
+
+
+                    load ? <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
+                        : service.length > 0 ? service.map((ele) => (
+                            <div key={ele._id} className="service_container">
+                                <h1>{ele.name}</h1>
+                                <div className="service_subService">
+                                    {
+                                        ele.subService.map((element) => (
+                                            <Link to={`/service/${element._id}`}>
+                                                <Card key={element._id} className="service_card" src={element.simage} name={element.sname} price={element.price} />
+                                            </Link>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+
+                        )) : ""
+
+                }
             </div>
-            <div className="service_container bg-2">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
-            </div>
-            <div className="service_container bg-1">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
-            </div>
-            <div className="service_container bg-2">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
-            </div>
-            <div className="service_container bg-1">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
-            </div>
-            <div className="service_container bg-2">
-                <h1>Home</h1>
-                <div className="service_subService">
-                    <Card className="service_card" src="/img/service.png" name="kitchen" />
-                    <Card className="service_card" src="/img/service.png" name="bathroom" />
-                    <Card className="service_card" src="/img/service.png" name="bedroom" />
-                </div>
-            </div>
-            <Footer/>
+
+
+            <Footer />
         </div>
     )
 };

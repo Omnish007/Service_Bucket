@@ -9,6 +9,11 @@ const serviceSchema = new mongoose.Schema({
         required: true
     },
 
+    description:{
+        type:String,
+        required:true
+    },
+
     subService:[
         {
             type:mongoose.Types.ObjectId,

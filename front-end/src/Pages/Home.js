@@ -17,12 +17,9 @@ const Home = () => {
 
 
     useEffect(() => {
-        dispatch(getServices(auth.token))
-        // if (auth.token) {
-        //     setLoad(true)
-        //     setLoad(false)
-        // }
-    }, [dispatch, auth.token])
+        dispatch(getServices())
+        console.log(service)
+    }, [dispatch])
 
     return (
         <div className='home_container'>
@@ -40,18 +37,14 @@ const Home = () => {
                         load ? <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
                             : service.length > 0
                                 ? service.map((element) => (
-                                    <Card key={element._id} name={element.name} src="/img/service.png" />
+                                    <Card key={element._id} name={element.name} src={element.image}
+                                    />
                                 ))
                                 : ""
 
 
                     }
-                    {/* <Card src="/img/service.png" />
-                    <Card src="/img/service.png" />
-                    <Card src="/img/service.png" />
-                    <Card src="/img/service.png" />
-                    <Card src="/img/service.png" />
-                    <Card src="/img/service.png" /> */}
+                   
                 </div>
             </div>
 
