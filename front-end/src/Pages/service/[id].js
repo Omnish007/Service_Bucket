@@ -3,23 +3,20 @@ import Navbar from "../../components/Navbar"
 import Footer from "../../components/footer"
 import LoadIcon from "../../images/loading.gif"
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { getServices } from '../../redux/actions/serviceActions';
 import { getSubService } from '../../redux/actions/subServiceAction';
 import { form } from "../../redux/actions/serviceFormAction"
 
 const ServiceForm = () => {
 
-
-  const { auth,alert, service, subService } = useSelector(state => state)
+  const { auth, alert, service, subService } = useSelector(state => state)
   const dispatch = useDispatch()
   const { id } = useParams()
   const [load, setLoad] = useState(false)
-  const initialState = { sname: "", sName: "", price: "", date: "", state: "", dist: "", pinCode: "", address: "" }
+  const initialState = { sname: "", sName: "", price: "", date: "", state: "", dist: "", pinCode: "", address: "", cardNo: "", cvv: "", expiryDate: "" }
   const [formData, setFormData] = useState(initialState)
-
-
-
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -35,13 +32,15 @@ const ServiceForm = () => {
       price: subService[0].price,
       sName: subService.sName
     })
-  }, [subService]);
+  }, [setFormData]);
 
-  const formSubmitBtn = (e) => {
+
+  const handlePay = (e) => {
     e.preventDefault()
     dispatch(form(formData))
+    console.log(alert)
+    // navigate("/")
   }
-
 
   return (<>
     <Navbar />
@@ -58,7 +57,7 @@ const ServiceForm = () => {
         <input type="text" required placeholder="District" onChange={(e) => setFormData({ ...formData, dist: e.target.value })} value={formData.dist} />
         <small className="form-text text-danger">{alert.dist ? alert.dist : ''}</small>
 
-        <input type="number" required placeholder="Pincode" onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })} value={formData.pinCode} />
+        <input type="text" required placeholder="Pincode" onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })} value={formData.pinCode} />
         <small className="form-text text-danger">{alert.pinCode ? alert.pinCode : ''}</small>
 
         <input type="date" required id="date" placeholder="Date" onChange={(e) => setFormData({ ...formData, date: e.target.value })} value={formData.date} />
@@ -67,11 +66,20 @@ const ServiceForm = () => {
         <textarea type="text" required placeholder="Address" onChange={(e) => setFormData({ ...formData, address: e.target.value })} value={formData.address} />
         <small className="form-text text-danger">{alert.address ? alert.address : ''}</small>
 
-        <button className="btn btn-success btn-lg" onClick={formSubmitBtn}>Submit</button>
+        <input type="text" placeholder="Card No." onChange={(e) => setFormData({ ...formData, cardNo: e.target.value })} value={formData.cardNo} />
+        <small className="form-text text-danger">{alert.cardNo ? alert.cardNo : ''}</small>
 
+        <input type="text" placeholder="CVV" onChange={(e) => setFormData({ ...formData, cvv: e.target.value })} value={formData.cvv} />
+        <small className="form-text text-danger">{alert.cvv ? alert.cvv : ''}</small>
 
+        <input type="TEXT" placeholder="Expiry Date" onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })} value={formData.expiryDate} />
+        <small className="form-text text-danger">{alert.expiryDate ? alert.expiryDate : ''}</small>
 
+        <button className="btn btn-success btn-lg" onClick={handlePay}>Pay</button>
       </form>
+
+
+
 
 
     </div>

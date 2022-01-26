@@ -12,33 +12,33 @@ export const form = (data) => async (dispatch) => {
         if(check.errLength > 0)
             return dispatch({type: GLOBALTYPES.ALERT, payload: check.errMsg})
 
-    // try {
-    //         dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
+    try {
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
 
-    //         const res = await postDataAPI("register", data)
-    //         dispatch({
-    //             type: GLOBALTYPES.AUTH,
-    //             payload: {
-    //                 token: res.data.access_token,
-    //                 user: res.data.user
-    //             }
-    //         })
+            const res = await postDataAPI("", data)
+            dispatch({
+                type: GLOBALTYPES.AUTH,
+                payload: {
+                    token: res.data.access_token,
+                    user: res.data.user
+                }
+            })
     
-    //         localStorage.setItem("firstLogin", true)
+            localStorage.setItem("firstLogin", true)
     
-    //         dispatch({
-    //             type: GLOBALTYPES.ALERT,
-    //             payload: {
-    //                 success: res.data.msg
-    //             }
-    //         })
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    success: res.data.msg
+                }
+            })
 
-    // }catch (error) {
-    //     dispatch({
-    //         type: GLOBALTYPES.ALERT,
-    //         payload: {
-    //             error: error.response.data.msg
-    //         }
-    //     })
-    // }
+    }catch (error) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.response.data.msg
+            }
+        })
+    }
 }
