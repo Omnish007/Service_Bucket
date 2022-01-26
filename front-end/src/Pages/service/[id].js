@@ -6,16 +6,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getServices } from '../../redux/actions/serviceActions';
 import { getSubService } from '../../redux/actions/subServiceAction';
+import { form } from "../../redux/actions/serviceFormAction"
 
 const ServiceForm = () => {
 
 
-  const { auth, service, subService } = useSelector(state => state)
+  const { auth,alert, service, subService } = useSelector(state => state)
   const dispatch = useDispatch()
   const { id } = useParams()
   const [load, setLoad] = useState(false)
   const initialState = { sname: "", sName: "", price: "", date: "", state: "", dist: "", pinCode: "", address: "" }
   const [formData, setFormData] = useState(initialState)
+
+
+
 
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const ServiceForm = () => {
 
   const formSubmitBtn = (e) => {
     e.preventDefault()
-    const check = valid(data)
+    dispatch(form(formData))
   }
 
 
@@ -44,16 +48,28 @@ const ServiceForm = () => {
     <div className="service_form_container">
 
       <form>
-        <input type="text" placeholder="Service name" disabled value={formData.sName} />
-        <input type="text" placeholder="Sub service name" disabled value={formData.sname} />
-        <input type="text" placeholder="Price" disabled value={`$${formData.price}`} />
-        <input type="text" placeholder="State" onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} />
-        <input type="text" placeholder="District" onChange={(e) => setFormData({ ...formData, dist: e.target.value })} value={formData.dist} />
-        <input type="number" placeholder="Pincode" onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })} value={formData.pinCode} />
-        <input type="datetime-local" placeholder="Date" onChange={(e) => setFormData({ ...formData, date: e.target.value })} value={formData.date} />
-        <textarea type="text" placeholder="Address" onChange={(e) => setFormData({ ...formData, address: e.target.value })} value={formData.address} />
+        <input type="text" readOnly placeholder="Service name" disabled value={formData.sName} />
+        <input type="text" readOnly placeholder="Sub service name" disabled value={formData.sname} />
+        <input type="text" readOnly placeholder="Price" disabled value={`$${formData.price}`} />
+
+        <input type="text" required placeholder="State" onChange={(e) => setFormData({ ...formData, state: e.target.value })} value={formData.state} />
+        <small className="form-text text-danger">{alert.state ? alert.state : ''}</small>
+
+        <input type="text" required placeholder="District" onChange={(e) => setFormData({ ...formData, dist: e.target.value })} value={formData.dist} />
+        <small className="form-text text-danger">{alert.dist ? alert.dist : ''}</small>
+
+        <input type="number" required placeholder="Pincode" onChange={(e) => setFormData({ ...formData, pinCode: e.target.value })} value={formData.pinCode} />
+        <small className="form-text text-danger">{alert.pinCode ? alert.pinCode : ''}</small>
+
+        <input type="date" required id="date" placeholder="Date" onChange={(e) => setFormData({ ...formData, date: e.target.value })} value={formData.date} />
+        <small className="form-text text-danger">{alert.date ? alert.date : ''}</small>
+
+        <textarea type="text" required placeholder="Address" onChange={(e) => setFormData({ ...formData, address: e.target.value })} value={formData.address} />
+        <small className="form-text text-danger">{alert.address ? alert.address : ''}</small>
 
         <button className="btn btn-success btn-lg" onClick={formSubmitBtn}>Submit</button>
+
+
 
       </form>
 

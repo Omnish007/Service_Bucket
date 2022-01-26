@@ -8,7 +8,6 @@ const serviceCtrl = {
         try {
 
             const services = await Service.find().populate("subService")
-            console.log(services)
 
             res.json({
                 msg: "Getting Services",
