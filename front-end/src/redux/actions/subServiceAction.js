@@ -1,20 +1,23 @@
 import { GLOBALTYPES } from "./globalType"
 import { getDataAPI } from "../../utils/fetchData"
 
-export const getServices = () => async (dispatch) => {
+export const getSubService = ({ id, auth }) => async (dispatch) => {
     try {
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
 
-        const res = await getDataAPI("getServices")
+        const res = await getDataAPI(`getSubService/${id}`, auth.token)
 
+
+        const newArr = {...res.data.subServices,sName:res.data.sName}
         dispatch({
-            type: GLOBALTYPES.SERVICE,
-            payload: [...res.data.services],
+            type: GLOBALTYPES.SUBSERVICE,
+            payload: {...newArr},
         })
 
+
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
-        
+
 
     } catch (error) {
         dispatch({

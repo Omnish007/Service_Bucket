@@ -46,3 +46,29 @@
 .service_card{
     width: 200px;
 }
+
+.service_form_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service_form_container form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 500px;
+    padding: 100px 0;
+}
+
+.service_form_container form input, .service_form_container form textarea{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+
+.service_form_container form button{
+    margin-top: 30px;
+}

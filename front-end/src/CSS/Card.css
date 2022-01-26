@@ -1,0 +1,9 @@
+.home_card_body h4{
+    text-decoration: none;
+    color: black;
+    border-bottom: none;
+}
+
+a{
+    text-decoration: none !important;
+}
