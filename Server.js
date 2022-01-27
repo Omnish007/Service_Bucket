@@ -19,7 +19,7 @@ app.use(cookieParser())
 app.use("/api", require("./routes/authRouter"))
 app.use("/api", require("./routes/serviceRouter"))
 app.use("/api", require("./routes/subServiceRouter"))
-// app.use("/api", require("./routes/commentRouter"))
+app.use("/api", require("./routes/orderRouter"))
 // app.use("/api", require("./routes/notifyRouter"))
 // app.use("/api", require("./routes/messageRouter"))
 

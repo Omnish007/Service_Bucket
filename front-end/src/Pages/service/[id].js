@@ -32,12 +32,12 @@ const ServiceForm = () => {
       price: subService[0].price,
       sName: subService.sName
     })
-  }, [setFormData]);
+  }, [subService, setFormData]);
 
 
   const handlePay = (e) => {
     e.preventDefault()
-    dispatch(form(formData))
+    dispatch(form(formData, auth))
     console.log(alert)
     // navigate("/")
   }

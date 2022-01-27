@@ -5,7 +5,7 @@ import validFormData from "../../utils/validFormData"
 
 
 
-export const form = (data) => async (dispatch) => {
+export const form = (data, auth) => async (dispatch) => {
     
     const check = validFormData(data)
 
@@ -14,24 +14,10 @@ export const form = (data) => async (dispatch) => {
 
     try {
             dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
-
-            const res = await postDataAPI("", data)
-            dispatch({
-                type: GLOBALTYPES.AUTH,
-                payload: {
-                    token: res.data.access_token,
-                    user: res.data.user
-                }
-            })
-    
-            localStorage.setItem("firstLogin", true)
-    
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    success: res.data.msg
-                }
-            })
+            
+            const res = await postDataAPI("createOrder", data, auth.token)
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
+           
 
     }catch (error) {
         dispatch({
