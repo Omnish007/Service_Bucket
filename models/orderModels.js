@@ -2,12 +2,11 @@ const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
 
-    user: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "user"
-        },
-    ],
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "user"
+    },
+
 
     service: String,
 
@@ -26,10 +25,15 @@ const orderSchema = new mongoose.Schema({
     address: String,
 
     state: String,
- 
+
     pinCode: String,
- 
-    dist: String
+
+    dist: String,
+
+    status: {
+        type:String,
+        default:"0"
+    }
 
 
 

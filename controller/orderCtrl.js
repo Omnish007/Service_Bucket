@@ -1,4 +1,5 @@
 const Order = require("../models/orderModels")
+const User = require("../models/userModel")
 
 
 
@@ -41,14 +42,19 @@ const orderCtrl = {
             const userID = req.user._id
             const { sName, sname, price, address, state, pinCode, dist } = req.body
 
-            
-               
-
             const newOrder = new Order({
-                user:userID, service:sName, subService:sname, price, address, state, pinCode, dist})
+                user: userID, service: sName, subService: sname, price, address, state, pinCode, dist
+            })
 
 
             await newOrder.save()
+
+            await User.findOneAndUpdate({ _id: userID }, {
+                $push: {
+                    order: newOrder._doc._id
+                }
+
+            })
 
             res.json({
                 msg: "Service Created",

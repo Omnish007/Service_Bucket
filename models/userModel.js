@@ -37,6 +37,13 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: "serviceProfile"
         }
+    ],
+
+    orders: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "order"
+        }
     ]
 }, {
     timestamps: true
