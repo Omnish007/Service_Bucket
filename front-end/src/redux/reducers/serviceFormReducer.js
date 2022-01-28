@@ -5,7 +5,7 @@ const initialState = {}
 const serviceFormReducer = (state = initialState, action) => {
     switch(action.type){
 
-        case GLOBALTYPES.AUTH:
+        case GLOBALTYPES.ORDER:
             return action.payload;
 
         default:

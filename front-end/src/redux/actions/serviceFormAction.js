@@ -16,7 +16,11 @@ export const form = (data, auth) => async (dispatch) => {
             dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
             
             const res = await postDataAPI("createOrder", data, auth.token)
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
+
+
+            dispatch({type: GLOBALTYPES.ORDER, payload: {success:res.data.msg, ...res.data.newOrder}})
+
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
            
 
     }catch (error) {

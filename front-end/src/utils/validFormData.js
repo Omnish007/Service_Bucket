@@ -1,15 +1,15 @@
 const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expiryDate }) => {
     const error = {}
 
-    if (state == "") {
+    if (state == "" || state === undefined) {
         error.state = "Please Input State"
     }
 
-    if (dist == "") {
+    if (dist === "" || dist === undefined) {
         error.dist = "Please Input Dist"
     }
 
-    if (pinCode == "") {
+    if (pinCode === "" || pinCode === undefined) {
         error.pinCode = "Please Input PinCode"
     }
     else if (isNaN(pinCode)) {
@@ -19,15 +19,15 @@ const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expir
         error.pinCode = "Invalid PinCode"
     }
 
-    if (date == "") {
+    if (date == "" || date === undefined) {
         error.date = "Please Select Date"
     }
 
-    if (address == "") {
+    if (address === "" || address === undefined) {
         error.address = "Please Input Address"
     }
 
-    if (cardNo == "") {
+    if (cardNo === "" || cardNo === undefined) {
         error.cardNo = "Please Input CardNo"
     }
     else if (isNaN(cardNo)) {
@@ -37,7 +37,7 @@ const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expir
         error.cardNo = "Invalid CardNo"
     }
 
-    if (cvv == "") {
+    if (cvv === "") {
         error.cvv = "Please Input CVV"
     }
     else if (isNaN(cvv)) {
@@ -47,7 +47,7 @@ const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expir
         error.cvv = "Invalid cvv"
     }
 
-    if (expiryDate == "") {
+    if (expiryDate === "") {
         error.expiryDate = "Please Input Expiry Date"
     }
     else if(isNaN(expiryDate)) {

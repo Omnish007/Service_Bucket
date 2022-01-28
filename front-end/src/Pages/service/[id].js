@@ -10,7 +10,7 @@ import { form } from "../../redux/actions/serviceFormAction"
 
 const ServiceForm = () => {
 
-  const { auth, alert, service, subService } = useSelector(state => state)
+  const { auth, alert, service, subService, serviceForm } = useSelector(state => state)
   const dispatch = useDispatch()
   const { id } = useParams()
   const [load, setLoad] = useState(false)
@@ -33,13 +33,15 @@ const ServiceForm = () => {
       sName: subService.sName
     })
   }, [subService, setFormData]);
+  
 
-
-  const handlePay = (e) => {
+  const handlePay =async (e) => {
     e.preventDefault()
     dispatch(form(formData, auth))
-    console.log(alert)
-    // navigate("/")
+    setFormData({...initialState,
+      sname: subService[0].sname,
+      price: subService[0].price,
+      sName: subService.sName})
   }
 
   return (<>

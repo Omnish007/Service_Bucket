@@ -2,7 +2,8 @@ export const GLOBALTYPES = {
     AUTH:"AUTH",
     ALERT:"ALERT",
     SERVICE:"SERVICE",
-    SUBSERVICE:"SUBSERVICE"
+    SUBSERVICE:"SUBSERVICE",
+    ORDER:"ORDER"
 }
 
 export const EditData = (data, id, post) => {
