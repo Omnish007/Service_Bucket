@@ -9,6 +9,6 @@ router.post("/createorder", auth, orderCtrl.createOrder)
 
 // router.patch("/updateService", authCtrl.updateOrder)
 
-// router.delete("/deleteOrder", orderCtrl.deleteOrder)
+router.delete("/deleteOrder/:id", orderCtrl.deleteOrder)
 
 module.exports = router

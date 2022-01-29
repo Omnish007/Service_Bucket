@@ -75,31 +75,22 @@ const orderCtrl = {
         }
     },
 
-    // deleteOrder: async (req, res) => {
-    //     try {
+    deleteOrder: async (req, res) => {
+        try {
 
-    //         const { name, image } = req.body
+            const id = req.params.id
 
-    //         if (image.length === 0)
-    //             return res.status(400).json({ msg: "Please add image photo" })
+            await Order.findOneAndDelete({_id:id})
 
-    //         const newService = new Service({
-    //             name, image })
+            res.json({
+                msg: "Order Deleted Successfully",
+               
+            })
 
-    //         await newService.save()
-
-    //         res.json({
-    //             msg: "Service Created",
-    //             newService: {
-    //                 ...newService._doc,
-    //             },
-    //             user: req.user
-    //         })
-
-    //     } catch (error) {
-    //         return res.status(500).json({ msg: error.message })
-    //     }
-    // }
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
+    }
 }
 
 module.exports = orderCtrl

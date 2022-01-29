@@ -49,7 +49,7 @@ const AdminPanel = () => {
 
 
     return (
-        <div>
+        <div className="adminPage">
             <h1>Hello admin</h1>
             <div className="tab">
                 <button className="tablinks tab1" onClick={() => tabs("tab1")}>Services List</button>

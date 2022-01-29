@@ -1,5 +1,5 @@
 import { GLOBALTYPES } from "./globalType"
-import { getDataAPI, postDataAPI } from "../../utils/fetchData"
+import { deleteDataAPI, getDataAPI, postDataAPI } from "../../utils/fetchData"
 import validFormData from "../../utils/validFormData"
 
 
@@ -41,6 +41,26 @@ export const getOrders = ({auth}) => async (dispatch) => {
             const res = await getDataAPI("getOrders", auth.token)
 
             dispatch({type: GLOBALTYPES.ORDER, payload: [...res.data.order]})
+
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
+           
+
+    }catch (error) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.response.data.msg
+            }
+        })
+    }
+}
+
+export const deleteOrder = ({id, auth}) => async (dispatch) => {
+
+    try {
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
+            
+            await deleteDataAPI(`deleteOrder/${id}`, auth.token)
 
             dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
            
