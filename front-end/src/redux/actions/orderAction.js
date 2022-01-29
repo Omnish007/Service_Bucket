@@ -1,11 +1,11 @@
 import { GLOBALTYPES } from "./globalType"
-import { postDataAPI } from "../../utils/fetchData"
+import { getDataAPI, postDataAPI } from "../../utils/fetchData"
 import validFormData from "../../utils/validFormData"
 
 
 
 
-export const form = (data, auth) => async (dispatch) => {
+export const createOrder = (data, auth) => async (dispatch) => {
     
     const check = validFormData(data)
 
@@ -19,6 +19,28 @@ export const form = (data, auth) => async (dispatch) => {
 
 
             dispatch({type: GLOBALTYPES.ORDER, payload: {success:res.data.msg, ...res.data.newOrder}})
+
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
+           
+
+    }catch (error) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.response.data.msg
+            }
+        })
+    }
+}
+
+export const getOrders = ({auth}) => async (dispatch) => {
+    
+    try {
+            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
+            
+            const res = await getDataAPI("getOrders", auth.token)
+
+            dispatch({type: GLOBALTYPES.ORDER, payload: [...res.data.order]})
 
             dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
            

@@ -1,24 +1,27 @@
 const Order = require("../models/orderModels")
 const User = require("../models/userModel")
+const SubService = require("../models/subServiceModel")
 
 
 
 const orderCtrl = {
 
-    // getOrders: async (req, res) => {
-    //     try {
+    getOrders: async (req, res) => {
+        try {
 
-    //         const order = await Order.find().populate("user")
+            const order = await Order.find({user:req.user._id})
 
-    //         res.json({
-    //             msg: "Getting Orders",
-    //             order,
-    //         })
+            res.json({
+                msg: "Getting Orders",
+                nOfOrders:order.length,
+                order,
+            })
 
-    //     } catch (error) {
-    //         return res.status(500).json({ msg: error.message })
-    //     }
-    // },
+
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
+    },
 
     // getOrder: async (req, res) => {
     //     try {
@@ -42,8 +45,11 @@ const orderCtrl = {
             const userID = req.user._id
             const { sName, sname, price, address, state, pinCode, dist } = req.body
 
+            const subService = await SubService.find({sname:sname})
+            const subServiceImg = await subService[0].simage
+
             const newOrder = new Order({
-                user: userID, service: sName, subService: sname, price, address, state, pinCode, dist
+                user: userID, service: sName, subService: sname,image:subServiceImg, price, address, state, pinCode, dist
             })
 
 
@@ -51,7 +57,7 @@ const orderCtrl = {
 
             await User.findOneAndUpdate({ _id: userID }, {
                 $push: {
-                    order: newOrder._doc._id
+                    orders: newOrder._doc._id
                 }
 
             })

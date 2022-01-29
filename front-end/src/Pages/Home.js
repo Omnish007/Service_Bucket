@@ -18,7 +18,6 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getServices())
-        console.log(service)
     }, [dispatch])
 
     return (

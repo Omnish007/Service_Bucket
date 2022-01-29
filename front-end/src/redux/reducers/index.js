@@ -3,7 +3,7 @@ import auth from "./authReducer"
 import alert from "./alertReducer"
 import service from "./serviceReducer"
 import subService from "./subServiceReducer"
-import serviceForm from "./serviceFormReducer"
+import order from "./orderReducer"
 
 
 export default combineReducers({
@@ -11,5 +11,5 @@ export default combineReducers({
     alert,
     service,
     subService,
-    serviceForm
+    order
 })

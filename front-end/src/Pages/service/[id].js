@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { getServices } from '../../redux/actions/serviceActions';
 import { getSubService } from '../../redux/actions/subServiceAction';
-import { form } from "../../redux/actions/serviceFormAction"
+import { createOrder, getOrders } from "../../redux/actions/orderAction"
 
 const ServiceForm = () => {
 
@@ -37,7 +37,7 @@ const ServiceForm = () => {
 
   const handlePay =async (e) => {
     e.preventDefault()
-    dispatch(form(formData, auth))
+    dispatch(createOrder(formData, auth))
     setFormData({...initialState,
       sname: subService[0].sname,
       price: subService[0].price,
