@@ -6,24 +6,25 @@ import validFormData from "../../utils/validFormData"
 
 
 export const createOrder = (data, auth) => async (dispatch) => {
-    
+
     const check = validFormData(data)
 
-        if(check.errLength > 0)
-            return dispatch({type: GLOBALTYPES.ALERT, payload: check.errMsg})
+    if (check.errLength > 0)
+        return dispatch({ type: GLOBALTYPES.ALERT, payload: check.errMsg })
 
     try {
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
-            
-            const res = await postDataAPI("createOrder", data, auth.token)
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
+        
+        const res = await postDataAPI("createOrder", data, auth.token)
+        
+        
+        dispatch({ type: GLOBALTYPES.ORDER, payload: { success: res.data.msg, ...res.data.newOrder } })
+        
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+        dispatch({ type: GLOBALTYPES.ALERT, payload: "" })
 
 
-            dispatch({type: GLOBALTYPES.ORDER, payload: {success:res.data.msg, ...res.data.newOrder}})
-
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
-           
-
-    }catch (error) {
+    } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
@@ -33,19 +34,19 @@ export const createOrder = (data, auth) => async (dispatch) => {
     }
 }
 
-export const getOrders = ({auth}) => async (dispatch) => {
-    
+export const getOrders = ({ auth }) => async (dispatch) => {
+
     try {
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
-            
-            const res = await getDataAPI("getOrders", auth.token)
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
 
-            dispatch({type: GLOBALTYPES.ORDER, payload: [...res.data.order]})
+        const res = await getDataAPI("getOrders", auth.token)
 
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
-           
+        dispatch({ type: GLOBALTYPES.ORDER, payload: [...res.data.order] })
 
-    }catch (error) {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+
+
+    } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
@@ -55,17 +56,17 @@ export const getOrders = ({auth}) => async (dispatch) => {
     }
 }
 
-export const deleteOrder = ({id, auth}) => async (dispatch) => {
+export const deleteOrder = ({ id, auth }) => async (dispatch) => {
 
     try {
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:true}})
-            
-            await deleteDataAPI(`deleteOrder/${id}`, auth.token)
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
 
-            dispatch({type: GLOBALTYPES.ALERT, payload: {loading:false}})
-           
+        await deleteDataAPI(`deleteOrder/${id}`, auth.token)
 
-    }catch (error) {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+
+
+    } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {

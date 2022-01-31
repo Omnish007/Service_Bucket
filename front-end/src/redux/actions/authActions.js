@@ -8,9 +8,9 @@ export const login = (data) => async (dispatch) => {
     try {
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
-
+        
         const res = await postDataAPI("login", data)
-
+        
         dispatch({
             type: GLOBALTYPES.AUTH,
             payload: {
@@ -18,16 +18,17 @@ export const login = (data) => async (dispatch) => {
                 user: res.data.user
             }
         })
-
+        
         localStorage.setItem("firstLogin", true)
         
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                success: res.data.msg
-            }
-        })
+        // dispatch({
+        //     type: GLOBALTYPES.ALERT,
+        //     payload: {
+        //         success: res.data.msg
+        //     }
+        // })
         
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
 
     } catch (error) {
         dispatch({

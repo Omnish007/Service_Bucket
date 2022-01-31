@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar"
 import Footer from "../../components/footer"
 import LoadIcon from "../../images/loading.gif"
 import { useSelector, useDispatch } from 'react-redux';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getServices } from '../../redux/actions/serviceActions';
 import { getSubService } from '../../redux/actions/subServiceAction';
 import { createOrder, getOrders } from "../../redux/actions/orderAction"
@@ -33,15 +33,19 @@ const ServiceForm = () => {
       sName: subService.sName
     })
   }, [subService, setFormData]);
-  
 
-  const handlePay =async (e) => {
+
+  const handlePay = async (e) => {
     e.preventDefault()
+    if(alert == "")
+      navigate("/")
     dispatch(createOrder(formData, auth))
-    setFormData({...initialState,
+    setFormData({
+      ...initialState,
       sname: subService[0].sname,
       price: subService[0].price,
-      sName: subService.sName})
+      sName: subService.sName
+    })
   }
 
   return (<>

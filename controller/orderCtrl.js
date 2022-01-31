@@ -82,9 +82,13 @@ const orderCtrl = {
 
             await Order.findOneAndDelete({_id:id})
 
+            const user= await User.findOneAndUpdate({orders:id},{
+                $pull:{orders:id}
+            })
+
             res.json({
                 msg: "Order Deleted Successfully",
-               
+                user
             })
 
         } catch (error) {
