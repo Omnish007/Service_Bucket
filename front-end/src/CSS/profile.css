@@ -269,3 +269,17 @@
     height: 800px;
     position: relative;
 }
+
+.edit_profile_form_container form{
+    padding: 50px 100px;
+}
+
+.edit_profile_form_submitBtn{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+.form-field{
+    height: 70px;
+}

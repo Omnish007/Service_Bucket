@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom"
 import  "../../CSS/Card.css"
 
 const Card = ({src, name, price}) => {

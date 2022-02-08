@@ -14,7 +14,7 @@ const Service = () => {
     const dispatch = useDispatch()
     const [load, setLoad] = useState(false)
 
-    useEffect(() => {
+    useEffect(async() => {
         setLoad(true)
         dispatch(getServices())
         setLoad(false)
@@ -34,10 +34,13 @@ const Service = () => {
                                 <h1>{ele.name}</h1>
                                 <div className="service_subService">
                                     {
+                                        
                                         ele.subService.map((element) => (
-                                            <Link to={`/service/${element._id}`}>
-                                                <Card key={element._id} className="service_card" src={element.simage} name={element.sname} price={element.price} />
+                                            
+                                            <Link key={element._id} to={auth.token ? `/service/${element._id}` : "/login"}>
+                                                <Card className="service_card" src={element.simage} name={element.sname} price={element.price} />
                                             </Link>
+                                            
                                         ))
                                     }
                                 </div>

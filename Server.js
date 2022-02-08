@@ -1,4 +1,6 @@
-require("dotenv").config()
+const dotenv = require("dotenv")
+dotenv.config()
+
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -20,7 +22,7 @@ app.use("/api", require("./routes/authRouter"))
 app.use("/api", require("./routes/serviceRouter"))
 app.use("/api", require("./routes/subServiceRouter"))
 app.use("/api", require("./routes/orderRouter"))
-// app.use("/api", require("./routes/notifyRouter"))
+app.use("/api", require("./routes/updateProfileRouter"))
 // app.use("/api", require("./routes/messageRouter"))
 
 

@@ -29,7 +29,7 @@ const valid = ({ name, email, phone, password, cf_password}) => {
     if (password !== cf_password) {
         error.cf_password = "Confirm password did not match"
     }
-    else if (cf_password.length == 0) {
+    else if (cf_password.length === 0) {
         error.cf_password = "Re-enter your password"
     }
 

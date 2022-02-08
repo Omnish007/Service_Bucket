@@ -1,7 +1,7 @@
 const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expiryDate }) => {
     const error = {}
 
-    if (state == "" || state === undefined) {
+    if (state === "" || state === undefined) {
         error.state = "Please Input State"
     }
 
@@ -19,7 +19,7 @@ const validFormData = ({ date, state, dist, pinCode, address, cardNo, cvv, expir
         error.pinCode = "Invalid PinCode"
     }
 
-    if (date == "" || date === undefined) {
+    if (date === "" || date === undefined) {
         error.date = "Please Select Date"
     }
 

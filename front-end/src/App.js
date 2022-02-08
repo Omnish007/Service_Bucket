@@ -11,7 +11,7 @@ import Alert from "./components/alert/Alert";
 import { useSelector, useDispatch } from "react-redux"
 import { refreshToken } from "./redux/actions/authActions"
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Profile from "./Pages/Profile"
 import PrivateRouter from "./components/Private Router/PrivateRouter"
 import PageRender from "./components/Private Router/PageRender"
@@ -22,7 +22,7 @@ function App() {
 
   const { auth, service } = useSelector(state => state)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -47,7 +47,11 @@ function App() {
         <Route path='/adminPanel' element={<AdminPanel />} />
         <Route path='/service' element={< Service />} />
         <Route path='/profile' element={< Profile />} />
-        <Route exact path='/:page/:id' element={< PageRender />} />
+
+        auth.token === undefine
+          ?<Route exact path='/:page/:id' element={< PageRender />} />
+          : navigate("/login")
+        console.log(auth.token)
       </Routes>
 
     </div>
