@@ -2,22 +2,39 @@ const Users = require("../models/userModel")
 
 
 const updateProfile = {
- updateProfile : async(req, res) =>{
-     try {
-        
-       const {name, phone} = req.body
-       await Users.findByIdAndUpdate({_id:req.user.id},{
-           name , phone
-       })
+    updateProfile: async (req, res) => {
+        try {
 
-       res.status(200).json({
-           success:"Updated Successfully"
-       })
+            const { name, phone } = req.body
+            await Users.findByIdAndUpdate({ _id: req.user.id }, {
+                name, phone,
+            })
 
-    } catch (error) {
-        res.status(500).json({msg:error.message})
+            res.status(200).json({
+                success: "Updated Successfully"
+            })
+
+        } catch (error) {
+            res.status(500).json({ msg: error.message })
+        }
+    },
+
+    updateDP: async (req, res) => {
+        try {
+            
+            const {url} = req.body
+            await Users.findByIdAndUpdate({ _id: req.user.id }, {
+                dp:url
+            })
+
+            res.status(200).json({
+                success: "Updated Successfully"
+            })
+
+        } catch (error) {
+            res.status(500).json({ msg: error.message })
+        }
     }
- }
 }
 
 module.exports = updateProfile

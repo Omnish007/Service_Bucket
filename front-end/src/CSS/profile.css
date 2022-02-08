@@ -6,11 +6,10 @@
 }
 
 .profile_left{
-    background: #474747;
     flex: 0.2;
     min-height: 700px;
     color: white;
-    background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+    background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
 }
 
 .profile_right{
