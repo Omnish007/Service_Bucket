@@ -7,13 +7,11 @@
 
 .profile_left{
     flex: 0.2;
-    min-height: 700px;
     color: white;
     background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
 }
 
 .profile_right{
-    min-height: 700px;
     flex: 0.8;
     background: #ededed;
 }
@@ -124,10 +122,9 @@
 }
 
 .profile_pending_image{
-    margin: auto;
-    width: 800px;
-    height: 800px;
+    width: 100%;
     opacity: 0.7;
+    object-fit: contain;
 }
 
 
@@ -140,9 +137,8 @@
 }
 
 .profile_history_image{
-    margin: auto;
-    width: 800px;
-    height: 800px;
+    width: 100%;
+    object-fit: contain;
     opacity: 0.7;
 }
 
