@@ -36,14 +36,15 @@ const Home = () => {
                         load ? <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
                             : service.length > 0
                                 ? service.map((element) => (
-                                    <Card key={element._id} name={element.name} src={element.image}
-                                    />
+                                    <Link to="service">
+                                        <Card key={element._id} name={element.name} src={element.image}/>
+                                    </Link>
                                 ))
                                 : ""
 
 
                     }
-                   
+
                 </div>
             </div>
 
@@ -138,7 +139,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }
