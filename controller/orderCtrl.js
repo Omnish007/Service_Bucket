@@ -23,21 +23,21 @@ const orderCtrl = {
         }
     },
 
-    // getOrder: async (req, res) => {
-    //     try {
+    getAllOrders: async (req, res) => {
+        try {
 
-    //         const order = await Order.find().populate("subService")
+            const orders = await Order.find().populate("user subService")
 
-    //         res.json({
-    //             msg: "Getting Services",
-    //             services: services,
-    //             user: req.user
-    //         })
+            res.json({
+                msg: "Getting All Orders",
+                orders: orders,
+                user: req.user
+            })
 
-    //     } catch (error) {
-    //         return res.status(500).json({ msg: error.message })
-    //     }
-    // },
+        } catch (error) {
+            return res.status(500).json({ msg: error.message })
+        }
+    },
 
     createOrder: async (req, res) => {
         try {

@@ -1,11 +1,13 @@
 const router = require("express").Router()
 const orderCtrl = require("../controller/orderCtrl")
 const auth = require("../middleware/auth")
+const adminAuth = require("../middleware/adminAuth")
 
 router.get("/getOrders", auth, orderCtrl.getOrders)
-// router.get("/getOrder", orderCtrl.getOrder)
 
-router.post("/createorder", auth, orderCtrl.createOrder)
+router.get("/getAllOrders", auth, adminAuth, orderCtrl.getAllOrders)
+
+router.post("/createorder", auth, adminAuth, orderCtrl.createOrder)
 
 // router.patch("/updateService", authCtrl.updateOrder)
 

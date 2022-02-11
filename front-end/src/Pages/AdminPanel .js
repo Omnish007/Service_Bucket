@@ -5,13 +5,15 @@ import { useSelector, useDispatch } from "react-redux"
 import "../CSS/AdminPage.css"
 import { getServices } from '../redux/actions/serviceActions'
 import { refreshToken } from '../redux/actions/authActions'
+import { getAllOrders } from '../redux/actions/orderAction'
 
 const AdminPanel = () => {
 
-    const { auth, service } = useSelector(state => state)
+    const { auth, service, order } = useSelector(state => state)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const token = localStorage.getItem("auth")
+    const [load, setLoad] = useState(false)
 
 
     useEffect(async () => {
@@ -19,6 +21,11 @@ const AdminPanel = () => {
         if (auth.user) {
             if (auth.user.role === "0") {
                 navigate("/")
+            }
+            else{
+                setLoad(true)
+                dispatch(getAllOrders({auth}))
+                setLoad(false)
             }
         }
         else {
@@ -78,7 +85,10 @@ const AdminPanel = () => {
             </div>
 
             <div className="adminPage_pendingReqForService">
-
+                { 
+                    console.log(order)
+                    // order !== undefined && order.map(ele => (<h1>{ele}</h1>))
+                }
             </div>
         </div>
     )
