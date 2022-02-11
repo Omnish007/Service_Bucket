@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 import "../CSS/AdminPage.css"
 import { getServices } from '../redux/actions/serviceActions'
+import { refreshToken } from '../redux/actions/authActions'
 
 const AdminPanel = () => {
 
@@ -13,18 +14,18 @@ const AdminPanel = () => {
     const token = localStorage.getItem("auth")
 
 
-    useEffect(() => {
-        if(!token){
-            navigate("/")
-        }
-        if(auth.user){
-            if(token && auth.user.role !== "1"){
+    useEffect(async () => {
+        dispatch(refreshToken())
+        if (auth.user) {
+            if (auth.user.role === "0") {
                 navigate("/")
             }
         }
-        
-    }, [dispatch])
-    
+        else {
+            navigate("/")
+        }
+    }, [])
+
     const getServicesByClick = () => {
         dispatch(getServices(auth.token))
     }
@@ -50,32 +51,35 @@ const AdminPanel = () => {
 
     return (
         <div className="adminPage">
-            <h1>Hello admin</h1>
-            <div className="tab">
-                <button className="tablinks tab1" onClick={() => tabs("tab1")}>Services List</button>
-                <button className="tablinks tab2" onClick={() => tabs("tab2")}>Add Services</button>
+            <div className="adminPage_serviceList">
+
+                <h1>Hello admin</h1>
+                <div className="tab">
+                    <button className="tablinks tab1" onClick={() => tabs("tab1")}>Services List</button>
+                    <button className="tablinks tab2" onClick={() => tabs("tab2")}>Add Services</button>
+                </div>
+                <div id="tab1" className="tabcontent">
+                    <ul className="list-group">
+                        {
+                            service.length > 0 ? service.map(ele => (
+                                <li className="list-group-item admin_serviceName" key={ele._id}>
+                                    <p>{ele.name}</p>
+                                    <i className="fas fa-trash"></i>
+                                </li>
+                            ))
+                                : <button className='admin_get_service_btn' onClick={getServicesByClick}>Get Service List</button>
+                        }
+                    </ul>
+                </div>
+
+                <div id="tab2" className="tabcontent">
+
+                </div>
             </div>
-            <div id="tab1" className="tabcontent">
-                <ul className="list-group">
 
-                    
-                    {
-                        service.length > 0 ? service.map(ele => (
-                                            <li className="list-group-item admin_serviceName" key={ele._id}>
-                                                <p>{ele.name}</p>
-                                                <i className="fas fa-trash"></i>
-                                            </li>
-                                            ))
-                                        :<button className='admin_get_service_btn' onClick={getServicesByClick}>Get Service List</button>
-                    }
-                </ul>
-            </div>
-
-            <div id="tab2" className="tabcontent">
+            <div className="adminPage_pendingReqForService">
 
             </div>
-
-
         </div>
     )
 }
