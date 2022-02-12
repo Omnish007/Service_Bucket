@@ -6,6 +6,7 @@ import "../CSS/AdminPage.css"
 import { getServices } from '../redux/actions/serviceActions'
 import { refreshToken } from '../redux/actions/authActions'
 import { getAllOrders } from '../redux/actions/orderAction'
+import moment from 'moment'
 
 const AdminPanel = () => {
 
@@ -86,7 +87,21 @@ const AdminPanel = () => {
 
             <div className="adminPage_pendingReqForService">
                 { 
-                    console.log(order)
+                    order.length >= 0 && order.map(ele => (
+                        <div>
+                            {ele.user.name}
+                            {ele.user.email}
+                            {ele.user.phone}
+                            <img src={ele.user.dp} alt="" />
+                            {ele.address}
+                            {ele.state}
+                            {ele.dist}
+                            {ele.status}
+                            {moment(ele.createdAt).fromNow()}
+
+                            
+                        </div>
+                    ))
                     // order !== undefined && order.map(ele => (<h1>{ele}</h1>))
                 }
             </div>
