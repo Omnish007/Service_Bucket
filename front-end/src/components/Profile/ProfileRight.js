@@ -12,7 +12,6 @@ const ProfileRight = () => {
     var pending = 0
     const { auth, service, order } = useSelector(state => state)
     const dispatch = useDispatch()
-    const inputFileRef = useRef()
 
 
     var tabButtons = document.querySelectorAll(".buttonContainer button")
@@ -33,7 +32,8 @@ const ProfileRight = () => {
     }
 
     const del = (id) => {
-        dispatch(deleteOrder({ id, auth }))
+        if(window.confirm("Press a button!"))
+            dispatch(deleteOrder({ id, auth }))
         dispatch(getOrders({ auth }))
     }
 

@@ -56,6 +56,28 @@ export const getOrders = ({ auth }) => async (dispatch) => {
     }
 }
 
+export const getAllOrders = ({ auth }) => async (dispatch) => {
+
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
+
+        const res = await getDataAPI("getAllOrders", auth.token)
+
+        dispatch({ type: GLOBALTYPES.ORDER, payload: [...res.data.orders] })
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+
+
+    } catch (error) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.response.data.msg
+            }
+        })
+    }
+}
+
 export const deleteOrder = ({ id, auth }) => async (dispatch) => {
 
     try {

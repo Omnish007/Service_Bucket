@@ -13,8 +13,8 @@ import { refreshToken } from "./redux/actions/authActions"
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Profile from "./Pages/Profile"
-import PrivateRouter from "./components/Private Router/PrivateRouter"
 import PageRender from "./components/Private Router/PageRender"
+import NotFound from "./components/NotFound"
 
 
 
@@ -41,17 +41,16 @@ function App() {
     <div className="App">
       <Alert />
       <Routes>
-        <Route exact path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/adminPanel' element={<AdminPanel />} />
         <Route path='/service' element={< Service />} />
         <Route path='/profile' element={< Profile />} />
+        <Route exact path='/' element={<Home />} />
 
-        auth.token === undefine
-          ?<Route exact path='/:page/:id' element={< PageRender />} />
-          : navigate("/login")
-        console.log(auth.token)
+        <Route path='/:page/:id' element={< PageRender />} />
+        <Route path='*' element={< NotFound />} />
+
       </Routes>
 
     </div>

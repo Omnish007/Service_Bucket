@@ -13,8 +13,7 @@ import ProfileRight from '../components/Profile/ProfileRight';
 import ProfileLeft from '../components/Profile/ProfileLeft';
 
 const Profile = () => {
-  var history = 0
-  var pending = 0
+
   const { auth, service, order } = useSelector(state => state)
   const dispatch = useDispatch()
   
