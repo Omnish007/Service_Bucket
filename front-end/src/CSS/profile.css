@@ -8,7 +8,8 @@
 .profile_left{
     flex: 0.2;
     color: white;
-    background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+    min-height: 600px;
+    background-color: white;
 }
 
 .profile_right{

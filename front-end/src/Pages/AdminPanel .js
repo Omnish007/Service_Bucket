@@ -7,6 +7,7 @@ import { getServices } from '../redux/actions/serviceActions'
 import { refreshToken } from '../redux/actions/authActions'
 import { getAllOrders } from '../redux/actions/orderAction'
 import moment from 'moment'
+import AdminPendingServiceCard from '../components/Admin/AdminPendingServiceCard'
 
 const AdminPanel = () => {
 
@@ -87,22 +88,8 @@ const AdminPanel = () => {
 
             <div className="adminPage_pendingReqForService">
                 { 
-                    order.length >= 0 && order.map(ele => (
-                        <div>
-                            {ele.user.name}
-                            {ele.user.email}
-                            {ele.user.phone}
-                            <img src={ele.user.dp} alt="" />
-                            {ele.address}
-                            {ele.state}
-                            {ele.dist}
-                            {ele.status}
-                            {moment(ele.createdAt).fromNow()}
-
-                            
-                        </div>
-                    ))
-                    // order !== undefined && order.map(ele => (<h1>{ele}</h1>))
+                    order.length >= 0 && order.map(ele => (<AdminPendingServiceCard ele={ele}/>))
+                    
                 }
             </div>
         </div>
