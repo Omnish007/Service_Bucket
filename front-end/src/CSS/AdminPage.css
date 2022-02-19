@@ -1,12 +1,16 @@
 /* Style the tab */
+.adminPage {
+    position: relative;
+}
+
 .adminPage .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons that are used to open the tab content */
-  .adminPage .tab button {
+}
+
+/* Style the buttons that are used to open the tab content */
+.adminPage .tab button {
     background-color: inherit;
     float: left;
     border: none;
@@ -14,48 +18,47 @@
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
-  }
-  
-  /* Change background color of buttons on hover */
-  .adminPage .tab button:hover {
+}
+
+/* Change background color of buttons on hover */
+.adminPage .tab button:hover {
     background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .adminPage .tab button.active {
+}
+
+/* Create an active/current tablink class */
+.adminPage .tab button.active {
     background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .adminPage .tabcontent {
+}
+
+/* Style the tab content */
+.adminPage .tabcontent {
     display: none;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-  }
+}
 
-
-  .admin_serviceName{
+.admin_serviceName {
     width: 300px;
     margin: auto;
     display: flex;
-  }
+}
 
-  .admin_serviceName p{
+.admin_serviceName p {
     margin-bottom: 0;
     flex: 1;
-  }
+}
 
-  .admin_serviceName i.fa-trash{
+.admin_serviceName i.fa-trash {
     line-height: 20px;
-  }
+}
 
-  .admin_serviceName i.fa-trash:hover{
+.admin_serviceName i.fa-trash:hover {
     color: tomato;
     cursor: pointer;
-  }
+}
 
-  .admin_get_service_btn{
+.admin_get_service_btn {
     border: none;
     background: rgb(42, 42, 42);
     width: 200px;
@@ -64,10 +67,107 @@
     color: white;
     font-weight: 500;
     border-radius: 10px;
+}
 
-  }
-
- .adminPage .tabcontent{
+.adminPage .tabcontent {
     height: 400px;
     overflow-y: auto;
-  }
+}
+
+.adminPage_pendingReqForService {
+    display: flex;
+    padding: 50px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.adminPage_pendingReqForService_card {
+    display: flex;
+    width: 49%;
+    border: 1px solid gray;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.adminPage_pendingReqForService_card_img {
+    width: 300px;
+}
+
+.adminPage_pendingReqForService_card_img img {
+    width: 100%;
+}
+
+.adminPage_pendingReqForService_card_info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.adminPage_pendingReqForService_card_tag {
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #eeeeee63;
+    margin-right: 20px;
+    padding: 5px 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.adminPage_pendingReqForService_card_tag ~ i {
+    color: gray;
+    margin-right: 20px;
+    user-select: none;
+}
+
+.adminPage_pendingReqForService_card_info small {
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+.adminPage_pendingReqForService_card_detail_btn {
+    margin: 20px 0;
+    width: 10%;
+}
+
+.adminPage_pendingReqForService_card_detail_btn i {
+    font-size: 40px;
+    cursor: pointer;
+    color: #7c7c7c;
+}
+
+.adminPage_pendingReqForService_card_detail_btn i:hover {
+    color: #2a2a2a;
+}
+
+/* modal  */
+.adminPage_pendingReqForService_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000ab;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminPage_pendingReqForService_modal_container {
+    background: white;
+    width: 500px;
+    height: 600px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.adminPage_pendingReqForService_modal_closeBtn {
+    position: absolute;
+    right: 10px;
+    color: red;
+    cursor: pointer;
+}

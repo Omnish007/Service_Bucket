@@ -1,16 +1,16 @@
-const router = require("express").Router()
-const orderCtrl = require("../controller/orderCtrl")
-const auth = require("../middleware/auth")
-const adminAuth = require("../middleware/adminAuth")
+const router = require("express").Router();
+const orderCtrl = require("../controller/orderCtrl");
+const auth = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth");
 
-router.get("/getOrders", auth, orderCtrl.getOrders)
+router.get("/getOrders", auth, orderCtrl.getOrders);
 
-router.get("/getAllOrders", auth, adminAuth, orderCtrl.getAllOrders)
+router.get("/getAllOrders", auth, adminAuth, orderCtrl.getAllOrders);
 
-router.post("/createorder", auth, adminAuth, orderCtrl.createOrder)
+router.post("/createorder", auth, orderCtrl.createOrder);
 
 // router.patch("/updateService", authCtrl.updateOrder)
 
-router.delete("/deleteOrder/:id", orderCtrl.deleteOrder)
+router.delete("/deleteOrder/:id", orderCtrl.deleteOrder);
 
-module.exports = router
+module.exports = router;
