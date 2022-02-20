@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Aos from "aos";
+import AdminPageServiceDetailModal from "./modal/AdminPageServiceDetailModal";
 
 const AdminPendingServiceCard = ({ ele }) => {
     const [modal, setModal] = useState(false);
@@ -59,47 +60,11 @@ const AdminPendingServiceCard = ({ ele }) => {
             </div>
 
             {/* Modal  */}
-            {modal && (
-                <div className="adminPage_pendingReqForService_modal">
-                    <div
-                        data-aos="zoom-in-down"
-                        data-aos-duration="500"
-                        className="adminPage_pendingReqForService_modal_container"
-                    >
-                        <h1
-                            className="adminPage_pendingReqForService_modal_closeBtn"
-                            onClick={() => setModal(false)}
-                        >
-                            &times;
-                        </h1>
-
-                        <img
-                            className="adminPage_pendingReqForService_modal_userDp"
-                            src={ele.user.dp}
-                        />
-                        <h2>{ele.user.name}</h2>
-                        <div>
-                            <p className="adminPage_pendingReqForService_modal_phone">
-                                <i class="fas fa-phone-alt"></i>
-                                <span>{ele.user.phone}</span>
-                            </p>
-                            <p className="adminPage_pendingReqForService_modal_email">
-                                <i class="fas fa-envelope"></i>
-                                <span>{ele.user.email}</span>
-                            </p>
-                        </div>
-                        <div>
-                            <span className="adminPage_pendingReqForService_card_tag">
-                                {ele.service}
-                            </span>
-                            <i class="fas fa-angle-double-right"></i>
-                            <span className="adminPage_pendingReqForService_card_tag">
-                                {ele.subService}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <AdminPageServiceDetailModal
+                ele={ele}
+                setModal={setModal}
+                modal={modal}
+            />
         </>
     );
 };

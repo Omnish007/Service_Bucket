@@ -1,99 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import "../CSS/AdminPage.css"
-import { getServices } from '../redux/actions/serviceActions'
-import { refreshToken } from '../redux/actions/authActions'
-import { getAllOrders } from '../redux/actions/orderAction'
-import moment from 'moment'
-import AdminPendingServiceCard from '../components/Admin/AdminPendingServiceCard'
+import "../CSS/AdminPage.css";
+import { getServices } from "../redux/actions/serviceActions";
+import { refreshToken } from "../redux/actions/authActions";
+import { getAllOrders } from "../redux/actions/orderAction";
+import moment from "moment";
+import AdminPendingServiceCard from "../components/Admin/AdminPendingServiceCard";
+import Navbar from "../components/Navbar";
+import AdminPageServiceTabs from "../components/Admin/AdminPageServiceTabs";
 
 const AdminPanel = () => {
-
-    const { auth, service, order } = useSelector(state => state)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const token = localStorage.getItem("auth")
-    const [load, setLoad] = useState(false)
-
+    const { auth, service, order } = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [load, setLoad] = useState(false);
 
     useEffect(async () => {
-        dispatch(refreshToken())
-        if (auth.user) {
-            if (auth.user.role === "0") {
-                navigate("/")
+        // dispatch(refreshToken());
+        if (await auth.user) {
+            if ((await auth.user.role) === "0") {
+                navigate("/");
+            } else {
+                setLoad(true);
+                dispatch(getAllOrders({ auth }));
+                setLoad(false);
             }
-            else{
-                setLoad(true)
-                dispatch(getAllOrders({auth}))
-                setLoad(false)
-            }
         }
-        else {
-            navigate("/")
-        }
-    }, [])
-
-    const getServicesByClick = () => {
-        dispatch(getServices(auth.token))
-    }
-
-    const tabs = (tabName, e) => {
-        var i, tabcontent, tablinks;
-
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace("active", " ");
-        }
-
-        document.getElementById(tabName).style.display = "block";
-        document.getElementsByClassName(tabName).classlist += "active";
-
-    }
-
+        // } else {
+        //     navigate("/");
+        // }
+    }, [auth]);
 
     return (
-        <div className="adminPage">
-            <div className="adminPage_serviceList">
-
-                <h1>Hello admin</h1>
-                <div className="tab">
-                    <button className="tablinks tab1" onClick={() => tabs("tab1")}>Services List</button>
-                    <button className="tablinks tab2" onClick={() => tabs("tab2")}>Add Services</button>
-                </div>
-                <div id="tab1" className="tabcontent">
-                    <ul className="list-group">
-                        {
-                            service.length > 0 ? service.map(ele => (
-                                <li className="list-group-item admin_serviceName" key={ele._id}>
-                                    <p>{ele.name}</p>
-                                    <i className="fas fa-trash"></i>
-                                </li>
-                            ))
-                                : <button className='admin_get_service_btn' onClick={getServicesByClick}>Get Service List</button>
-                        }
-                    </ul>
-                </div>
-
-                <div id="tab2" className="tabcontent">
-
-                </div>
-            </div>
+        <>
+            <Navbar />
+            <AdminPageServiceTabs auth={auth} service={service} />
 
             <div className="adminPage_pendingReqForService">
-                { 
-                    order.length >= 0 && order.map(ele => (<AdminPendingServiceCard ele={ele}/>))
-                    
-                }
+                {order.length >= 0 &&
+                    order.map((ele) => <AdminPendingServiceCard ele={ele} />)}
             </div>
-        </div>
-    )
-}
+        </>
+    );
+};
 
-export default AdminPanel 
+export default AdminPanel;

@@ -3,6 +3,14 @@
     position: relative;
 }
 
+.adminPage_serviceList {
+    min-height: 400px;
+}
+
+#tab1 {
+    display: block;
+}
+
 .adminPage .tab {
     overflow: hidden;
     border: 1px solid #ccc;
@@ -162,7 +170,7 @@
     width: 500px;
     height: 600px;
     position: relative;
-    border-radius: 20px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,60 +178,124 @@
 
 .adminPage_pendingReqForService_modal_closeBtn {
     position: absolute;
-    right: 10px;
+    right: 20px;
     color: red;
     cursor: pointer;
+}
+
+.adminPage_pendingReqForService_modal_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+    padding-top: 30px;
+    width: 100%;
+    background-color: #2c3333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .adminPage_pendingReqForService_modal_userDp {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-top: 30px;
     display: block;
+    margin-bottom: 20px;
+    border: 1.5px dashed white;
+}
+
+.adminPage_pendingReqForService_modal_header_content {
+    flex: 1;
+    margin-left: 30px;
+}
+
+.adminPage_pendingReqForService_modal_header_content h2 {
+    color: white;
+    display: inline-block;
+}
+
+.adminPage_pendingReqForService_modal_phoneEmail_container {
+    display: flex;
+    flex: 1;
 }
 
 .adminPage_pendingReqForService_modal_phoneEmail {
     background: red;
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.adminPage_pendingReqForService_modal_phoneEmail i {
+    font-size: 20px;
+}
+
 .adminPage_pendingReqForService_modal_phoneEmail span {
     display: none;
+    cursor: default;
 }
 
 .adminPage_pendingReqForService_modal_phoneEmail:hover span {
     display: block;
+    animation: phone 0.4s ease-in-out;
+    overflow: hidden;
 }
 .adminPage_pendingReqForService_modal_phoneEmail:hover {
     width: auto;
     border-radius: 20px;
-    padding: 0 10px;
+    padding: 0 20px;
+    transition: all 0.1s;
 }
-.adminPage_pendingReqForService_modal_phoneEmail {
-    background: red;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
+.adminPage_pendingReqForService_modal_phoneEmail:hover i {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+@keyframes phone {
+    0% {
+        width: 0%;
+    }
+    25% {
+        width: 25%;
+    }
+    50% {
+        width: 50%;
+    }
+    75% {
+        width: 75%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.adminPage_pendingReqForService_modal_phone {
+    background: #357376;
+    color: white;
+    margin-right: 10px;
+}
+
+.adminPage_pendingReqForService_modal_email {
+    background: #465881;
+    color: white;
+    margin-left: 10px;
+}
+
+.adminPage_pendingReqForService_modal_body {
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
-.adminPage_pendingReqForService_modal_phoneEmail span {
-    display: none;
-}
-
-.adminPage_pendingReqForService_modal_phoneEmail:hover span {
-    display: block;
-}
-.adminPage_pendingReqForService_modal_phoneEmail:hover {
-    width: auto;
-    border-radius: 20px;
-    padding: 0 10px;
+/* modal body  */
+.adminPage_pendingReqForService_card_tag_container {
+    margin: 20px 0;
 }
