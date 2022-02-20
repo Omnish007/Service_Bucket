@@ -72,7 +72,31 @@ const AdminPendingServiceCard = ({ ele }) => {
                         >
                             &times;
                         </h1>
-                        <h1>{ele.service}</h1>
+
+                        <img
+                            className="adminPage_pendingReqForService_modal_userDp"
+                            src={ele.user.dp}
+                        />
+                        <h2>{ele.user.name}</h2>
+                        <div>
+                            <p className="adminPage_pendingReqForService_modal_phone">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>{ele.user.phone}</span>
+                            </p>
+                            <p className="adminPage_pendingReqForService_modal_email">
+                                <i class="fas fa-envelope"></i>
+                                <span>{ele.user.email}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <span className="adminPage_pendingReqForService_card_tag">
+                                {ele.service}
+                            </span>
+                            <i class="fas fa-angle-double-right"></i>
+                            <span className="adminPage_pendingReqForService_card_tag">
+                                {ele.subService}
+                            </span>
+                        </div>
                     </div>
                 </div>
             )}
