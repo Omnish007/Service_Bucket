@@ -13,7 +13,9 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                 </span>
             </div>
 
-            <select name="" id=""></select>
+            <select name="" id="">
+                <option value=""></option>
+            </select>
 
             <p>
                 <i
