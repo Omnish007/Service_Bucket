@@ -31,6 +31,16 @@ const userSchema = new mongoose.Schema(
             default: "0",
         },
 
+        available: {
+            type: String,
+        },
+
+        mastery: [
+            {
+                type: String,
+            },
+        ],
+
         orders: [
             {
                 type: mongoose.Types.ObjectId,

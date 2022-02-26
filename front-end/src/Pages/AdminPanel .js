@@ -10,6 +10,7 @@ import moment from "moment";
 import AdminPendingServiceCard from "../components/Admin/AdminPendingServiceCard";
 import Navbar from "../components/Navbar";
 import AdminPageServiceTabs from "../components/Admin/AdminPageServiceTabs";
+import AdminPageAddEmployeeForm from "../components/Admin/AdminPageAddEmployeeForm";
 
 const AdminPanel = () => {
     const { auth, service, order } = useSelector((state) => state);
@@ -40,8 +41,12 @@ const AdminPanel = () => {
 
             <div className="adminPage_pendingReqForService">
                 {order.length >= 0 &&
-                    order.map((ele) => <AdminPendingServiceCard ele={ele} />)}
+                    order.map((ele) => (
+                        <AdminPendingServiceCard key={ele._id} ele={ele} />
+                    ))}
             </div>
+
+            <AdminPageAddEmployeeForm />
         </>
     );
 };

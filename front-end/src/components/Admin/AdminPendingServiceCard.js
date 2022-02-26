@@ -26,7 +26,7 @@ const AdminPendingServiceCard = ({ ele }) => {
                         <span className="adminPage_pendingReqForService_card_tag">
                             {ele.service}
                         </span>
-                        <i class="fas fa-angle-double-right"></i>
+                        <i className="fas fa-angle-double-right"></i>
                         <span className="adminPage_pendingReqForService_card_tag">
                             {ele.subService}
                         </span>
@@ -37,10 +37,10 @@ const AdminPendingServiceCard = ({ ele }) => {
                         <i
                             style={{
                                 color: `${
-                                    ele.status == "0" ? "orange" : "green"
+                                    ele.status === "0" ? "orange" : "green"
                                 }`,
                             }}
-                            class="fas fa-circle"
+                            className="fas fa-circle"
                         ></i>{" "}
                         {ele.status === "0" ? (
                             <span style={{ color: "orange" }}>Pending</span>
@@ -54,7 +54,7 @@ const AdminPendingServiceCard = ({ ele }) => {
                     <i
                         onClick={() => setModal(true)}
                         title="View Detail Button"
-                        class="fas fa-caret-square-right"
+                        className="fas fa-caret-square-right"
                     ></i>
                 </div>
             </div>
