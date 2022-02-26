@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar";
 import Foorer from "../components/footer";
 import AdminPageServiceTabs from "../components/Admin/AdminPageServiceTabs";
 import AdminPageAddEmployeeForm from "../components/Admin/AdminPageAddEmployeeForm";
+import AdminPageEmployeeList from "../components/Admin/AdminPageEmployeeList";
 
 const AdminPanel = () => {
     const { auth, service, order } = useSelector((state) => state);
@@ -48,6 +49,7 @@ const AdminPanel = () => {
             </div>
 
             <AdminPageAddEmployeeForm />
+            <AdminPageEmployeeList />
             <Foorer />
         </>
     );

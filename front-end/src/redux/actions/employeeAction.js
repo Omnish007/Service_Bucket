@@ -35,16 +35,14 @@ export const addEmployees = (auth, data) => async (dispatch) => {
         const res2 = await postDataAPI("sendCredential", data, auth.token);
         console.log("res1", res.data);
         console.log("res2", res2.data);
-        // dispatch({
-        //     type: GLOBALTYPES.EMPLOYEE,
-        //     payload: res.data.employees,
-        // });
+
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
                 success: res2.data.msg,
             },
         });
+
         dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (error) {
         dispatch({

@@ -51,24 +51,19 @@ const employeeCtrl = {
                 mastery,
             });
 
-            const access_token = createAccessToken({ id: newUser._id });
-            const refresh_token = createRefreshsToken({ id: newUser._id });
+            // const access_token = createAccessToken({ id: newUser._id });
+            // const refresh_token = createRefreshsToken({ id: newUser._id });
 
-            res.cookie("refreshtoken", refresh_token, {
-                httpOnly: true,
-                path: "/api/refresh_token",
-                maxAge: 30 * 7 * 24 * 60 * 60 * 1000, //30 days
-            });
+            // res.cookie("refreshtoken", refresh_token, {
+            //     httpOnly: true,
+            //     path: "/api/refresh_token",
+            //     maxAge: 30 * 7 * 24 * 60 * 60 * 1000, //30 days
+            // });
 
             await newUser.save();
 
             res.json({
                 msg: "Register",
-                access_token,
-                user: {
-                    ...newUser._doc,
-                    password: "",
-                },
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

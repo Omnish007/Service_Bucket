@@ -24,20 +24,27 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                     {ele.subService}
                 </span>
             </div>
-
-            <select name="" id="">
-                {employee.length > 0
-                    ? employee.map((element) =>
-                          element.mastery.includes(ele.service) ? (
-                              <option key={element._id} value={element.name}>
-                                  {element.name}
-                              </option>
-                          ) : (
-                              ""
-                          ),
-                      )
-                    : ""}
-            </select>
+            {ele.status === "0" ? (
+                <select name="" id="">
+                    <option value="select">Select Employee</option>
+                    {employee.length > 0
+                        ? employee.map((element) =>
+                              element.mastery.includes(ele.service) ? (
+                                  <option
+                                      key={element._id}
+                                      value={element.name}
+                                  >
+                                      {element.name}
+                                  </option>
+                              ) : (
+                                  ""
+                              ),
+                          )
+                        : ""}
+                </select>
+            ) : (
+                ""
+            )}
 
             <p>
                 <i

@@ -6,13 +6,15 @@ const AdminPageAddEmployeeForm = () => {
     const [checkedVal, setCheckedVal] = useState([]);
     const { service, auth } = useSelector((state) => state);
     const dispatch = useDispatch();
-    const [data, setData] = useState({
+
+    const initial = {
         name: "",
         email: "",
         password: "",
         phone: "",
         mastery: [],
-    });
+    };
+    const [data, setData] = useState(initial);
 
     useEffect(() => {
         setData({ ...data, mastery: checkedVal });
@@ -33,6 +35,7 @@ const AdminPageAddEmployeeForm = () => {
     const handleClick = (e) => {
         e.preventDefault();
         dispatch(addEmployees(auth, data));
+        setData(initial);
     };
 
     return (
@@ -47,6 +50,7 @@ const AdminPageAddEmployeeForm = () => {
                                 value={data.name}
                                 onChange={handleChange}
                                 name="name"
+                                autoComplete="off"
                             />
                         </div>
                         <div>
@@ -56,6 +60,7 @@ const AdminPageAddEmployeeForm = () => {
                                 value={data.email}
                                 onChange={handleChange}
                                 name="email"
+                                autoComplete="off"
                             />
                         </div>
                         <div>
@@ -65,6 +70,7 @@ const AdminPageAddEmployeeForm = () => {
                                 value={data.phone}
                                 onChange={handleChange}
                                 name="phone"
+                                autoComplete="off"
                             />
                         </div>
                         <div>
@@ -74,6 +80,7 @@ const AdminPageAddEmployeeForm = () => {
                                 value={data.password}
                                 onChange={handleChange}
                                 name="password"
+                                autoComplete="off"
                             />
                         </div>
                         <div>
