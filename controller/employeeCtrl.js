@@ -1,6 +1,7 @@
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const employeeCtrl = {
     getEmployees: async (req, res) => {
@@ -132,6 +133,51 @@ const employeeCtrl = {
                     });
                 },
             );
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    sendCredential: async (req, res) => {
+        try {
+            const { email, password } = req.body;
+
+            const transporte = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                auth: {
+                    user: "servicebucket999@gmail.com",
+                    pass: process.env.EMAIL_PASSWORD,
+                },
+            });
+            let mailOptions = {
+                from: "servicebucket999@gmail.com",
+                to: email,
+                subject: "Credential for join Service Bucket",
+                html: `  <div style="display: flex;justify-content: center;align-items: center;">
+                <div style="margin:auto;min-width:580px;width: 30%;font-family: Helvetica;border: 10px solid green;padding: 50px;">
+                    <h2 style=" text-align: center;color: teal; text-decoration: none; ">
+                        Hello ${email}
+                    </h2>
+                    <h2 style="text-align: center;">Welcome To Service Bucket</h2>
+                    <hr>
+                    <h3 style="text-align: center;">Email: <strong>${email}</strong></h3>
+                    <h3 style="color: red ;text-align: center;">Password: <strong>${password}</strong></h3>
+                    <p style="text-align: center;color:#adad07;font-weight:700">Warning: Please Don't Share your credentials with anyone</p>
+                </div>`,
+            };
+
+            transporte.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(500).json({ msg: err.message });
+                } else {
+                    return res
+                        .status(200)
+                        .json({ msg: "Mail Sended Successfully" });
+                }
+            });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
