@@ -9,6 +9,7 @@ import { getAllOrders } from "../redux/actions/orderAction";
 import moment from "moment";
 import AdminPendingServiceCard from "../components/Admin/AdminPendingServiceCard";
 import Navbar from "../components/Navbar";
+import Foorer from "../components/footer";
 import AdminPageServiceTabs from "../components/Admin/AdminPageServiceTabs";
 import AdminPageAddEmployeeForm from "../components/Admin/AdminPageAddEmployeeForm";
 
@@ -47,6 +48,7 @@ const AdminPanel = () => {
             </div>
 
             <AdminPageAddEmployeeForm />
+            <Foorer />
         </>
     );
 };

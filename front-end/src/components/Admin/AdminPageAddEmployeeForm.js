@@ -13,20 +13,38 @@ const AdminPageAddEmployeeForm = () => {
     };
 
     return (
-        <div>
-            <form>
-                {service.length > 0
-                    ? service.map((e) => (
-                          <div key={e._id}>
-                              <label htmlFor={e.name}>{e.name}</label>
-                              <input
-                                  type="checkbox"
-                                  name={e.name}
-                                  onChange={handleCheck}
-                              />
-                          </div>
-                      ))
-                    : ""}
+        <div className="adminPageAddEmployeeContainer">
+            <form className="adminPageAddEmployeeFormContainer">
+                <div>
+                    <div className="adminPageAddEmployeeFormcheckBoxContainer">
+                        <div>
+                            <input type="text" placeholder="Name" />
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Email" />
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Phone" />
+                        </div>
+                        <div>
+                            {service.length > 0
+                                ? service.map((e) => (
+                                      <label>
+                                          <input
+                                              type="checkbox"
+                                              name={e.name}
+                                              onChange={handleCheck}
+                                          />
+                                          <span>{e.name}</span>
+                                      </label>
+                                  ))
+                                : ""}
+                        </div>
+                        <button className="btn btn-primary btn-lg">
+                            Submit
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     );

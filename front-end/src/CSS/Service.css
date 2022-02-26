@@ -1,4 +1,4 @@
-.service_main_container{
+.service_main_container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -6,15 +6,15 @@
     align-items: center;
 }
 
-.service_main_container .service_container:nth-child(even){
+.service_main_container .service_container:nth-child(even) {
     background: #ededed;
 }
 
-.service_main_container .service_container:nth-child(odd){
+.service_main_container .service_container:nth-child(odd) {
     background: white;
 }
 
-.service_container{
+.service_container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -24,31 +24,31 @@
     overflow-x: auto;
 }
 
-.service_container::-webkit-scrollbar{
+.service_container::-webkit-scrollbar {
     width: 0;
 }
 
-.bg-1{
+.bg-1 {
     background: #ededed;
 }
-.bg-2{
+.bg-2 {
     background: white;
 }
 
-.service_container h1{
+.service_container h1 {
     margin-bottom: 50px;
 }
 
-.service_subService{
+.service_subService {
     display: flex;
     flex-wrap: wrap;
 }
 
-.service_card{
+.service_card {
     width: 250px;
 }
 
-.service_form_container{
+.service_form_container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -57,7 +57,7 @@
     flex-direction: column;
 }
 
-.service_form_container form{
+.service_form_container form {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -65,12 +65,13 @@
     padding: 100px 0;
 }
 
-.service_form_container form input, .service_form_container form textarea{
+.service_form_container form input,
+.service_form_container form textarea {
     width: 100%;
     margin-top: 20px;
     padding: 10px 20px;
 }
 
-.service_form_container form button{
+.service_form_container form button {
     margin-top: 30px;
 }
