@@ -1,4 +1,5 @@
 const Users = require("../models/userModel");
+const Order = require("../models/orderModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
@@ -170,6 +171,38 @@ const employeeCtrl = {
                         .status(200)
                         .json({ msg: "Mail Sended Successfully" });
                 }
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    addOrder: async (req, res) => {
+        try {
+            const { ele, employee } = req.body;
+
+            const employeeData = await Users.findOne({ email: employee });
+            // console.log(ele._id);
+
+            Order.findByIdAndUpdate(
+                { _id: ele._id },
+                {
+                    $set: {
+                        employee: employeeData._id,
+                    },
+                },
+            );
+            Users.findByIdAndUpdate(
+                { _id: employeeData._id },
+                {
+                    $push: {
+                        orders: ele._id,
+                    },
+                },
+            );
+
+            res.status(201).json({
+                msg: "Employee is Successfuly Selected",
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getEmployees } from "../../../redux/actions/employeeAction";
+import { addOrder, getEmployees } from "../../../redux/actions/employeeAction";
 
 const AdminPageServiceDetailModalBody = ({ ele }) => {
     const { auth, employee } = useSelector((state) => state);
     const dispatch = useDispatch();
 
+    const [selectEmployee, setSelectEmployee] = useState("");
+
     useEffect(() => {
         dispatch(getEmployees(auth));
     }, []);
+
+    const handleConfirmEmployee = () => {
+        dispatch(addOrder(ele, selectEmployee, auth));
+    };
 
     return (
         <div className="adminPage_pendingReqForService_modal_body">
@@ -22,47 +28,59 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                 </span>
             </div>
             {ele.status === "0" ? (
-                <select className="adminPageModalBodySelectEmployee">
-                    <option value="select">Select Employee</option>
-                    <optgroup label="Available">
-                        {employee.length > 0
-                            ? employee.map((element) =>
-                                  element.mastery.includes(ele.service) &&
-                                  element.available === "1" ? (
-                                      <>
+                <>
+                    <select
+                        onChange={(e) => setSelectEmployee(e.target.value)}
+                        className="adminPageModalBodySelectEmployee"
+                    >
+                        <option value="select">Select Employee</option>
+                        <optgroup label="Available">
+                            {employee.length > 0
+                                ? employee.map((element) =>
+                                      element.mastery.includes(ele.service) &&
+                                      element.available === "1" ? (
+                                          <>
+                                              <option
+                                                  key={element._id}
+                                                  value={element.email}
+                                              >
+                                                  {element.email}
+                                              </option>
+                                          </>
+                                      ) : (
+                                          ""
+                                      ),
+                                  )
+                                : ""}
+                        </optgroup>
+                        <optgroup label="Not Available">
+                            {employee.length > 0
+                                ? employee.map((element) =>
+                                      element.mastery.includes(ele.service) &&
+                                      element.available === "0" ? (
                                           <option
                                               key={element._id}
                                               value={element.name}
+                                              disabled
                                           >
                                               {element.email}
                                           </option>
-                                      </>
-                                  ) : (
-                                      ""
-                                  ),
-                              )
-                            : ""}
-                    </optgroup>
-                    <optgroup label="Not Available">
-                        {employee.length > 0
-                            ? employee.map((element) =>
-                                  element.mastery.includes(ele.service) &&
-                                  element.available === "0" ? (
-                                      <option
-                                          key={element._id}
-                                          value={element.name}
-                                          disabled
-                                      >
-                                          {element.email}
-                                      </option>
-                                  ) : (
-                                      ""
-                                  ),
-                              )
-                            : ""}
-                    </optgroup>
-                    <i className="adminPage_pendingReqForService_modal_body_confirm_Employee_btn fas fa-check-circle" />
-                </select>
+                                      ) : (
+                                          ""
+                                      ),
+                                  )
+                                : ""}
+                        </optgroup>
+                    </select>
+                    {selectEmployee === "" || selectEmployee === "select" ? (
+                        ""
+                    ) : (
+                        <i
+                            className="fas fa-check-circle"
+                            onClick={handleConfirmEmployee}
+                        />
+                    )}
+                </>
             ) : (
                 ""
             )}

@@ -307,7 +307,7 @@
     padding: 10px;
     width: 60%;
     appearance: none;
-    position: relative;
+    /* position: relative; */
 }
 .adminPageModalBodySelectEmployee option {
     border: none;
@@ -315,11 +315,13 @@
     width: 100%;
 }
 
-/* .adminPage_pendingReqForService_modal_body_confirm_Employee_btn {
+.fa-check-circle {
     position: absolute;
-    top: 0;
-    right: 0;
-} */
+    top: 100px;
+    right: 50px;
+    color: rgb(19, 228, 81);
+    font-size: 30px;
+}
 
 /* adminPageAddEmployeeContainer */
 
