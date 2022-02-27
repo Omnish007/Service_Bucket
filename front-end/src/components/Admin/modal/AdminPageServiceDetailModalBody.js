@@ -3,11 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getEmployees } from "../../../redux/actions/employeeAction";
 
 const AdminPageServiceDetailModalBody = ({ ele }) => {
-    // const [employeeList, setEmployeeList] = useState([]);
-
     const { auth, employee } = useSelector((state) => state);
     const dispatch = useDispatch();
-    console.log(employee);
 
     useEffect(() => {
         dispatch(getEmployees(auth));
@@ -25,28 +22,53 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                 </span>
             </div>
             {ele.status === "0" ? (
-                <select name="" id="">
+                <select className="adminPageModalBodySelectEmployee">
                     <option value="select">Select Employee</option>
-                    {employee.length > 0
-                        ? employee.map((element) =>
-                              element.mastery.includes(ele.service) ? (
-                                  <option
-                                      key={element._id}
-                                      value={element.name}
-                                  >
-                                      {element.name}
-                                  </option>
-                              ) : (
-                                  ""
-                              ),
-                          )
-                        : ""}
+                    <optgroup label="Available">
+                        {employee.length > 0
+                            ? employee.map((element) =>
+                                  element.mastery.includes(ele.service) &&
+                                  element.available === "1" ? (
+                                      <>
+                                          <option
+                                              key={element._id}
+                                              value={element.name}
+                                          >
+                                              {element.email}
+                                          </option>
+                                      </>
+                                  ) : (
+                                      ""
+                                  ),
+                              )
+                            : ""}
+                    </optgroup>
+                    <optgroup label="Not Available">
+                        {employee.length > 0
+                            ? employee.map((element) =>
+                                  element.mastery.includes(ele.service) &&
+                                  element.available === "0" ? (
+                                      <option
+                                          key={element._id}
+                                          value={element.name}
+                                          disabled
+                                      >
+                                          {element.email}
+                                      </option>
+                                  ) : (
+                                      ""
+                                  ),
+                              )
+                            : ""}
+                    </optgroup>
+                    <i className="adminPage_pendingReqForService_modal_body_confirm_Employee_btn fas fa-check-circle" />
                 </select>
             ) : (
                 ""
             )}
 
-            <p>
+            <p className="adminPage_pendingReqForService_modal_body_statusPara">
+                <span>Order Status is </span>
                 <i
                     style={{
                         color: `${ele.status == "0" ? "orange" : "green"}`,

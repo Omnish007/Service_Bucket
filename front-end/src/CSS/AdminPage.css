@@ -286,6 +286,7 @@
     margin-left: 10px;
 }
 
+/* modal body  */
 .adminPage_pendingReqForService_modal_body {
     width: 100%;
     height: 100%;
@@ -294,12 +295,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
-/* modal body  */
 .adminPage_pendingReqForService_card_tag_container {
     margin: 20px 0;
 }
+
+.adminPageModalBodySelectEmployee {
+    border: none;
+    padding: 10px;
+    width: 60%;
+    appearance: none;
+    position: relative;
+}
+.adminPageModalBodySelectEmployee option {
+    border: none;
+    background-color: #357376;
+    width: 100%;
+}
+
+/* .adminPage_pendingReqForService_modal_body_confirm_Employee_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+} */
 
 /* adminPageAddEmployeeContainer */
 
@@ -327,15 +347,15 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-label {
+.adminPageAddEmployeeFormcheckBoxContainer label {
     cursor: pointer;
 }
 
-label input[type="checkbox"] {
+.adminPageAddEmployeeFormcheckBoxContainer label input[type="checkbox"] {
     display: none;
 }
 
-label span {
+.adminPageAddEmployeeFormcheckBoxContainer label span {
     position: relative;
     display: inline-block;
     background: transparent;
@@ -351,7 +371,64 @@ label span {
     border: 1px solid white;
 }
 
-label input[type="checkbox"]:checked + span {
+.adminPageAddEmployeeFormcheckBoxContainer
+    label
+    input[type="checkbox"]:checked
+    + span {
     background: #fff;
     color: black;
+}
+
+/* radio button  */
+
+.adminPageAddEmployeeFormRadioBtnContainer {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPageAddEmployeeFormRadioBtnContainer label {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    margin-top: 20px;
+}
+.adminPageAddEmployeeFormRadioBtnContainer label input[type="radio"] {
+    display: none;
+}
+
+.adminPageAddEmployeeFormRadioBtnContainer label span {
+    background: rgb(255, 255, 255);
+    padding: 10px;
+    display: block;
+    user-select: none;
+    color: rgb(0, 0, 0);
+    overflow: hidden;
+}
+
+.adminPageAddEmployeeFormRadioBtnContainer
+    label
+    input[type="radio"]:checked
+    + span {
+    transition: all 0.3s ease-in-out;
+    background: rgb(3, 163, 24);
+    color: rgb(255, 255, 255);
+}
+
+.adminPage_pendingReqForService_modal_body_statusPara {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.adminPage_pendingReqForService_modal_body_statusPara i {
+    margin-left: 20px;
+    margin-right: 5px;
 }

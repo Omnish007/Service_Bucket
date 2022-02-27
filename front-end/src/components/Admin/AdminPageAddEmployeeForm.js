@@ -4,6 +4,7 @@ import { addEmployees } from "../../redux/actions/employeeAction";
 
 const AdminPageAddEmployeeForm = () => {
     const [checkedVal, setCheckedVal] = useState([]);
+    const [radioVal, setRadioVal] = useState("1");
     const { service, auth } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -13,12 +14,17 @@ const AdminPageAddEmployeeForm = () => {
         password: "",
         phone: "",
         mastery: [],
+        available: "1",
     };
     const [data, setData] = useState(initial);
 
     useEffect(() => {
         setData({ ...data, mastery: checkedVal });
     }, [checkedVal]);
+
+    useEffect(() => {
+        setData({ ...data, available: radioVal });
+    }, [radioVal]);
 
     const handleCheck = (e) => {
         const { name, checked } = e.target;
@@ -34,13 +40,18 @@ const AdminPageAddEmployeeForm = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        dispatch(addEmployees(auth, data));
         setData(initial);
+        setCheckedVal([]);
+        setRadioVal("1");
+        dispatch(addEmployees(auth, data));
     };
 
     return (
         <div className="adminPageAddEmployeeContainer">
-            <form className="adminPageAddEmployeeFormContainer">
+            <form
+                className="adminPageAddEmployeeFormContainer"
+                autoComplete="off"
+            >
                 <div>
                     <div className="adminPageAddEmployeeFormcheckBoxContainer">
                         <div>
@@ -98,13 +109,34 @@ const AdminPageAddEmployeeForm = () => {
                                   ))
                                 : ""}
                         </div>
-                        <button
-                            className="btn btn-primary btn-lg"
-                            onClick={handleClick}
-                        >
-                            Submit
-                        </button>
                     </div>
+                    <div className="adminPageAddEmployeeFormRadioBtnContainer">
+                        <label className="label1">
+                            <input
+                                type="radio"
+                                name="available"
+                                value="1"
+                                onChange={(e) => setRadioVal(e.target.value)}
+                                checked
+                            />
+                            <span> Available</span>
+                        </label>
+                        <label className="label2">
+                            <input
+                                type="radio"
+                                name="available"
+                                value="0"
+                                onChange={(e) => setRadioVal(e.target.value)}
+                            />
+                            <span> Not Available</span>
+                        </label>
+                    </div>
+                    <button
+                        className="btn btn-primary btn-lg"
+                        onClick={handleClick}
+                    >
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>

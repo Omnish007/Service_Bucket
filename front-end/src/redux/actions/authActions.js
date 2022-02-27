@@ -24,8 +24,6 @@ export const login = (data) => async (dispatch) => {
                 success: res.data.msg,
             },
         });
-
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,

@@ -21,7 +21,8 @@ const employeeCtrl = {
 
     addEmployee: async (req, res) => {
         try {
-            const { name, email, phone, password, mastery } = req.body;
+            const { name, email, phone, password, mastery, available } =
+                req.body;
 
             //if emai is already exist
             const employee_email = await Users.findOne({ email });
@@ -39,6 +40,11 @@ const employeeCtrl = {
             if (phone.length !== 10)
                 return res.status(400).json({ msg: "Invalid Phone No." });
 
+            if (available !== "0" && available !== "1")
+                return res
+                    .status(400)
+                    .json({ msg: "Please Select Available Status" });
+
             //hash the password
             const passwordHash = await bcrypt.hash(password, 12);
 
@@ -49,16 +55,8 @@ const employeeCtrl = {
                 role: "2",
                 password: passwordHash,
                 mastery,
+                available,
             });
-
-            // const access_token = createAccessToken({ id: newUser._id });
-            // const refresh_token = createRefreshsToken({ id: newUser._id });
-
-            // res.cookie("refreshtoken", refresh_token, {
-            //     httpOnly: true,
-            //     path: "/api/refresh_token",
-            //     maxAge: 30 * 7 * 24 * 60 * 60 * 1000, //30 days
-            // });
 
             await newUser.save();
 

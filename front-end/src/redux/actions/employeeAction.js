@@ -42,8 +42,6 @@ export const addEmployees = (auth, data) => async (dispatch) => {
                 success: res2.data.msg,
             },
         });
-
-        dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
