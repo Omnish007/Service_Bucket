@@ -181,10 +181,15 @@ const employeeCtrl = {
         try {
             const { ele, employee } = req.body;
 
-            const employeeData = await Users.findOne({ email: employee });
-            // console.log(ele._id);
+            const employeeData = await Users.findOne({
+                email: employee,
+            });
 
-            Order.findByIdAndUpdate(
+            const order = await Order.findById({ _id: ele._id }).populate(
+                "user",
+            );
+
+            await Order.findByIdAndUpdate(
                 { _id: ele._id },
                 {
                     $set: {
@@ -192,17 +197,21 @@ const employeeCtrl = {
                     },
                 },
             );
-            Users.findByIdAndUpdate(
+            await Users.findByIdAndUpdate(
                 { _id: employeeData._id },
                 {
                     $push: {
                         orders: ele._id,
+                    },
+                    $set: {
+                        available: "0",
                     },
                 },
             );
 
             res.status(201).json({
                 msg: "Employee is Successfuly Selected",
+                employee: order._doc,
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

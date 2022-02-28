@@ -58,12 +58,14 @@ export const addOrder = (ele, employee, auth) => async (dispatch) => {
             { ele, employee },
             auth.token,
         );
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                success: res.data.msg,
-            },
-        });
+
+        console.log(res.employee);
+        // dispatch({
+        //     type: GLOBALTYPES.ALERT,
+        //     payload: {
+        //         success: res.data.msg,
+        //     },
+        // });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,

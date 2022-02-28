@@ -16,6 +16,8 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
         dispatch(addOrder(ele, selectEmployee, auth));
     };
 
+    console.log(ele?.employee);
+
     return (
         <div className="adminPage_pendingReqForService_modal_body">
             <div className="adminPage_pendingReqForService_card_tag_container">
@@ -33,7 +35,11 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                         onChange={(e) => setSelectEmployee(e.target.value)}
                         className="adminPageModalBodySelectEmployee"
                     >
-                        <option value="select">Select Employee</option>
+                        <option value="select">
+                            {ele?.employee !== undefined
+                                ? ele.employee
+                                : "Select Employee"}
+                        </option>
                         <optgroup label="Available">
                             {employee.length > 0
                                 ? employee.map((element) =>
