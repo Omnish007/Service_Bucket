@@ -6,7 +6,7 @@ import Home from "./Pages/Home";
 import AdminPanel from "./Pages/AdminPanel ";
 import Service from "./Pages/Service";
 
-import Alert from "./components/alert/Alert";
+import Alert from "./components/Alert/Alert";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authActions";
 

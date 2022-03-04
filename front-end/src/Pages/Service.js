@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Card from "../components/home/Card";
+import Card from "../components/Home/Card";
 import "../CSS/Service.css";
 import Footer from "../components/footer";
 import Navbar from "../components/Navbar";

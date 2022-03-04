@@ -1,5 +1,6 @@
 import { GLOBALTYPES } from "./globalType";
 import { getDataAPI, postDataAPI } from "../../utils/fetchData";
+import valid from "../../utils/valid";
 
 export const getEmployees = (auth) => async (dispatch) => {
     try {
@@ -27,18 +28,37 @@ export const getEmployees = (auth) => async (dispatch) => {
     }
 };
 
-export const addEmployees = (auth, data) => async (dispatch) => {
+export const registerEmployee = (data) => async (dispatch) => {
+    const check = valid(data);
+
+    if (check.errLength > 0)
+        return dispatch({ type: GLOBALTYPES.ALERT, payload: check.errMsg });
+
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-        await postDataAPI("addEmployee", data, auth.token);
-        const res2 = await postDataAPI("sendCredential", data, auth.token);
+        const res = await postDataAPI("registerEmployee", data);
+        const res1 = await postDataAPI("activateEmployeeAccount", data);
+        // dispatch({
+        //     type: GLOBALTYPES.AUTH,
+        //     payload: {
+        //         token: res.data.access_token,
+        //         user: res.data.user,
+        //     },
+        // });
+
+        // localStorage.setItem("firstLogin", true);
+
+        // dispatch({
+        //     type: GLOBALTYPES.ALERT,
+        //     payload: {
+        //         success: res.data.msg,
+        //     },
+        // });
 
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {
-                success: res2.data.msg,
-            },
+            payload: { loading: false },
         });
     } catch (error) {
         dispatch({
@@ -60,12 +80,12 @@ export const addOrder = (ele, employee, auth) => async (dispatch) => {
         );
 
         console.log(res.employee);
-        // dispatch({
-        //     type: GLOBALTYPES.ALERT,
-        //     payload: {
-        //         success: res.data.msg,
-        //     },
-        // });
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                success: res.data.msg,
+            },
+        });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,

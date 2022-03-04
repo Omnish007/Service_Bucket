@@ -1,126 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-import '../CSS/Register.css';
-import Navbar from '../components/Navbar';
+import "../CSS/Register.css";
+import Navbar from "../components/Navbar";
 
-import { register } from '../redux/actions/authActions.js';
+import UserRegister from "../components/Register/UserRegister";
+import EmployeeRegister from "../components/Register/EmployeeRegister";
 
 const Register = () => {
-	const { auth, alert } = useSelector((state) => state);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+    const { auth, alert } = useSelector((state) => state);
+    const navigate = useNavigate();
+    const [selectRegisterType, setSelectRegisterType] = useState("User");
 
-	const initialState = {
-		name: '',
-		email: '',
-		phone: '',
-		password: '',
-		cf_password: '',
-	};
+    useEffect(() => {
+        if (auth.token) navigate(`/`);
+    }, [auth.token, navigate]);
 
-	const [ userData, setUserData ] = useState(initialState);
-	const { name, email, phone, password, cf_password } = userData;
+    return (
+        <div className="regisrer_page_container">
+            <Navbar />
+            <button onClick={() => setSelectRegisterType("User")}>
+                User Register
+            </button>
+            <button onClick={() => setSelectRegisterType("Employee")}>
+                Employee Register
+            </button>
+            <div className="main_container">
+                <div className="form_container">
+                    {selectRegisterType === "User" && (
+                        <UserRegister auth={auth} alert={alert} />
+                    )}
 
-	useEffect(
-		() => {
-			if (auth.token) navigate(`/`);
-		},
-		[ auth.token, navigate ]
-	);
-
-	const handleChangeInput = (e) => {
-		const { name, value } = e.target;
-		setUserData({ ...userData, [name]: value });
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(register(userData));
-	};
-
-	return (
-		<div className="regisrer_page_container">
-			<Navbar />
-			<div className="main_container">
-				<div className="form_container">
-					<h1>Register</h1>
-					<form onSubmit={handleSubmit}>
-						<div className="input_container">
-							<label htmlFor="Name">Name</label>
-							<input
-								type="text"
-								placeholder="Enter Your Name"
-								onChange={handleChangeInput}
-								value={name}
-								name="name"
-								style={{ background: `${alert.name ? '#fd2d6a14' : ''}` }}
-							/>
-							<small className="form-text text-danger">{alert.name ? alert.name : ''}</small>
-						</div>
-						<div className="input_container">
-							<label htmlFor="Email">Email</label>
-							<input
-								type="email"
-								placeholder="Enter Your Email"
-								onChange={handleChangeInput}
-								value={email}
-								name="email"
-								style={{ background: `${alert.email ? '#fd2d6a14' : ''}` }}
-							/>
-							<small className="form-text text-danger">{alert.email ? alert.email : ''}</small>
-						</div>
-						<div className="input_container">
-							<label htmlFor="Phone">Phone</label>
-							<input
-								type="tel"
-								placeholder="Enter Your Phone No."
-								onChange={handleChangeInput}
-								value={phone}
-								name="phone"
-								style={{ background: `${alert.email ? '#fd2d6a14' : ''}` }}
-							/>
-							<small className="form-text text-danger">{alert.phone ? alert.phone : ''}</small>
-						</div>
-						<div className="input_container">
-							<label htmlFor="Password">Password</label>
-							<input
-								type="password"
-								placeholder="Enter Your Password"
-								onChange={handleChangeInput}
-								value={password}
-								name="password"
-								style={{ background: `${alert.password ? '#fd2d6a14' : ''}` }}
-							/>
-							<small className="form-text text-danger">{alert.password ? alert.password : ''}</small>
-						</div>
-						<div className="input_container">
-							<label htmlFor="Password">Confirm Password</label>
-							<input
-								type="password"
-								placeholder="Confirm Your Password"
-								onChange={handleChangeInput}
-								value={cf_password}
-								name="cf_password"
-								style={{ background: `${alert.cf_password ? '#fd2d6a14' : ''}` }}
-							/>
-							<small className="form-text text-danger">
-								{alert.cf_password ? alert.cf_password : ''}
-							</small>
-						</div>
-						<div className="input_container">
-							<button className="submit_btn">Register</button>
-						</div>
-
-						<p>
-							Already Have an account? <Link to="/login">Login</Link>
-						</p>
-					</form>
-				</div>
-			</div>
-		</div>
-	);
+                    {selectRegisterType === "Employee" && (
+                        <EmployeeRegister auth={auth} alert={alert} />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default Register;

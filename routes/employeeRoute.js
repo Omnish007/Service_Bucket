@@ -5,11 +5,11 @@ const auth = require("../middleware/auth");
 
 router.get("/getEmployees", auth, adminAuth, employeeCtrl.getEmployees);
 
-router.post("/addEmployee", auth, adminAuth, employeeCtrl.addEmployee);
+router.post("/registerEmployee", employeeCtrl.registerEmployee);
+
+router.post("/activateEmployeeAccount", employeeCtrl.activateEmployeeAccount);
 
 router.post("/addOrder", auth, adminAuth, employeeCtrl.addOrder);
-
-router.post("/sendCredential", auth, adminAuth, employeeCtrl.sendCredential);
 
 router.post("/refresh_token", employeeCtrl.gentrateAccessToken);
 

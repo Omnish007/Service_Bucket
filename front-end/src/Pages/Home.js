@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../CSS/Home.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
-import Card from "../components/home/Card";
+import Card from "../components/Home/Card";
 
 import { useSelector, useDispatch } from "react-redux";
 import LoadIcon from "../images/loading.gif";
