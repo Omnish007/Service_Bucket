@@ -14,6 +14,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Profile from "./Pages/Profile";
 import PageRender from "./components/Private Router/PageRender";
 import NotFound from "./components/NotFound";
+import ActivateEmployeeEmail from "./components/Register/ActivateEmployeeEmail";
 
 function App() {
     const { auth, service } = useSelector((state) => state);
@@ -37,6 +38,11 @@ function App() {
                 <Route path="/service" element={<Service />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route exact path="/" element={<Home />} />
+                <Route
+                    path="/employee/activate/:activation_token"
+                    element={<ActivateEmployeeEmail />}
+                    exact
+                />
 
                 <Route path="/:page/:id" element={<PageRender />} />
                 <Route path="*" element={<NotFound />} />

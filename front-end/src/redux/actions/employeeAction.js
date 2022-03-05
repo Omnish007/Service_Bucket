@@ -38,27 +38,42 @@ export const registerEmployee = (data) => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
         const res = await postDataAPI("registerEmployee", data);
-        const res1 = await postDataAPI("activateEmployeeAccount", data);
-        // dispatch({
-        //     type: GLOBALTYPES.AUTH,
-        //     payload: {
-        //         token: res.data.access_token,
-        //         user: res.data.user,
-        //     },
-        // });
 
         // localStorage.setItem("firstLogin", true);
 
-        // dispatch({
-        //     type: GLOBALTYPES.ALERT,
-        //     payload: {
-        //         success: res.data.msg,
-        //     },
-        // });
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                success: res.data.msg,
+            },
+        });
 
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: { loading: false },
+            payload: {},
+        });
+    } catch (error) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.response.data.msg,
+            },
+        });
+    }
+};
+
+export const activateEmail = (activation_token) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
+        const res = await postDataAPI("activateEmployeeAccount", {
+            activation_token,
+        });
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                success: res.data.msg,
+            },
         });
     } catch (error) {
         dispatch({

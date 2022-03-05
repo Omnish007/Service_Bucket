@@ -3,6 +3,7 @@ const Order = require("../models/orderModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const { CLIENT_URL } = process.env;
 
 const employeeCtrl = {
     getEmployees: async (req, res) => {
@@ -40,7 +41,7 @@ const employeeCtrl = {
             //hash the password
             const passwordHash = await bcrypt.hash(password, 12);
             const available = "1";
-            const newUser = new Employee({
+            const newEmployee = {
                 name,
                 email,
                 phone,
@@ -48,10 +49,46 @@ const employeeCtrl = {
                 password: passwordHash,
                 mastery: [],
                 available,
+            };
+
+            const activation_token = createActivationToken(newEmployee);
+            const url = `${CLIENT_URL}/employee/activate/${activation_token}`;
+
+            const transporte = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                auth: {
+                    user: "servicebucket999@gmail.com",
+                    pass: process.env.EMAIL_PASSWORD,
+                },
             });
-            await newUser.save();
-            res.json({
-                msg: "Register successful, check your email to activate your account",
+            let mailOptions = {
+                from: "servicebucket999@gmail.com",
+                to: email,
+                subject: "Email activation to join Service Bucket",
+                html: `<div style="max-width: 700px; margin: auto; border: 10px solid rgb(47, 153, 47); padding: 50px 20px;">
+                        <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to Service Bucket</h2>
+                        <p>Congratulations You're almost set to start using SERVICE BUCKET
+                            Just click the button below to validate your email address
+                        </p>
+                        <div style="text-align: center;">
+                            <a href="${url}" style="background: green; text-decoration: none; padding: 10px 20px; color:white;">Activate Email</a>
+                        </div>
+                        <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+                        <a href=${url}>${url}</a>
+                    </div>`,
+            };
+
+            transporte.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(500).json({ msg: err.message });
+                } else {
+                    return res
+                        .status(200)
+                        .json({ msg: "Mail Sended Successfully" });
+                }
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -123,46 +160,36 @@ const employeeCtrl = {
 
     activateEmployeeAccount: async (req, res) => {
         try {
-            const { email } = req.body;
+            const { activation_token } = req.body;
+            const employee = jwt.verify(
+                activation_token,
+                process.env.ACTIVATION_TOKEN_SECRET,
+            );
 
-            const transporte = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
-                secure: false,
-                requireTLS: true,
-                auth: {
-                    user: "servicebucket999@gmail.com",
-                    pass: process.env.EMAIL_PASSWORD,
-                },
+            const { name, email, phone, password, mastery, available, role } =
+                employee;
+
+            const check = await Employee.findOne({ email });
+            if (check)
+                return res
+                    .status(400)
+                    .json({ msg: "this email is already exists" });
+
+            const newEmployee = new Employee({
+                name,
+                email,
+                phone,
+                role,
+                password,
+                mastery,
+                available,
             });
-            // let mailOptions = {
-            //     from: "servicebucket999@gmail.com",
-            //     to: email,
-            //     subject: "Credential for join Service Bucket",
-            //     html: `  <div style="display: flex;justify-content: center;align-items: center;">
-            //     <div style="margin:auto;min-width:580px;width: 30%;font-family: Helvetica;border: 10px solid green;padding: 50px;">
-            //         <h2 style=" text-align: center;color: teal; text-decoration: none; ">
-            //             Hello ${email}
-            //         </h2>
-            //         <h2 style="text-align: center;">Welcome To Service Bucket</h2>
-            //         <hr>
-            //         <h3 style="text-align: center;">Email: <strong>${email}</strong></h3>
-            //         <h3 style="color: red ;text-align: center;">Password: <strong>${password}</strong></h3>
-            //         <p style="text-align: center;color:#adad07;font-weight:700">Warning: Please Don't Share your credentials with anyone</p>
-            //     </div>`,
-            // };
 
-            // transporte.sendMail(mailOptions, (err, info) => {
-            //     if (err) {
-            //         return res.status(500).json({ msg: err.message });
-            //     } else {
-            //         return res
-            //             .status(200)
-            //             .json({ msg: "Mail Sended Successfully" });
-            //     }
-            // });
-        } catch (error) {
-            return res.status(500).json({ msg: error.message });
+            await newEmployee.save();
+
+            res.json({ msg: "Account has been activated!" });
+        } catch (err) {
+            return res.status(500).json({ msg: err.message });
         }
     },
 
@@ -217,6 +244,12 @@ const createAccessToken = (payload) => {
 const createRefreshsToken = (payload) => {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: "30d",
+    });
+};
+
+const createActivationToken = (payload) => {
+    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {
+        expiresIn: "5m",
     });
 };
 
