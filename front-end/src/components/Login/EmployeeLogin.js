@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../redux/actions/authActions";
+import { loginEmployee } from "../../redux/actions/employeeAction";
 
 const EmployeeLogin = ({ auth }) => {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const EmployeeLogin = ({ auth }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(login(userData));
+        dispatch(loginEmployee(userData));
     };
 
     return (

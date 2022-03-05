@@ -9,6 +9,7 @@ import Service from "./Pages/Service";
 import Alert from "./components/Alert/Alert";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/authActions";
+import { refreshTokenForEmployee } from "./redux/actions/employeeAction";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Profile from "./Pages/Profile";
@@ -23,9 +24,10 @@ function App() {
 
     useEffect(() => {
         dispatch(refreshToken());
-        if (auth.token) {
-            localStorage.setItem("auth", auth.token);
-        }
+        dispatch(refreshTokenForEmployee());
+        // if (auth.token) {
+        //     localStorage.setItem("auth", auth.token);
+        // }
     }, []);
 
     return (

@@ -7,6 +7,8 @@ router.get("/getEmployees", auth, adminAuth, employeeCtrl.getEmployees);
 
 router.post("/registerEmployee", employeeCtrl.registerEmployee);
 
+router.post("/loginEmployee", employeeCtrl.loginEmployee);
+
 router.post("/activateEmployeeAccount", employeeCtrl.activateEmployeeAccount);
 
 router.post("/addOrder", auth, adminAuth, employeeCtrl.addOrder);

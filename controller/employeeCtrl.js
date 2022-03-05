@@ -74,10 +74,10 @@ const employeeCtrl = {
                             Just click the button below to validate your email address
                         </p>
                         <div style="text-align: center;">
-                            <a href="${url}" style="background: green; text-decoration: none; padding: 10px 20px; color:white;">Activate Email</a>
+                            <a href="http://${url}" style="background: green; text-decoration: none; padding: 10px 20px; color:white;">Activate Email</a>
                         </div>
                         <p>If the button doesn't work for any reason, you can also click on the link below:</p>
-                        <a href=${url}>${url}</a>
+                        <a href="http://${url}">${url}</a>
                     </div>`,
             };
 
@@ -89,6 +89,43 @@ const employeeCtrl = {
                         .status(200)
                         .json({ msg: "Mail Sended Successfully" });
                 }
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    loginEmployee: async (req, res) => {
+        try {
+            const { email, password } = req.body;
+
+            const employee = await Employee.findOne({ email });
+
+            if (!employee)
+                return res
+                    .status(400)
+                    .json({ msg: "This email does not exist" });
+
+            const isMatch = await bcrypt.compare(password, employee.password);
+            if (!isMatch)
+                return res.status(400).json({ msg: "Password is incorrect" });
+
+            const access_token = createAccessToken({ id: employee._id });
+            const refresh_token = createRefreshsToken({ id: employee._id });
+
+            res.cookie("refreshtoken", refresh_token, {
+                httpOnly: true,
+                path: "/api/refresh_token",
+                maxAge: 24 * 60 * 60 * 1000, //1 day
+            });
+
+            res.json({
+                msg: "Login Success",
+                access_token,
+                user: {
+                    ...employee._doc,
+                    password: "",
+                },
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

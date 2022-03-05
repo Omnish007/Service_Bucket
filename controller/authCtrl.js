@@ -1,4 +1,6 @@
 const Users = require("../models/userModel");
+const Employee = require("../models/employeeModel");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -62,18 +64,38 @@ const authCtrl = {
             const { email, password } = req.body;
 
             const user = await Users.findOne({ email });
+            const employee = await Employee.findOne({ email });
+            let access_token;
+            let refresh_token;
 
-            if (!user)
+            if (!user && !employee)
                 return res
                     .status(400)
                     .json({ msg: "This email does not exist" });
 
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch)
-                return res.status(400).json({ msg: "Password is incorrect" });
+            if (user) {
+                const isMatch = await bcrypt.compare(password, user.password);
+                if (!isMatch)
+                    return res
+                        .status(400)
+                        .json({ msg: "Password is incorrect" });
+                access_token = createAccessToken({ id: user._id });
+                refresh_token = createRefreshsToken({ id: user._id });
+            }
 
-            const access_token = createAccessToken({ id: user._id });
-            const refresh_token = createRefreshsToken({ id: user._id });
+            if (employee) {
+                const isMatch = await bcrypt.compare(
+                    password,
+                    employee.password,
+                );
+                if (!isMatch)
+                    return res
+                        .status(400)
+                        .json({ msg: "Password is incorrect" });
+
+                access_token = createAccessToken({ id: employee._id });
+                refresh_token = createRefreshsToken({ id: employee._id });
+            }
 
             res.cookie("refreshtoken", refresh_token, {
                 httpOnly: true,
@@ -81,14 +103,26 @@ const authCtrl = {
                 maxAge: 30 * 7 * 24 * 60 * 60 * 1000, //30 days
             });
 
-            res.json({
-                msg: "Login Success",
-                access_token,
-                user: {
-                    ...user._doc,
-                    password: "",
-                },
-            });
+            if (employee) {
+                res.json({
+                    msg: "Login Success",
+                    access_token,
+                    user: {
+                        ...employee._doc,
+                        password: "",
+                    },
+                });
+            }
+            if (user) {
+                res.json({
+                    msg: "Login Success",
+                    access_token,
+                    user: {
+                        ...user._doc,
+                        password: "",
+                    },
+                });
+            }
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
@@ -118,21 +152,36 @@ const authCtrl = {
                     const user = await Users.findById(result.id).select(
                         "-password",
                     );
+                    const employee = await Employee.findById(result.id).select(
+                        "-password",
+                    );
 
-                    if (!user)
+                    if (!user && !employee)
                         return res
                             .status(400)
                             .json({ msg: "This user is not exist" });
 
                     const access_token = createAccessToken({ id: result.id });
 
-                    res.json({
-                        access_token,
-                        user: {
-                            ...user._doc,
-                            password: "",
-                        },
-                    });
+                    if (user) {
+                        res.json({
+                            access_token,
+                            user: {
+                                ...user?._doc,
+                                password: "",
+                            },
+                        });
+                    }
+
+                    if (employee) {
+                        res.json({
+                            access_token,
+                            user: {
+                                ...employee?._doc,
+                                password: "",
+                            },
+                        });
+                    }
                 },
             );
         } catch (error) {
