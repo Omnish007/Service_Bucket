@@ -196,7 +196,7 @@ const employeeCtrl = {
                         employee: employeeData._id,
                     },
                 },
-            );
+            ).populate("user");
             await Users.findByIdAndUpdate(
                 { _id: employeeData._id },
                 {

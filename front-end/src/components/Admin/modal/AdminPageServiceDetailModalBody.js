@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder, getEmployees } from "../../../redux/actions/employeeAction";
+import { getAllOrders } from "../../../redux/actions/orderAction";
 
 const AdminPageServiceDetailModalBody = ({ ele }) => {
-    const { auth, employee } = useSelector((state) => state);
+    const { auth, employee, alert } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const [selectEmployee, setSelectEmployee] = useState("");
+    const [employeeName, setEmployeeName] = useState("");
 
     useEffect(() => {
         dispatch(getEmployees(auth));
+        if (employee.length > 0) {
+            const employeeName = employee.filter((e) => e._id === ele.employee);
+            setEmployeeName(employeeName[0].name);
+        }
     }, []);
 
     const handleConfirmEmployee = () => {
-        dispatch(addOrder(ele, selectEmployee, auth));
+        try {
+            dispatch(addOrder(ele, selectEmployee, auth));
+        } catch (error) {
+            console.log(error);
+        }
     };
-
-    console.log(ele?.employee);
 
     return (
         <div className="adminPage_pendingReqForService_modal_body">
@@ -29,15 +37,17 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                     {ele.subService}
                 </span>
             </div>
+
             {ele.status === "0" ? (
                 <>
                     <select
                         onChange={(e) => setSelectEmployee(e.target.value)}
                         className="adminPageModalBodySelectEmployee"
+                        disabled={ele.employee === undefined ? false : true}
                     >
                         <option value="select">
-                            {ele?.employee !== undefined
-                                ? ele.employee
+                            {ele.employee !== undefined
+                                ? employeeName
                                 : "Select Employee"}
                         </option>
                         <optgroup label="Available">

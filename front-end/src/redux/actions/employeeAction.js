@@ -5,7 +5,6 @@ export const getEmployees = (auth) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
         const res = await getDataAPI("getEmployees", auth.token);
-        console.log(res.data.employees);
         dispatch({
             type: GLOBALTYPES.EMPLOYEE,
             payload: res.data.employees,
@@ -59,13 +58,12 @@ export const addOrder = (ele, employee, auth) => async (dispatch) => {
             auth.token,
         );
 
-        console.log(res.employee);
-        // dispatch({
-        //     type: GLOBALTYPES.ALERT,
-        //     payload: {
-        //         success: res.data.msg,
-        //     },
-        // });
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                success: res.data.msg,
+            },
+        });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
