@@ -19,7 +19,7 @@ const Service = () => {
         Aos.init({ duration: 300, easing: "ease-in-out-cubic" });
     }, []);
 
-    useEffect(async () => {
+    useEffect(() => {
         setLoad(true);
         dispatch(getServices());
         setLoad(false);

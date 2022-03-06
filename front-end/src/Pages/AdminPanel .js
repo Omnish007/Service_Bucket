@@ -48,7 +48,7 @@ const AdminPanel = () => {
                     ))}
             </div>
 
-            <AdminPageAddEmployeeForm />
+            {/* <AdminPageAddEmployeeForm /> */}
             <AdminPageEmployeeList />
             <Foorer />
         </>
