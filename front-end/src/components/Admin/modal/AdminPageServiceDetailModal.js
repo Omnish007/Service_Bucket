@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployees } from "../../../redux/actions/employeeAction";
 import AdminPageServiceDetailModalBody from "./AdminPageServiceDetailModalBody";
 import AdminPageServiceDetailModalHeader from "./AdminPageServiceDetailModalHeader";
 
 const AdminPageServiceDetailModal = ({ ele, setModal, modal }) => {
+    const { employee, auth } = useSelector((state) => state);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getEmployees(auth));
+    }, []);
+
     return (
         <div>
             {modal && (
@@ -24,7 +33,11 @@ const AdminPageServiceDetailModal = ({ ele, setModal, modal }) => {
                         </h1>
 
                         <AdminPageServiceDetailModalHeader ele={ele} />
-                        <AdminPageServiceDetailModalBody ele={ele} />
+                        <AdminPageServiceDetailModalBody
+                            ele={ele}
+                            employee={employee}
+                            setModal={setModal}
+                        />
                     </div>
                 </div>
             )}

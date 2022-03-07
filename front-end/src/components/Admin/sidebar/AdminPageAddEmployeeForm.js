@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployees } from "../../redux/actions/employeeAction";
+import { addEmployees } from "../../../redux/actions/employeeAction";
 
 const AdminPageAddEmployeeForm = () => {
     const [checkedVal, setCheckedVal] = useState([]);

@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder, getEmployees } from "../../../redux/actions/employeeAction";
 import { getAllOrders } from "../../../redux/actions/orderAction";
 
-const AdminPageServiceDetailModalBody = ({ ele }) => {
-    const { auth, employee, alert } = useSelector((state) => state);
+const AdminPageServiceDetailModalBody = ({ ele, employee, setModal }) => {
+    const { auth, order } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const [selectEmployee, setSelectEmployee] = useState("");
     const [employeeName, setEmployeeName] = useState("");
 
     useEffect(() => {
-        dispatch(getEmployees(auth));
-        if (employee.length > 0) {
+        if (ele?.employee !== "" && ele?.employee !== undefined) {
             const employeeName = employee.filter((e) => e._id === ele.employee);
             setEmployeeName(employeeName[0].name);
         }
-    }, []);
+        dispatch(getAllOrders({ auth }));
+    }, [ele.employee]);
 
     const handleConfirmEmployee = () => {
         try {
             dispatch(addOrder(ele, selectEmployee, auth));
+            setModal(false);
         } catch (error) {
             console.log(error);
         }
@@ -88,6 +89,12 @@ const AdminPageServiceDetailModalBody = ({ ele }) => {
                                 : ""}
                         </optgroup>
                     </select>
+                    {ele.employee !== undefined && (
+                        <p className="adminPageModalBodyAssignedemployee">
+                            Has been assigned
+                        </p>
+                    )}
+
                     {selectEmployee === "" || selectEmployee === "select" ? (
                         ""
                     ) : (

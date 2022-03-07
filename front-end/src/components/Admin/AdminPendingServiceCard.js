@@ -12,7 +12,7 @@ const AdminPendingServiceCard = ({ ele }) => {
 
     return (
         <>
-            <div className="adminPage_pendingReqForService_card">
+            <div className="adminPage_pendingReqForService_card ">
                 <div className="adminPage_pendingReqForService_card_img">
                     <img src={ele.image} alt="" />
                 </div>
