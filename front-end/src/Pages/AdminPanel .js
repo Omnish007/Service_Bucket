@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Route, Link, useNavigate, Routes } from "react-router-dom";
+import {
+    Route,
+    Link,
+    useNavigate,
+    Routes,
+    useLocation,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../CSS/AdminPage.css";
@@ -10,16 +16,46 @@ import AdminPageAddEmployeeForm from "../components/Admin/sidebar/AdminPageAddEm
 import ServiceList from "../components/Admin/sidebar/ServiceList";
 import OrderCards from "../components/Admin/sidebar/OrderCards";
 import Pagination from "../components/Admin/sidebar/Pagination";
+import SideBarHome from "../components/Admin/sidebar/SideBarHome";
 
 const AdminPanel = () => {
     const { auth, service, order } = useSelector((state) => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
+    const loc = useLocation();
+    let pageUrl = loc.pathname.split("/adminPanel/");
 
     //pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [ordersPerPage] = useState(3);
+
+    useEffect(() => {
+        for (
+            let i = 0;
+            i < document.querySelectorAll(".adminPageSideBar li").length;
+            i++
+        ) {
+            document
+                .querySelectorAll(".adminPageSideBar li")
+                [i].classList.remove("active");
+        }
+        if (pageUrl.includes("serviceList")) {
+            document
+                .getElementById("adminServiceList")
+                .classList.toggle("active");
+        }
+        if (pageUrl.includes("addEmployee")) {
+            document
+                .getElementById("adminAddEmployee")
+                .classList.toggle("active");
+        }
+        if (pageUrl.includes("orderCard")) {
+            document
+                .getElementById("adminOrderCard")
+                .classList.toggle("active");
+        }
+    }, [loc]);
 
     useEffect(async () => {
         if (await auth.user) {
@@ -49,19 +85,20 @@ const AdminPanel = () => {
             <div className="adminPageSideBarContainer">
                 <div className="adminPageSideBar">
                     <ul>
-                        <li>
+                        <li id="adminServiceList">
                             <Link to="serviceList">Service List</Link>
                         </li>
-                        <li>
+                        <li id="adminAddEmployee">
                             <Link to="addEmployee">Add Employee</Link>
                         </li>
-                        <li>
+                        <li id="adminOrderCard">
                             <Link to="orderCard">Order Cards</Link>
                         </li>
                     </ul>
                 </div>
                 <div className="adminPageSideBarContent">
                     <Routes>
+                        <Route exact path="/" element={<SideBarHome />} />
                         <Route
                             exact
                             path="serviceList"
@@ -76,7 +113,7 @@ const AdminPanel = () => {
                         />
                         <Route
                             exact
-                            path="orderCard/*"
+                            path="orderCard"
                             element={
                                 <>
                                     <OrderCards
@@ -87,6 +124,7 @@ const AdminPanel = () => {
                                         orderPerPage={ordersPerPage}
                                         totalOrder={order.length}
                                         paginate={paginate}
+                                        currentPage={currentPage}
                                     />
                                 </>
                             }

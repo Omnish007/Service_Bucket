@@ -5,7 +5,7 @@ const style = {
     cursor: "pointer",
 };
 
-const Pagination = ({ orderPerPage, totalOrder, paginate }) => {
+const Pagination = ({ orderPerPage, totalOrder, paginate, currentPage }) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalOrder / orderPerPage); i++) {
@@ -16,15 +16,19 @@ const Pagination = ({ orderPerPage, totalOrder, paginate }) => {
         <div className="adminPageOrderCardPaginationContainer">
             <ul className="pagination">
                 {pageNumbers.map((num) => (
-                    <li key={num} className="page-item">
-                        <Link
+                    <li
+                        key={num}
+                        className={`page-item ${
+                            currentPage === num ? "active" : ""
+                        }`}
+                    >
+                        <p
                             style={style}
                             onClick={() => paginate(num)}
                             className="page-link"
-                            to={`${num}`}
                         >
                             {num}
-                        </Link>
+                        </p>
                     </li>
                 ))}
             </ul>

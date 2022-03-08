@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addOrder, getEmployees } from "../../../redux/actions/employeeAction";
 import { getAllOrders } from "../../../redux/actions/orderAction";
 
-const AdminPageServiceDetailModalBody = ({ ele, employee, setModal }) => {
-    const { auth, order } = useSelector((state) => state);
+const AdminPageServiceDetailModalBody = ({ ele, setModal }) => {
+    const { auth, employee } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const [selectEmployee, setSelectEmployee] = useState("");
