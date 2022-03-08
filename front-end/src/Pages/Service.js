@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Card from "../components/home/Card";
 import "../CSS/Service.css";
 import Footer from "../components/footer";
@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { getServices } from "../redux/actions/serviceActions";
 import LoadIcon from "../images/loading.gif";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -14,6 +14,21 @@ const Service = () => {
     const { auth, service } = useSelector((state) => state);
     const dispatch = useDispatch();
     const [load, setLoad] = useState(false);
+
+    ////////////////////
+
+    const pageName = useLocation().hash;
+    console.log(pageName);
+    const ref = useRef();
+
+    useEffect(() => {
+        if (pageName !== "")
+            setTimeout(() => {
+                ref.current.click();
+            }, 100);
+    }, []);
+
+    ////////////////////
 
     useEffect(() => {
         Aos.init({ duration: 300, easing: "ease-in-out-cubic" });
@@ -29,6 +44,9 @@ const Service = () => {
         <div className>
             <Navbar />
             <div className="service_main_container">
+                <a className="hidden" ref={ref} href={pageName}>
+                    dsd
+                </a>
                 {load ? (
                     <img
                         src={LoadIcon}
@@ -48,6 +66,7 @@ const Service = () => {
                                     <Link
                                         data-aos="fade-up"
                                         key={element._id}
+                                        id={ele.name}
                                         to={
                                             auth.token
                                                 ? `/service/${element._id}`

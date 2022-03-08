@@ -38,7 +38,10 @@ const Home = () => {
                         />
                     ) : service.length > 0 ? (
                         service.map((element) => (
-                            <Link key={element._id} to="service">
+                            <Link
+                                key={element._id}
+                                to={`service#${element.name}`}
+                            >
                                 <Card name={element.name} src={element.image} />
                             </Link>
                         ))

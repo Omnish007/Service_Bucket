@@ -64,7 +64,7 @@ const orderCtrl = {
             );
 
             res.json({
-                msg: "Service Created",
+                msg: "Order Successfully Created",
                 newOrder: {
                     ...newOrder._doc,
                 },
