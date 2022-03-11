@@ -14,7 +14,7 @@ const AdminPendingServiceCard = ({ ele }) => {
         <>
             <div className="adminPage_pendingReqForService_card ">
                 <div className="adminPage_pendingReqForService_card_img">
-                    <img src={ele.image} alt="" />
+                    <img className="img-responsive" src={ele.image} alt="" />
                 </div>
                 <div className="adminPage_pendingReqForService_card_info">
                     <h1>

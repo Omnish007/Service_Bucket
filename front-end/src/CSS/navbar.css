@@ -1,12 +1,11 @@
-.navbar{
-    background-color:rgb(42, 42, 42) !important;
-    height: 70px;
+.navbar {
+    background-color: rgb(42, 42, 42) !important;
+    padding-bottom: 20px;
 }
 
-
-.nav-item a{
-    text-decoration:none;
-    margin-left:20px;
-    color:white;
+.nav-item a {
+    text-decoration: none;
+    margin-left: 20px;
+    color: white;
     font-size: 20px;
 }

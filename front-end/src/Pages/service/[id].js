@@ -29,23 +29,8 @@ const ServiceForm = () => {
     };
     const [formData, setFormData] = useState(initialState);
 
-    // const newTarikh = new Date();
-
-    // newTarikh.setDate(newTarikh.getDate() + 1);
-
-    // console.log(tarikh);
-    // console.log(newTarikh);
-
     const [startdate, setstartdate] = useState(tarikh);
-    // const [enddate, setenddate] = useState(newTarikh);
-
     const navigate = useNavigate();
-
-    console.log(tarikh.toISOString().slice(0, 10));
-
-    // console.log(tarikh);
-
-    // const [cardNoFormat, setCardNoFormat] = useState("");
 
     useEffect(() => {
         setLoad(true);
@@ -166,6 +151,9 @@ const ServiceForm = () => {
                         }
                         value={formData.date}
                         min={tarikh.toISOString().slice(0, 10)}
+                        onKeyDown={() => {
+                            return false;
+                        }}
                     />
                     <small className="form-text text-danger">
                         {alert.date ? alert.date : ""}

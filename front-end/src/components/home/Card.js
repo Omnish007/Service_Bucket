@@ -1,5 +1,4 @@
 import React from "react";
-import "../../CSS/Card.css";
 
 const Card = ({ src, name, price }) => {
     return (
