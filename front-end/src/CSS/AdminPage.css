@@ -515,6 +515,45 @@
     color: rgb(255, 255, 255);
 }
 
+.adminPage_pendingReqForService_modal_body_remainingTime_container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.adminPage_pendingReqForService_modal_body_remainingTime_container div {
+    background: #a0a0a0e8;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    padding: 15px 10px;
+}
+.adminPage_pendingReqForService_modal_body_remainingTime_container div span {
+    width: 70px;
+    /* background: #00816a; */
+    background: #2c3333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 500;
+}
+.adminPage_pendingReqForService_modal_body_remainingTime_container div p {
+    width: 70px;
+    text-align: center;
+    background: transparent;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
 .adminPage_pendingReqForService_modal_body_statusPara {
     position: absolute;
     bottom: 10px;

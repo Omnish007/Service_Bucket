@@ -9,6 +9,39 @@ const AdminPageServiceDetailModalBody = ({ ele, setModal }) => {
 
     const [selectEmployee, setSelectEmployee] = useState("");
     const [employeeName, setEmployeeName] = useState("");
+    const [remainingDHM, setRemainingDHM] = useState([]);
+
+    const today = new Date();
+    const now = today.getTime();
+    const serviceDate = ele.date.split("-");
+    const date = new Date(serviceDate[0], serviceDate[1] - 1, serviceDate[2]);
+    const serviceMilli = date.getTime();
+
+    useEffect(() => {
+        function dhm(t) {
+            var cd = 24 * 60 * 60 * 1000,
+                ch = 60 * 60 * 1000,
+                d = Math.floor(t / cd),
+                h = Math.floor((t - d * cd) / ch),
+                m = Math.round((t - d * cd - h * ch) / 60000),
+                pad = function (n) {
+                    return n < 10 ? "0" + n : n;
+                };
+            if (m === 60) {
+                h++;
+                m = 0;
+            }
+            if (h === 24) {
+                d++;
+                h = 0;
+            }
+
+            return [d, pad(h), pad(m)].join(":");
+        }
+        const remain = dhm(serviceMilli - now).split(":");
+
+        setRemainingDHM(remain);
+    }, []);
 
     useEffect(() => {
         if (ele?.employee !== "" && ele?.employee !== undefined) {
@@ -107,6 +140,21 @@ const AdminPageServiceDetailModalBody = ({ ele, setModal }) => {
             ) : (
                 ""
             )}
+
+            <div className="adminPage_pendingReqForService_modal_body_remainingTime_container">
+                <div>
+                    <span> {remainingDHM[0] < 0 ? "00" : remainingDHM[0]}</span>
+                    <p>Days</p>
+                </div>
+                <div>
+                    <span> {remainingDHM[0] < 0 ? "00" : remainingDHM[1]}</span>
+                    <p>Hrs</p>
+                </div>
+                <div>
+                    <span> {remainingDHM[0] < 0 ? "00" : remainingDHM[2]}</span>
+                    <p>Min</p>
+                </div>
+            </div>
 
             <p className="adminPage_pendingReqForService_modal_body_statusPara">
                 <span>Order Status is </span>

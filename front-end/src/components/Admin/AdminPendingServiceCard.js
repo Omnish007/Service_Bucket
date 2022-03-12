@@ -32,7 +32,10 @@ const AdminPendingServiceCard = ({ ele }) => {
                         </span>
                     </div>
 
-                    <p>{ele.price}</p>
+                    <p className="adminPage_pendingReqForService_card_price">
+                        {ele.price}
+                    </p>
+
                     <p>
                         <i
                             style={{

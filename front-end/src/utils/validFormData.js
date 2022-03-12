@@ -42,7 +42,7 @@ const validFormData = ({
         error.cardNo = "Invalid CardNo";
     }
 
-    if (cvv === "") {
+    if (cvv === "" || cvv === undefined) {
         error.cvv = "Please Input CVV";
     } else if (isNaN(cvv)) {
         error.cvv = "Please Enter Numbers Only";
@@ -52,8 +52,6 @@ const validFormData = ({
 
     if (expiryDate === "") {
         error.expiryDate = "Please Input Expiry Date";
-    } else if (isNaN(expiryDate)) {
-        error.expiryDate = "Please Input Valid Expiry Date";
     }
 
     return {

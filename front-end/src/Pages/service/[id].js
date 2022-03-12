@@ -29,7 +29,7 @@ const ServiceForm = () => {
     };
     const [formData, setFormData] = useState(initialState);
 
-    const [startdate, setstartdate] = useState(tarikh);
+    // const [startdate, setstartdate] = useState(tarikh);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -51,7 +51,6 @@ const ServiceForm = () => {
         setFormData({ ...formData, cardNo: "" });
 
         let val = e.target.value;
-
         val = val.split("-").join("");
 
         if (val > 0) {
@@ -62,7 +61,6 @@ const ServiceForm = () => {
 
     const handlePay = async (e) => {
         e.preventDefault();
-        if (alert == "") navigate("/");
         dispatch(createOrder(formData, auth));
         setFormData({
             ...initialState,
@@ -186,7 +184,7 @@ const ServiceForm = () => {
                     </small>
 
                     <input
-                        type="text"
+                        type="password"
                         placeholder="CVV"
                         onChange={(e) =>
                             setFormData({ ...formData, cvv: e.target.value })
@@ -198,7 +196,7 @@ const ServiceForm = () => {
                     </small>
 
                     <input
-                        type="TEXT"
+                        type="date"
                         placeholder="Expiry Date"
                         onChange={(e) =>
                             setFormData({
@@ -207,6 +205,10 @@ const ServiceForm = () => {
                             })
                         }
                         value={formData.expiryDate}
+                        min={tarikh.toISOString().slice(0, 10)}
+                        onKeyDown={() => {
+                            return false;
+                        }}
                     />
                     <small className="form-text text-danger">
                         {alert.expiryDate ? alert.expiryDate : ""}
