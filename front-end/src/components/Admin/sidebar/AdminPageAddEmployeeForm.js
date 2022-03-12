@@ -7,6 +7,7 @@ const AdminPageAddEmployeeForm = () => {
     const [radioVal, setRadioVal] = useState("1");
     const { service, auth } = useSelector((state) => state);
     const dispatch = useDispatch();
+    const checkboxes = document.querySelectorAll(".checkbox");
 
     const initial = {
         name: "",
@@ -43,6 +44,9 @@ const AdminPageAddEmployeeForm = () => {
         setData(initial);
         setCheckedVal([]);
         setRadioVal("1");
+        for (var checkbox of checkboxes) {
+            checkbox.checked = false;
+        }
         dispatch(addEmployees(auth, data));
     };
 
@@ -96,9 +100,10 @@ const AdminPageAddEmployeeForm = () => {
                         </div>
                         <div>
                             {service.length > 0
-                                ? service.map((e) => (
-                                      <label>
+                                ? service.map((e, i) => (
+                                      <label key={i}>
                                           <input
+                                              className="checkbox"
                                               type="checkbox"
                                               name={e.name}
                                               onChange={handleCheck}
@@ -116,8 +121,8 @@ const AdminPageAddEmployeeForm = () => {
                                 type="radio"
                                 name="available"
                                 value="1"
-                                onChange={(e) => setRadioVal(e.target.value)}
-                                checked
+                                onChange={(e) => setRadioVal("1")}
+                                checked={radioVal === "1" ? true : false}
                             />
                             <span> Available</span>
                         </label>
@@ -126,7 +131,8 @@ const AdminPageAddEmployeeForm = () => {
                                 type="radio"
                                 name="available"
                                 value="0"
-                                onChange={(e) => setRadioVal(e.target.value)}
+                                onChange={(e) => setRadioVal("0")}
+                                checked={radioVal === "0" ? true : false}
                             />
                             <span> Not Available</span>
                         </label>

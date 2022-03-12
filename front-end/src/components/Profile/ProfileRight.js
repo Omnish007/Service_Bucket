@@ -60,7 +60,7 @@ const ProfileRight = () => {
                         <div className="profile_card_container container-fluid">
                             {order.map((ele) =>
                                 ele.status === "0" ? (
-                                    <>
+                                    <React.Fragment key={ele._id}>
                                         <h1 className="hidden">
                                             {(pending = 1)}
                                         </h1>
@@ -78,7 +78,7 @@ const ProfileRight = () => {
                                             button={true}
                                             deleteService={del}
                                         />
-                                    </>
+                                    </React.Fragment>
                                 ) : (
                                     ""
                                 ),

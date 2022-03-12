@@ -17,6 +17,7 @@ import ServiceList from "../components/Admin/sidebar/ServiceList";
 import OrderCards from "../components/Admin/sidebar/OrderCards";
 import Pagination from "../components/Admin/sidebar/Pagination";
 import SideBarHome from "../components/Admin/sidebar/SideBarHome";
+import { getServices } from "../redux/actions/serviceActions";
 
 const AdminPanel = () => {
     const { auth, service, order } = useSelector((state) => state);
@@ -57,16 +58,15 @@ const AdminPanel = () => {
         }
     }, [loc]);
 
-    useEffect(async () => {
-        if (await auth.user) {
-            if ((await auth.user.role) === "0") {
-                navigate("/");
-            } else {
-                setLoad(true);
-                dispatch(getAllOrders({ auth }));
-                setLoad(false);
-            }
-        }
+    useEffect(() => {
+        const getOrder = async () => {
+            setLoad(true);
+            dispatch(getAllOrders({ auth }));
+            dispatch(getServices());
+            setLoad(false);
+        };
+
+        getOrder();
     }, [auth]);
 
     // change page

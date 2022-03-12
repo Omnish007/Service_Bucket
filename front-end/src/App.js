@@ -14,6 +14,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Profile from "./Pages/Profile";
 import PageRender from "./components/Private Router/PageRender";
 import NotFound from "./components/NotFound";
+import AdminRoute from "./components/Private Router/AdminRoutes";
 
 function App() {
     const { auth, service } = useSelector((state) => state);
@@ -31,14 +32,18 @@ function App() {
         <div className="App">
             <Alert />
             <Routes>
+                <Route exact path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/adminPanel/*" element={<AdminPanel />} />
                 <Route path="/service" element={<Service />} />
+
                 <Route path="/profile" element={<Profile />} />
-                <Route exact path="/" element={<Home />} />
 
                 <Route path="/:page/:id" element={<PageRender />} />
+
+                <Route element={<AdminRoute auth={auth} />}>
+                    <Route path="/adminPanel/*" element={<AdminPanel />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </div>

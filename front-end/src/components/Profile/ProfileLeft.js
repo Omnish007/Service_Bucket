@@ -17,19 +17,19 @@ const ProfileLeft = () => {
                 <div className="profile_info">
                     <div>
                         <span>
-                            <i class="fas fa-user" />
+                            <i className="fas fa-user" />
                         </span>
                         <p>{auth.user?.name}</p>
                     </div>
                     <div>
                         <span>
-                            <i class="fas fa-envelope"></i>
+                            <i className="fas fa-envelope"></i>
                         </span>
                         <p>{auth.user?.email}</p>
                     </div>
                     <div>
                         <span>
-                            <i class="fas fa-phone" />
+                            <i className="fas fa-phone" />
                         </span>
                         <p>{auth.user?.phone}</p>
                     </div>
