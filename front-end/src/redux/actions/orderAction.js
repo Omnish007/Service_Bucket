@@ -41,17 +41,27 @@ export const getOrders =
             dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
             const res = await getDataAPI("getOrders", auth.token);
+            console.log(res);
 
-            dispatch({ type: GLOBALTYPES.ORDER, payload: [...res.data.order] });
+            if (auth.user.role !== "2") {
+                dispatch({
+                    type: GLOBALTYPES.ORDER,
+                    payload: [...res.data.order],
+                });
+            } else if (auth.user.role === "2")
+                dispatch({
+                    type: GLOBALTYPES.ORDER,
+                    payload: [{ ...res.data.order }],
+                });
 
             dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
         } catch (error) {
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    error: error.response.data.msg,
-                },
-            });
+            // dispatch({
+            //     type: GLOBALTYPES.ALERT,
+            //     payload: {
+            //         error: error.response.data.msg,
+            //     },
+            // });
         }
     };
 

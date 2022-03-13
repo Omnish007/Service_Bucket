@@ -152,7 +152,7 @@
 }
 
 .profile_pending_image {
-    width: 100%;
+    width: 50%;
     opacity: 0.7;
     object-fit: contain;
 }
@@ -166,7 +166,7 @@
 }
 
 .profile_history_image {
-    width: 100%;
+    width: 50%;
     object-fit: contain;
     opacity: 0.7;
 }

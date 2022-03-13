@@ -15,6 +15,7 @@ import Profile from "./Pages/Profile";
 import PageRender from "./components/Private Router/PageRender";
 import NotFound from "./components/NotFound";
 import AdminRoute from "./components/Private Router/AdminRoutes";
+import UserRouter from "./components/Private Router/UserRoutes";
 
 function App() {
     const { auth, service } = useSelector((state) => state);
@@ -23,9 +24,6 @@ function App() {
 
     useEffect(() => {
         dispatch(refreshToken());
-        if (auth.token) {
-            localStorage.setItem("auth", auth.token);
-        }
     }, []);
 
     return (
@@ -35,9 +33,11 @@ function App() {
                 <Route exact path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/service" element={<Service />} />
 
                 <Route path="/profile" element={<Profile />} />
+                <Route element={<UserRouter auth={auth} />}>
+                    <Route path="/service/*" element={<Service />} />
+                </Route>
 
                 <Route path="/:page/:id" element={<PageRender />} />
 

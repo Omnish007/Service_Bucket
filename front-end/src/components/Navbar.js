@@ -32,9 +32,17 @@ const Navbar = () => {
                         id="navbarSupportedContent"
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link to="/service">Service</Link>
-                            </li>
+                            {auth.token ? (
+                                auth.user.role === "0" ? (
+                                    <li className="nav-item">
+                                        <Link to="/service">Service</Link>
+                                    </li>
+                                ) : (
+                                    ""
+                                )
+                            ) : (
+                                ""
+                            )}
                             {auth.token ? (
                                 <>
                                     <li className="nav-item">

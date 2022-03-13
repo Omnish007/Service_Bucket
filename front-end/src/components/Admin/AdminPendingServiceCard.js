@@ -44,7 +44,7 @@ const AdminPendingServiceCard = ({ ele }) => {
                                 }`,
                             }}
                             className="fas fa-circle"
-                        ></i>{" "}
+                        ></i>
                         {ele.status === "0" ? (
                             <span style={{ color: "orange" }}>Pending</span>
                         ) : (

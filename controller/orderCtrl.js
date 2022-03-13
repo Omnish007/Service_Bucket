@@ -5,7 +5,19 @@ const SubService = require("../models/subServiceModel");
 const orderCtrl = {
     getOrders: async (req, res) => {
         try {
-            const order = await Order.find({ user: req.user._id });
+            let order;
+
+            if (req.user.role !== "2") {
+                order = await Order.find({ user: req.user._id });
+            } else if (req.user.role === "2") {
+                const user = await User.findById({ _id: req.user._id });
+
+                if (user.orders.length > 0) {
+                    order = await User.findById({ _id: req.user._id }).populate(
+                        "orders",
+                    );
+                }
+            }
 
             res.json({
                 msg: "Getting Orders",
@@ -34,7 +46,7 @@ const orderCtrl = {
     createOrder: async (req, res) => {
         try {
             const userID = req.user._id;
-            const { sName, sname, price, address, state, pinCode, dist } =
+            const { sName, sname, price, address, state, pinCode, dist, date } =
                 req.body;
 
             const subService = await SubService.find({ sname: sname });
@@ -50,6 +62,7 @@ const orderCtrl = {
                 state,
                 pinCode,
                 dist,
+                date,
             });
 
             await newOrder.save();
