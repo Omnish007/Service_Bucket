@@ -22,7 +22,7 @@ const orderCtrl = {
             res.json({
                 msg: "Getting Orders",
                 nOfOrders: order.length,
-                order,
+                order: [order],
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

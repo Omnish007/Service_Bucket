@@ -149,8 +149,8 @@ const ServiceForm = () => {
                         }
                         value={formData.date}
                         min={tarikh.toISOString().slice(0, 10)}
-                        onKeyDown={() => {
-                            return false;
+                        onKeyDown={(e) => {
+                            return e.preventDefault();
                         }}
                     />
                     <small className="form-text text-danger">
@@ -206,8 +206,8 @@ const ServiceForm = () => {
                         }
                         value={formData.expiryDate}
                         min={tarikh.toISOString().slice(0, 10)}
-                        onKeyDown={() => {
-                            return false;
+                        onKeyDown={(e) => {
+                            return e.preventDefault();
                         }}
                     />
                     <small className="form-text text-danger">

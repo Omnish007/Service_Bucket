@@ -94,14 +94,59 @@ const ProfileRight = () => {
 
                     {auth.user.role === "2" && order.length > 0 ? (
                         <div className="profile_card_container container-fluid">
+                            {order.map(
+                                (ele) =>
+                                    ele.orders.length > 0 &&
+                                    ele.orders.map((e) =>
+                                        e.status === "0" ? (
+                                            <React.Fragment key={e._id}>
+                                                <h1 className="hidden">
+                                                    {(pending = 1)}
+                                                </h1>
+                                                <ProfileCard
+                                                    auth={auth}
+                                                    id={e._id}
+                                                    service={e.service}
+                                                    subService={e.subService}
+                                                    price={e.price}
+                                                    address={e.address}
+                                                    state={e.state}
+                                                    pinCode={e.pinCode}
+                                                    dist={e.dist}
+                                                    src={e.image}
+                                                    createdAt={e.createdAt}
+                                                    button={true}
+                                                    deleteService={del}
+                                                />
+                                            </React.Fragment>
+                                        ) : (
+                                            ""
+                                        ),
+                                    ),
+                            )}
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {pending === 0 && (
+                        <div className="profile_pending_image_container">
+                            <img
+                                className="profile_pending_image"
+                                src={PendingImage}
+                            />
+                        </div>
+                    )}
+                </div>
+                <div id="tab2" className="tabcontent">
+                    {auth.user.role === "0" && order.length > 0 ? (
+                        <div className="profile_card_container">
                             {order.map((ele) =>
-                                ele.status === "0" ? (
-                                    <React.Fragment key={ele._id}>
+                                ele.status === "1" ? (
+                                    <>
                                         <h1 className="hidden">
-                                            {(pending = 1)}
+                                            {(history = 1)}
                                         </h1>
                                         <ProfileCard
-                                            id={ele._id}
                                             service={ele.service}
                                             subService={ele.subService}
                                             price={ele.price}
@@ -111,10 +156,9 @@ const ProfileRight = () => {
                                             dist={ele.dist}
                                             src={ele.image}
                                             createdAt={ele.createdAt}
-                                            button={true}
-                                            deleteService={del}
+                                            button={false}
                                         />
-                                    </React.Fragment>
+                                    </>
                                 ) : (
                                     ""
                                 ),
@@ -124,45 +168,43 @@ const ProfileRight = () => {
                         ""
                     )}
 
-                    {pending === 0 && (
-                        <div className="profile_pending_image_container">
-                            <img
-                                className="profile_pending_image"
-                                src={PendingImage}
-                            />
-                        </div>
-                    )}
-                </div>
-                <div id="tab2" className="tabcontent">
-                    {order.length > 0 ? (
-                        <div className="profile_card_container">
-                            {order.map((ele) =>
-                                ele.status === "1" ? (
-                                    <>
-                                        <h1 className="hidden">
-                                            {(history = 1)}
-                                        </h1>
-                                        <ProfileCard
-                                            service={ele.service}
-                                            subService={ele.subService}
-                                            price={ele.price}
-                                            address={ele.address}
-                                            state={ele.state}
-                                            pinCode={ele.pinCode}
-                                            dist={ele.dist}
-                                            src={ele.image}
-                                            createdAt={ele.createdAt}
-                                            button={false}
-                                        />
-                                    </>
-                                ) : (
-                                    ""
-                                ),
+                    {auth.user.role === "2" && order.length > 0 ? (
+                        <div className="profile_card_container container-fluid">
+                            {order.map(
+                                (ele) =>
+                                    ele.orders.length > 0 &&
+                                    ele.orders.map((e) =>
+                                        e.status === "1" ? (
+                                            <React.Fragment key={e._id}>
+                                                <h1 className="hidden">
+                                                    {(history = 1)}
+                                                </h1>
+                                                <ProfileCard
+                                                    auth={auth}
+                                                    id={e._id}
+                                                    service={e.service}
+                                                    subService={e.subService}
+                                                    price={e.price}
+                                                    address={e.address}
+                                                    state={e.state}
+                                                    pinCode={e.pinCode}
+                                                    dist={e.dist}
+                                                    src={e.image}
+                                                    createdAt={e.createdAt}
+                                                    button={true}
+                                                    deleteService={del}
+                                                />
+                                            </React.Fragment>
+                                        ) : (
+                                            ""
+                                        ),
+                                    ),
                             )}
                         </div>
                     ) : (
                         ""
                     )}
+
                     {history === 0 && (
                         <div className="profile_history_image_container">
                             <img
@@ -172,60 +214,6 @@ const ProfileRight = () => {
                         </div>
                     )}
                 </div>
-                {/* --------------------------------------------- */}
-                {/* <div
-                    id="tab1"
-                    style={{ display: "block" }}
-                    className="tabcontent"
-                >
-                    {pending === 0 && (
-                        <div className="profile_pending_image_container">
-                            <img
-                                className="profile_pending_image"
-                                src={PendingImage}
-                            />
-                        </div>
-                    )}
-                </div>
-                <div id="tab2" className="tabcontent">
-                    {order.length > 0 ? (
-                        <div className="profile_card_container">
-                            {order.map((ele) =>
-                                ele.status === "1" ? (
-                                    <>
-                                        <h1 className="hidden">
-                                            {(history = 1)}
-                                        </h1>
-                                        <ProfileCard
-                                            service={ele.service}
-                                            subService={ele.subService}
-                                            price={ele.price}
-                                            address={ele.address}
-                                            state={ele.state}
-                                            pinCode={ele.pinCode}
-                                            dist={ele.dist}
-                                            src={ele.image}
-                                            createdAt={ele.createdAt}
-                                            button={false}
-                                        />
-                                    </>
-                                ) : (
-                                    ""
-                                ),
-                            )}
-                        </div>
-                    ) : (
-                        ""
-                    )}
-                    {history === 0 && (
-                        <div className="profile_history_image_container">
-                            <img
-                                className="profile_history_image"
-                                src={HistoryImage}
-                            />
-                        </div>
-                    )}
-                </div> */}
             </div>
         </div>
     );

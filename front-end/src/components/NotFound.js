@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 const NotFound = () => {
     return (
         <>
-            <Navbar />
             <div
                 className="position-relative"
                 style={{ minHeight: "calc(100vh - 70px)" }}

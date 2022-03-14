@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 const profileCard = ({
+    auth,
     id,
     service,
     subService,
@@ -28,7 +29,7 @@ const profileCard = ({
                         {service}
                     </h4>
                 </div>
-                {button && (
+                {button && auth.user.role === "0" && (
                     <button
                         className="btn btn-danger profile_card_cancle_btn"
                         onClick={() => deleteService(id)}

@@ -36,7 +36,7 @@ function App() {
 
                 <Route path="/profile" element={<Profile />} />
                 <Route element={<UserRouter auth={auth} />}>
-                    <Route path="/service/*" element={<Service />} />
+                    <Route path="/service" element={<Service />} />
                 </Route>
 
                 <Route path="/:page/:id" element={<PageRender />} />

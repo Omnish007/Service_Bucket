@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
 
 const ProfileLeft = () => {
-    const { auth, service, order } = useSelector((state) => state);
+    const { auth } = useSelector((state) => state);
     const dispatch = useDispatch();
     const [onEdit, setOnEdit] = useState(false);
 
