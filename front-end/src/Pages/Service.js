@@ -18,7 +18,6 @@ const Service = () => {
     ////////////////////
 
     const pageName = useLocation().hash;
-    console.log(pageName);
     const ref = useRef();
 
     useEffect(() => {

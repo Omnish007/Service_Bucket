@@ -29,7 +29,8 @@ const profileCard = ({
                         {service}
                     </h4>
                 </div>
-                {button && auth.user.role === "0" && (
+
+                {button && auth && auth.user.role === "0" && (
                     <button
                         className="btn btn-danger profile_card_cancle_btn"
                         onClick={() => deleteService(id)}

@@ -61,7 +61,6 @@ export const getOrders =
                     error: error.response.data.msg,
                 },
             });
-            console.log(error.message);
         }
     };
 

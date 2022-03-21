@@ -81,6 +81,7 @@ const ProfileRight = () => {
                                             createdAt={ele.createdAt}
                                             button={true}
                                             deleteService={del}
+                                            auth={auth}
                                         />
                                     </React.Fragment>
                                 ) : (

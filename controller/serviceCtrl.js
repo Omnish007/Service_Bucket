@@ -1,78 +1,71 @@
-const Service = require("../models/serviceModel")
-
-
+const Service = require("../models/serviceModel");
 
 const serviceCtrl = {
-
     getServices: async (req, res) => {
         try {
-
-            const services = await Service.find().populate("subService")
+            const services = await Service.find().populate("subService");
 
             res.json({
                 msg: "Getting Services",
                 services: services,
-                user: req.user
-            })
-
+                user: req.user,
+            });
         } catch (error) {
-            return res.status(500).json({ msg: error.message })
+            return res.status(500).json({ msg: error.message });
         }
     },
 
     createService: async (req, res) => {
         try {
-
-            const { name, image } = req.body
+            const { name, image } = req.body;
 
             if (image.length === 0)
-                return res.status(400).json({ msg: "Please add image" })
+                return res.status(400).json({ msg: "Please add image" });
 
             const newService = new Service({
-                name, image})
-                console.log(newService)
+                name,
+                image,
+            });
 
-
-            await newService.save()
+            await newService.save();
 
             res.json({
                 msg: "Service Created",
                 newService: {
                     ...newService._doc,
                 },
-                user: req.user
-            })
-
+                user: req.user,
+            });
         } catch (error) {
-            return res.status(500).json({ msg: error.message })
+            return res.status(500).json({ msg: error.message });
         }
     },
 
     deleteService: async (req, res) => {
         try {
-
-            const { name, image } = req.body
+            const { name, image } = req.body;
 
             if (image.length === 0)
-                return res.status(400).json({ msg: "Please add image photo" })
+                return res.status(400).json({ msg: "Please add image photo" });
 
             const newService = new Service({
-                name, image })
+                name,
+                image,
+            });
 
-            await newService.save()
+            await newService.save();
 
             res.json({
                 msg: "Service Created",
                 newService: {
                     ...newService._doc,
                 },
-                user: req.user
-            })
-
+                user: req.user,
+            });
         } catch (error) {
-            return res.status(500).json({ msg: error.message })
+            return res.status(500).json({ msg: error.message });
         }
-    }
-}
+    },
+};
 
-module.exports = serviceCtrl
+module.exports = serviceCtrl;
