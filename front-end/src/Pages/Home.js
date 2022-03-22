@@ -10,13 +10,13 @@ import { getServices } from "../redux/actions/serviceActions";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-    const { auth, service } = useSelector((state) => state);
+    const { service } = useSelector((state) => state);
     const dispatch = useDispatch();
     const [load, setLoad] = useState(null);
 
     useEffect(() => {
         dispatch(getServices());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="home_container">
