@@ -21,6 +21,10 @@ if (process.env.NODE_ENV === "production") {
             path.resolve(__dirname, "front-end", "build", "index.html"),
         );
     });
+} else {
+    app.get("/", (req, res) => {
+        res.send("Server is running");
+    });
 }
 // ----------------
 //     Routes

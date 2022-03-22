@@ -16,7 +16,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getServices());
-    }, [dispatch]);
+    }, []);
 
     return (
         <div className="home_container">
