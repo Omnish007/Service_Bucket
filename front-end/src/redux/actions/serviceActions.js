@@ -17,20 +17,21 @@ export const getServices = () => async (dispatch) => {
     } catch (error) {
         console.log(error);
         console.log(error.response);
-        if (error.response) {
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    error: error.response.data.msg,
-                },
-            });
-        } else {
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    error: error.message,
-                },
-            });
-        }
+        // if (error.response) {
+        //     dispatch({
+        //         type: GLOBALTYPES.ALERT,
+        //         payload: {
+        //             error: error.response.data.msg,
+        //         },
+        //     });
+        // }
+        // else {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                error: error.message,
+            },
+        });
+        // }
     }
 };
