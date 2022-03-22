@@ -6,6 +6,7 @@ export const getServices = () => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
         const res = await getDataAPI("getServices");
+        console.log(res);
 
         dispatch({
             type: GLOBALTYPES.SERVICE,
@@ -14,12 +15,20 @@ export const getServices = () => async (dispatch) => {
 
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
     } catch (error) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                error: error,
-                // error: error.response.data.msg
-            },
-        });
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
+        }
     }
 };

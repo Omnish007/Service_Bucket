@@ -9,13 +9,21 @@ export const updateDP =
             const res = await imageUpload([dp]);
             const url = res[0].url;
             await patchDataAPI("updateDp", { url: url }, auth.token);
-        } catch (err) {
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    error: err,
-                    // error: err.response.data.msg
-                },
-            });
+        } catch (error) {
+            if (error.response) {
+                dispatch({
+                    type: GLOBALTYPES.ALERT,
+                    payload: {
+                        error: error.response.data.msg,
+                    },
+                });
+            } else {
+                dispatch({
+                    type: GLOBALTYPES.ALERT,
+                    payload: {
+                        error: error.message,
+                    },
+                });
+            }
         }
     };

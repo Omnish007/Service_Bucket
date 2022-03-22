@@ -25,13 +25,21 @@ export const login = (data) => async (dispatch) => {
             },
         });
     } catch (error) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                error: error,
-                // error: error.response.data.msg,
-            },
-        });
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
+        }
     }
 };
 
@@ -52,13 +60,21 @@ export const refreshToken = () => async (dispatch) => {
 
             dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
         } catch (error) {
-            dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: {
-                    error: error,
-                    // error: error.response.data.msg,
-                },
-            });
+            if (error.response) {
+                dispatch({
+                    type: GLOBALTYPES.ALERT,
+                    payload: {
+                        error: error.response.data.msg,
+                    },
+                });
+            } else {
+                dispatch({
+                    type: GLOBALTYPES.ALERT,
+                    payload: {
+                        error: error.message,
+                    },
+                });
+            }
         }
     }
 };
@@ -90,13 +106,21 @@ export const register = (data) => async (dispatch) => {
             },
         });
     } catch (error) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                error: error,
-                // error: error.response.data.msg,
-            },
-        });
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
+        }
     }
 };
 
@@ -113,12 +137,20 @@ export const logout = () => async (dispatch) => {
             },
         });
     } catch (error) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: {
-                error: error,
-                // error: error.response.data.msg,
-            },
-        });
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
+        }
     }
 };
