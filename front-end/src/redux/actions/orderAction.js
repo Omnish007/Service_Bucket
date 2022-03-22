@@ -58,7 +58,8 @@ export const getOrders =
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.response.data.msg,
+                    error: error,
+                    // error: error.response.data.msg,
                 },
             });
         }
@@ -82,7 +83,8 @@ export const getAllOrders =
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.response.data.msg,
+                    error: error,
+                    // error: error.response.data.msg,
                 },
             });
         }
@@ -101,7 +103,8 @@ export const deleteOrder =
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.response.data.msg,
+                    error: error,
+                    // error: error.response.data.msg,
                 },
             });
         }

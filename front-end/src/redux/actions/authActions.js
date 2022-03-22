@@ -28,7 +28,8 @@ export const login = (data) => async (dispatch) => {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: error.response.data.msg,
+                error: error,
+                // error: error.response.data.msg,
             },
         });
     }
@@ -54,7 +55,8 @@ export const refreshToken = () => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.response.data.msg,
+                    error: error,
+                    // error: error.response.data.msg,
                 },
             });
         }
@@ -91,7 +93,8 @@ export const register = (data) => async (dispatch) => {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: error.response.data.msg,
+                error: error,
+                // error: error.response.data.msg,
             },
         });
     }
@@ -113,7 +116,8 @@ export const logout = () => async (dispatch) => {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: error.response.data.msg,
+                error: error,
+                // error: error.response.data.msg,
             },
         });
     }
