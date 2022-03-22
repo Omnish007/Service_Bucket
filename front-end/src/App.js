@@ -28,7 +28,7 @@ function App() {
 
     return (
         <div className="App">
-            <Alert />
+            {/* <Alert /> */}
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
