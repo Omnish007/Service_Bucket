@@ -98,24 +98,28 @@ const ProfileRight = () => {
                             {order.map(
                                 (ele) =>
                                     ele.orders.length > 0 &&
-                                    ele.orders.map((e) =>
-                                        e.status === "0" ? (
-                                            <React.Fragment key={e._id}>
+                                    ele.orders.map((element) =>
+                                        element.status === "0" ? (
+                                            <React.Fragment key={element._id}>
                                                 <h1 className="hidden">
                                                     {(pending = 1)}
                                                 </h1>
                                                 <ProfileCard
                                                     auth={auth}
-                                                    id={e._id}
-                                                    service={e.service}
-                                                    subService={e.subService}
-                                                    price={e.price}
-                                                    address={e.address}
-                                                    state={e.state}
-                                                    pinCode={e.pinCode}
-                                                    dist={e.dist}
-                                                    src={e.image}
-                                                    createdAt={e.createdAt}
+                                                    id={element._id}
+                                                    service={element.service}
+                                                    subService={
+                                                        element.subService
+                                                    }
+                                                    price={element.price}
+                                                    address={element.address}
+                                                    state={element.state}
+                                                    pinCode={element.pinCode}
+                                                    dist={element.dist}
+                                                    src={element.image}
+                                                    createdAt={
+                                                        element.createdAt
+                                                    }
                                                     button={true}
                                                     deleteService={del}
                                                 />
@@ -174,24 +178,28 @@ const ProfileRight = () => {
                             {order.map(
                                 (ele) =>
                                     ele.orders.length > 0 &&
-                                    ele.orders.map((e) =>
-                                        e.status === "1" ? (
-                                            <React.Fragment key={e._id}>
+                                    ele.orders.map((element) =>
+                                        element.status === "1" ? (
+                                            <React.Fragment key={element._id}>
                                                 <h1 className="hidden">
                                                     {(history = 1)}
                                                 </h1>
                                                 <ProfileCard
                                                     auth={auth}
-                                                    id={e._id}
-                                                    service={e.service}
-                                                    subService={e.subService}
-                                                    price={e.price}
-                                                    address={e.address}
-                                                    state={e.state}
-                                                    pinCode={e.pinCode}
-                                                    dist={e.dist}
-                                                    src={e.image}
-                                                    createdAt={e.createdAt}
+                                                    id={element._id}
+                                                    service={element.service}
+                                                    subService={
+                                                        element.subService
+                                                    }
+                                                    price={element.price}
+                                                    address={element.address}
+                                                    state={element.state}
+                                                    pinCode={element.pinCode}
+                                                    dist={element.dist}
+                                                    src={element.image}
+                                                    createdAt={
+                                                        element.createdAt
+                                                    }
                                                     button={true}
                                                     deleteService={del}
                                                 />
