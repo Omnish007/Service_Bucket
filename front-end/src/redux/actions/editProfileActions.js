@@ -21,7 +21,7 @@ export const updateDP =
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error,
+                        error: error.message,
                     },
                 });
             }

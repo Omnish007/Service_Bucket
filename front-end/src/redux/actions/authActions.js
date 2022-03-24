@@ -36,7 +36,7 @@ export const login = (data) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }
@@ -71,7 +71,7 @@ export const refreshToken = () => async (dispatch) => {
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error,
+                        error: error.message,
                     },
                 });
             }
@@ -117,7 +117,7 @@ export const register = (data) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }
@@ -148,7 +148,7 @@ export const logout = () => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }

@@ -28,7 +28,7 @@ export const getEmployees = (auth) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }
@@ -60,7 +60,7 @@ export const addEmployees = (auth, data) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }
@@ -94,7 +94,7 @@ export const addOrder = (ele, employee, auth) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error,
+                    error: error.message,
                 },
             });
         }
