@@ -1,16 +1,15 @@
-import { GLOBALTYPES } from "../actions/globalType"
+import { GLOBALTYPES } from "../actions/globalType";
 
-const initialState = {}
+const initialState = {};
 
 const serviceReducer = (state = initialState, action) => {
-    switch(action.type){
-
+    switch (action.type) {
         case GLOBALTYPES.SERVICE:
-            return action.payload
+            return action.payload;
 
         default:
             return state;
     }
-}
+};
 
-export default serviceReducer
+export default serviceReducer;
