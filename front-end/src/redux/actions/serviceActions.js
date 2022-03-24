@@ -25,7 +25,7 @@ export const getServices = () => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.message,
+                    error: error,
                 },
             });
         }
@@ -56,7 +56,7 @@ export const createServices = (data, auth) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.message,
+                    error: error,
                 },
             });
         }
@@ -85,7 +85,7 @@ export const deleteServices = (id, auth) => async (dispatch) => {
             dispatch({
                 type: GLOBALTYPES.ALERT,
                 payload: {
-                    error: error.message,
+                    error: error,
                 },
             });
         }
