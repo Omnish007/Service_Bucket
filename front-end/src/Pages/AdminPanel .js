@@ -18,9 +18,10 @@ import OrderCards from "../components/Admin/sidebar/OrderCards";
 import Pagination from "../components/Admin/sidebar/Pagination";
 import SideBarHome from "../components/Admin/sidebar/SideBarHome";
 import { getServices } from "../redux/actions/serviceActions";
+import SubServiceList from "../components/Admin/sidebar/SubServiceList";
 
 const AdminPanel = () => {
-    const { auth, service, order } = useSelector((state) => state);
+    const { auth, service, order, subService } = useSelector((state) => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
@@ -44,6 +45,11 @@ const AdminPanel = () => {
         if (pageUrl.includes("serviceList")) {
             document
                 .getElementById("adminServiceList")
+                .classList.toggle("active");
+        }
+        if (pageUrl.includes("subServiceList")) {
+            document
+                .getElementById("adminSubServiceList")
                 .classList.toggle("active");
         }
         if (pageUrl.includes("addEmployee")) {
@@ -88,6 +94,9 @@ const AdminPanel = () => {
                         <li id="adminServiceList">
                             <Link to="serviceList">Service List</Link>
                         </li>
+                        <li id="adminSubServiceList">
+                            <Link to="subServiceList">SubService List</Link>
+                        </li>
                         <li id="adminAddEmployee">
                             <Link to="addEmployee">Add Employee</Link>
                         </li>
@@ -104,6 +113,16 @@ const AdminPanel = () => {
                             path="serviceList"
                             element={
                                 <ServiceList auth={auth} service={service} />
+                            }
+                        />
+                        <Route
+                            exact
+                            path="subServiceList"
+                            element={
+                                <SubServiceList
+                                    auth={auth}
+                                    subService={subService}
+                                />
                             }
                         />
                         <Route

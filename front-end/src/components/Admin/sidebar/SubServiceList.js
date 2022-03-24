@@ -1,31 +1,30 @@
-/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-    createServices,
-    deleteServices,
-    getServices,
-} from "../../../redux/actions/serviceActions";
+import { getSubService } from "../../../redux/actions/subServiceAction";
 
-const ServiceList = ({ auth, service }) => {
+const SubServiceList = ({ auth, subService }) => {
     const dispatch = useDispatch();
-    const [serviceData, setServiceData] = useState({ name: "", image: "" });
+    const [subServiceData, setSubServiceData] = useState({
+        name: "",
+        image: "",
+        price: "",
+    });
 
     useEffect(() => {
-        dispatch(getServices(auth.token));
+        dispatch(getSubService(auth));
     }, []);
 
-    const handleDeleteService = (id) => {
-        const ans = confirm("Are you sure?");
-        if (ans) {
-            dispatch(deleteServices(id, auth));
-        }
-    };
+    // const handleDeleteService = (id) => {
+    //     const ans = confirm("Are you sure?");
+    //     if (ans) {
+    //         dispatch(deleteServices(id, auth));
+    //     }
+    // };
 
-    const handleAddService = (e) => {
-        e.preventDefault();
-        dispatch(createServices(serviceData, auth));
-    };
+    // const handleAddService = (e) => {
+    //     e.preventDefault();
+    //     dispatch(createServices(serviceData, auth));
+    // };
 
     const tabs = (tabName, e) => {
         var i, tabcontent, tablinks;
@@ -55,29 +54,30 @@ const ServiceList = ({ auth, service }) => {
                         className="tablinks tab1"
                         onClick={() => tabs("tab1")}
                     >
-                        Services List
+                        SubServices List
                     </button>
                     <button
                         className="tablinks tab2"
                         onClick={() => tabs("tab2")}
                     >
-                        Add Services
+                        Add SubServices
                     </button>
                 </div>
                 <div id="tab1" className="tabcontent">
                     <ul className="list-group">
-                        {service.length > 0
-                            ? service.map((ele) => (
+                        {subService.length > 0
+                            ? subService.map((ele) => (
                                   <li
                                       className="list-group-item admin_serviceName"
                                       key={ele._id}
                                   >
-                                      <p>{ele.name}</p>
+                                      <p>{ele.service.name}</p>
+                                      <p>{ele.sname}</p>
                                       <i
                                           className="fas fa-trash"
-                                          onClick={() =>
-                                              handleDeleteService(ele._id)
-                                          }
+                                          //   onClick={() =>
+                                          //   handleDeleteService(ele._id)
+                                          //   }
                                       ></i>
                                   </li>
                               ))
@@ -92,10 +92,10 @@ const ServiceList = ({ auth, service }) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Name of service"
-                                value={serviceData.name}
+                                value={subServiceData.name}
                                 onChange={(e) =>
-                                    setServiceData({
-                                        ...serviceData,
+                                    setSubServiceData({
+                                        ...subServiceData,
                                         name: e.target.value,
                                     })
                                 }
@@ -106,10 +106,24 @@ const ServiceList = ({ auth, service }) => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Image url of service"
-                                value={serviceData.image}
+                                value={subServiceData.image}
                                 onChange={(e) =>
-                                    setServiceData({
-                                        ...serviceData,
+                                    setSubServiceData({
+                                        ...subServiceData,
+                                        image: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Image url of service"
+                                value={subServiceData.image}
+                                onChange={(e) =>
+                                    setSubServiceData({
+                                        ...subServiceData,
                                         image: e.target.value,
                                     })
                                 }
@@ -118,7 +132,7 @@ const ServiceList = ({ auth, service }) => {
 
                         <button
                             type="submit"
-                            onClick={handleAddService}
+                            // onClick={handleAddService}
                             className="btn btn-primary"
                         >
                             Submit
@@ -130,4 +144,4 @@ const ServiceList = ({ auth, service }) => {
     );
 };
 
-export default ServiceList;
+export default SubServiceList;

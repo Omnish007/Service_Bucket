@@ -1,36 +1,34 @@
 import { GLOBALTYPES } from "./globalType";
 import { getDataAPI } from "../../utils/fetchData";
 
-export const getSubService =
-    ({ id, auth }) =>
-    async (dispatch) => {
-        try {
-            dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+export const getSubService = (auth) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-            const res = await getDataAPI(`getSubService/${id}`, auth.token);
+        const res = await getDataAPI("getSubServices", auth.token);
+        console.log(res);
 
-            const newArr = { ...res.data.subServices, sName: res.data.sName };
+        dispatch({
+            type: GLOBALTYPES.SUBSERVICE,
+            payload: res.data.subServices,
+        });
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+    } catch (error) {
+        if (error.response) {
             dispatch({
-                type: GLOBALTYPES.SUBSERVICE,
-                payload: { ...newArr },
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
             });
-
-            dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
-        } catch (error) {
-            if (error.response) {
-                dispatch({
-                    type: GLOBALTYPES.ALERT,
-                    payload: {
-                        error: error.response.data.msg,
-                    },
-                });
-            } else {
-                dispatch({
-                    type: GLOBALTYPES.ALERT,
-                    payload: {
-                        error: error.message,
-                    },
-                });
-            }
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
         }
-    };
+    }
+};

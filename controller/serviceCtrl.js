@@ -19,6 +19,12 @@ const serviceCtrl = {
         try {
             const { name, image } = req.body;
 
+            const serviceName = await Service.findOne({ name });
+
+            if (serviceName) {
+                return res.status(400).json({ msg: "Service Already exists" });
+            }
+
             if (image.length === 0)
                 return res.status(400).json({ msg: "Please add image" });
 
@@ -43,24 +49,12 @@ const serviceCtrl = {
 
     deleteService: async (req, res) => {
         try {
-            const { name, image } = req.body;
+            const { id } = req.body;
 
-            if (image.length === 0)
-                return res.status(400).json({ msg: "Please add image photo" });
-
-            const newService = new Service({
-                name,
-                image,
-            });
-
-            await newService.save();
+            await Service.findOneAndDelete({ _id: id });
 
             res.json({
-                msg: "Service Created",
-                newService: {
-                    ...newService._doc,
-                },
-                user: req.user,
+                msg: "Service Deleted",
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

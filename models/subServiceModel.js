@@ -1,28 +1,24 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const subServiceSchema = new mongoose.Schema({
+const subServiceSchema = new mongoose.Schema(
+    {
+        service: {
+            type: mongoose.Types.ObjectId,
+            ref: "service",
+        },
 
-    service: [
-        {
-            type:mongoose.Types.ObjectId,
-            ref:"service"
-        }
-    ],
-    
-    sname: String,
+        sname: String,
 
-    
-    simage: {
-        type: String,
-        required: true
+        simage: {
+            type: String,
+            required: true,
+        },
+
+        price: String,
     },
+    {
+        timestamps: true,
+    },
+);
 
-    price: String,
-
-    
-    
-}, {
-    timestamps: true
-})
-
-module.exports = mongoose.model("subService", subServiceSchema)
+module.exports = mongoose.model("subService", subServiceSchema);

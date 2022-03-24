@@ -206,9 +206,6 @@ const ServiceForm = () => {
                         }
                         value={formData.expiryDate}
                         min={tarikh.toISOString().slice(0, 10)}
-                        onKeyDown={(e) => {
-                            return e.preventDefault();
-                        }}
                     />
                     <small className="form-text text-danger">
                         {alert.expiryDate ? alert.expiryDate : ""}
