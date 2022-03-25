@@ -18,34 +18,25 @@ const subServiceCtrl = {
 
     createSubService: async (req, res) => {
         try {
-            const { service, sname, simage, price } = req.body;
+            const { serviceName, name, image, price } = req.body;
 
-            const serviceId = await Service.findOne({ name: service });
+            const serviceId = await Service.findOne({ name: serviceName });
 
             const newSubService = new SubService({
                 service: serviceId._id,
-                sname,
-                simage,
+                sname: name,
+                simage: image,
                 price,
             });
 
             await Service.findOneAndUpdate(
-                { name: service },
+                { name: serviceName },
                 {
                     $push: { subService: newSubService._id },
                 },
             );
 
             await newSubService.save();
-
-            // await Service.findOneAndUpdate(
-            //     { _id: service },
-            //     {
-            //         $push: {
-            //             subService: newSubService._id,
-            //         },
-            //     },
-            // );
 
             res.json({
                 msg: "Sub Service Created",

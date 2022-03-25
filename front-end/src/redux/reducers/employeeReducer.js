@@ -1,6 +1,6 @@
 import { GLOBALTYPES } from "../actions/globalType";
 
-const initialState = {};
+const initialState = [];
 
 const employeeReducer = (state = initialState, action) => {
     switch (action.type) {

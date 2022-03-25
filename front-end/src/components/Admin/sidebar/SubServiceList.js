@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSubService } from "../../../redux/actions/subServiceAction";
+import {
+    getSubService,
+    createSubService,
+} from "../../../redux/actions/subServiceAction";
 
-const SubServiceList = ({ auth, subService }) => {
+const SubServiceList = ({ auth, subService, service }) => {
     const dispatch = useDispatch();
     const [subServiceData, setSubServiceData] = useState({
         name: "",
         image: "",
         price: "",
+        serviceName: "",
     });
 
     useEffect(() => {
@@ -21,10 +25,19 @@ const SubServiceList = ({ auth, subService }) => {
     //     }
     // };
 
-    // const handleAddService = (e) => {
-    //     e.preventDefault();
-    //     dispatch(createServices(serviceData, auth));
-    // };
+    const handleAddSubService = (e) => {
+        e.preventDefault();
+        if (
+            subServiceData.image !== "" &&
+            subServiceData.name !== "" &&
+            subServiceData.price !== "" &&
+            subServiceData.serviceName !== ""
+        ) {
+            dispatch(createSubService(subServiceData, auth));
+        } else {
+            alert("Please fill form");
+        }
+    };
 
     const tabs = (tabName, e) => {
         var i, tabcontent, tablinks;
@@ -76,7 +89,7 @@ const SubServiceList = ({ auth, subService }) => {
                                       <i
                                           className="fas fa-trash"
                                           //   onClick={() =>
-                                          //   handleDeleteService(ele._id)
+                                          //   handleDeleteSubService(ele._id)
                                           //   }
                                       ></i>
                                   </li>
@@ -88,10 +101,29 @@ const SubServiceList = ({ auth, subService }) => {
                 <div id="tab2" className="tabcontent">
                     <form>
                         <div className="mb-3">
+                            {service.length > 0 && (
+                                <select
+                                    onChange={(e) =>
+                                        setSubServiceData({
+                                            ...subServiceData,
+                                            serviceName: e.target.value,
+                                        })
+                                    }
+                                >
+                                    <option selected="true" value="">
+                                        Service Name
+                                    </option>
+                                    {service.map((e, i) => (
+                                        <option value={e.name}>{e.name}</option>
+                                    ))}
+                                </select>
+                            )}
+                        </div>
+                        <div className="mb-3">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Name of service"
+                                placeholder="Name of subService"
                                 value={subServiceData.name}
                                 onChange={(e) =>
                                     setSubServiceData({
@@ -105,7 +137,7 @@ const SubServiceList = ({ auth, subService }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Image url of service"
+                                placeholder="Image url of subService"
                                 value={subServiceData.image}
                                 onChange={(e) =>
                                     setSubServiceData({
@@ -119,12 +151,12 @@ const SubServiceList = ({ auth, subService }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Image url of service"
-                                value={subServiceData.image}
+                                placeholder="Price of subService"
+                                value={subServiceData.price}
                                 onChange={(e) =>
                                     setSubServiceData({
                                         ...subServiceData,
-                                        image: e.target.value,
+                                        price: e.target.value,
                                     })
                                 }
                             />
@@ -132,7 +164,7 @@ const SubServiceList = ({ auth, subService }) => {
 
                         <button
                             type="submit"
-                            // onClick={handleAddService}
+                            onClick={handleAddSubService}
                             className="btn btn-primary"
                         >
                             Submit

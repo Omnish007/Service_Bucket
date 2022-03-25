@@ -1,6 +1,6 @@
 import { GLOBALTYPES } from "../actions/globalType";
 
-const initialState = {};
+const initialState = [];
 
 const serviceReducer = (state = initialState, action) => {
     switch (action.type) {

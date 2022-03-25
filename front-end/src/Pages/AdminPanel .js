@@ -122,6 +122,7 @@ const AdminPanel = () => {
                                 <SubServiceList
                                     auth={auth}
                                     subService={subService}
+                                    service={service}
                                 />
                             }
                         />
