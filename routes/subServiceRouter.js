@@ -12,6 +12,6 @@ router.post(
     subsServiceCtrl.createSubService,
 );
 
-router.delete("/deleteSubService", subsServiceCtrl.deleteSubService);
+router.post("/deleteSubService", subsServiceCtrl.deleteSubService);
 
 module.exports = router;

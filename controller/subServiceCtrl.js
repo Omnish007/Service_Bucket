@@ -16,6 +16,26 @@ const subServiceCtrl = {
         }
     },
 
+    getSubService: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const subServices = await SubService.find({ _id: id }).populate(
+                "service",
+            );
+
+            const sName = subServices[0].service[0].name;
+
+            res.json({
+                msg: "Getting Sub Service",
+                subServices: subServices,
+                sName,
+                user: req.user,
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
     createSubService: async (req, res) => {
         try {
             const { serviceName, name, image, price } = req.body;
@@ -24,6 +44,7 @@ const subServiceCtrl = {
 
             const newSubService = new SubService({
                 service: serviceId._id,
+                sName: serviceName,
                 sname: name,
                 simage: image,
                 price,
@@ -52,24 +73,22 @@ const subServiceCtrl = {
 
     deleteSubService: async (req, res) => {
         try {
-            const { name, image } = req.body;
+            console.log(req.body);
+            const { _id, service } = req.body;
 
-            if (image.length === 0)
-                return res.status(400).json({ msg: "Please add image photo" });
+            await Service.findOneAndUpdate(
+                { _id: service._id },
+                {
+                    $pull: {
+                        subService: _id,
+                    },
+                },
+            );
 
-            const newService = new Service({
-                name,
-                image,
-            });
-
-            await newService.save();
+            await SubService.findOneAndDelete({ _id: _id });
 
             res.json({
-                msg: "Service Created",
-                newService: {
-                    ...newService._doc,
-                },
-                user: req.user,
+                msg: "SubService Deleted",
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });

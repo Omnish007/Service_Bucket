@@ -7,6 +7,8 @@ const subServiceSchema = new mongoose.Schema(
             ref: "service",
         },
 
+        sName: String,
+
         sname: String,
 
         simage: {

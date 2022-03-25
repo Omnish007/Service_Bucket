@@ -1,8 +1,10 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
     getSubService,
     createSubService,
+    deleteSubServices,
 } from "../../../redux/actions/subServiceAction";
 
 const SubServiceList = ({ auth, subService, service }) => {
@@ -18,12 +20,12 @@ const SubServiceList = ({ auth, subService, service }) => {
         dispatch(getSubService(auth));
     }, []);
 
-    // const handleDeleteService = (id) => {
-    //     const ans = confirm("Are you sure?");
-    //     if (ans) {
-    //         dispatch(deleteServices(id, auth));
-    //     }
-    // };
+    const handleDeleteSubService = (data) => {
+        const ans = confirm("Are you sure?");
+        if (ans) {
+            dispatch(deleteSubServices(data, auth));
+        }
+    };
 
     const handleAddSubService = (e) => {
         e.preventDefault();
@@ -88,9 +90,9 @@ const SubServiceList = ({ auth, subService, service }) => {
                                       <p>{ele.sname}</p>
                                       <i
                                           className="fas fa-trash"
-                                          //   onClick={() =>
-                                          //   handleDeleteSubService(ele._id)
-                                          //   }
+                                          onClick={() =>
+                                              handleDeleteSubService(ele)
+                                          }
                                       ></i>
                                   </li>
                               ))

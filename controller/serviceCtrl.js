@@ -1,4 +1,5 @@
 const Service = require("../models/serviceModel");
+const SubService = require("../models/subServiceModel");
 
 const serviceCtrl = {
     getServices: async (req, res) => {
@@ -53,7 +54,9 @@ const serviceCtrl = {
 
             await Service.findOneAndDelete({ _id: id });
 
-            res.json({
+            await SubService.deleteMany({ service: id });
+
+            await res.json({
                 msg: "Service Deleted",
             });
         } catch (error) {

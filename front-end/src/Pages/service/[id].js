@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/footer";
-import LoadIcon from "../../images/loading.gif";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getServices } from "../../redux/actions/serviceActions";
 import { getSubService } from "../../redux/actions/subServiceAction";
-import { createOrder, getOrders } from "../../redux/actions/orderAction";
+import { createOrder } from "../../redux/actions/orderAction";
 
 const ServiceForm = () => {
     const { auth, alert, subService } = useSelector((state) => state);
@@ -43,7 +42,7 @@ const ServiceForm = () => {
         setFormData({
             sname: subService[0].sname,
             price: subService[0].price,
-            sName: subService.sName,
+            sName: subService[0].sName,
         });
     }, [subService, setFormData]);
 

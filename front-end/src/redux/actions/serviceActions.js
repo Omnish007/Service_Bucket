@@ -1,5 +1,5 @@
 import { GLOBALTYPES } from "./globalType";
-import { getDataAPI, postDataAPI } from "../../utils/fetchData";
+import { deleteDataAPI, getDataAPI, postDataAPI } from "../../utils/fetchData";
 
 export const getServices = () => async (dispatch) => {
     try {
