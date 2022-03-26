@@ -7,7 +7,7 @@ router.get("/getOrders", auth, orderCtrl.getOrders);
 
 router.get("/getAllOrders", auth, adminAuth, orderCtrl.getAllOrders);
 
-router.post("/createorder", auth, orderCtrl.createOrder);
+router.post("/createOrder", auth, orderCtrl.createOrder);
 
 // router.patch("/updateService", authCtrl.updateOrder)
 

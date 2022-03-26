@@ -8,7 +8,6 @@ const AdminPendingServiceCard = ({ ele }) => {
 
     useEffect(() => {
         Aos.init();
-        console.log(ele);
     }, []);
 
     return (

@@ -19,16 +19,14 @@ const subServiceCtrl = {
     getSubService: async (req, res) => {
         try {
             const id = req.params.id;
-            const subServices = await SubService.find({ _id: id }).populate(
+            const subServices = await SubService.findOne({ _id: id }).populate(
                 "service",
             );
-
-            const sName = subServices[0].service[0].name;
 
             res.json({
                 msg: "Getting Sub Service",
                 subServices: subServices,
-                sName,
+                sName: subServices.service.name,
                 user: req.user,
             });
         } catch (error) {

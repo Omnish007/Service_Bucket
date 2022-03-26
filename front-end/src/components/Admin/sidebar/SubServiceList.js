@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { getSubServices } from "../../../redux/actions/subServiceAction";
 import {
     getSubService,
     createSubService,
@@ -17,7 +18,7 @@ const SubServiceList = ({ auth, subService, service }) => {
     });
 
     useEffect(() => {
-        dispatch(getSubService(auth));
+        dispatch(getSubServices(auth));
     }, []);
 
     const handleDeleteSubService = (data) => {

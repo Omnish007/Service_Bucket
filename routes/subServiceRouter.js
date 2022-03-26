@@ -3,6 +3,8 @@ const subsServiceCtrl = require("../controller/subServiceCtrl");
 const adminAuth = require("../middleware/adminAuth");
 const auth = require("../middleware/auth");
 
+router.get("/getSubService/:id", subsServiceCtrl.getSubService);
+
 router.get("/getSubServices", subsServiceCtrl.getSubServices);
 
 router.post(

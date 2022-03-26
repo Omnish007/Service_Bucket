@@ -9,7 +9,9 @@ import { createOrder } from "../../redux/actions/orderAction";
 
 const ServiceForm = () => {
     const { auth, alert, subService } = useSelector((state) => state);
+
     const dispatch = useDispatch();
+
     const { id } = useParams();
     const [load, setLoad] = useState(false);
     const tarikh = new Date();
@@ -27,22 +29,21 @@ const ServiceForm = () => {
         expiryDate: "",
     };
     const [formData, setFormData] = useState(initialState);
+    const [subServices, setSubService] = useState({});
 
     // const [startdate, setstartdate] = useState(tarikh);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setLoad(true);
         dispatch(getServices());
         dispatch(getSubService({ id, auth }));
-        setLoad(false);
     }, []);
 
     useEffect(async () => {
         setFormData({
-            sname: subService[0].sname,
-            price: subService[0].price,
-            sName: subService[0].sName,
+            sname: subService.subServices.sname,
+            price: subService.subServices.price,
+            sName: subService.sName,
         });
     }, [subService, setFormData]);
 
@@ -63,8 +64,8 @@ const ServiceForm = () => {
         dispatch(createOrder(formData, auth));
         setFormData({
             ...initialState,
-            sname: subService[0].sname,
-            price: subService[0].price,
+            sname: subService.subServices.sname,
+            price: subService.subServices.price,
             sName: subService.sName,
         });
     };

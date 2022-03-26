@@ -49,8 +49,8 @@ const orderCtrl = {
             const { sName, sname, price, address, state, pinCode, dist, date } =
                 req.body;
 
-            const subService = await SubService.find({ sname: sname });
-            const subServiceImg = await subService[0].simage;
+            const subService = await SubService.findOne({ sname: sname });
+            const subServiceImg = await subService.simage;
 
             const newOrder = new Order({
                 user: userID,
