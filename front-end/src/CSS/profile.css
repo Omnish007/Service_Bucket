@@ -265,6 +265,11 @@
     right: 20px;
 }
 
+.profile_card_assigned_employee {
+    font-size: 15px;
+    color: rgb(221, 26, 26);
+}
+
 .edit_profile_container {
     position: fixed;
     width: 100%;

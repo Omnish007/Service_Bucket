@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const footer = () => {
-
     const clickEvent = (e) => {
-        e.preventDefault()
-        alert("Submmited")
-    }
+        e.preventDefault();
+        alert("Submmited");
+    };
 
     return (
         <footer>
@@ -35,7 +34,12 @@ const footer = () => {
                             <div>
                                 <textarea placeholder="Comment" />
                             </div>
-                            <button className="btn btn-danger" onClick={(e) =>clickEvent(e)}>Submit</button>
+                            <button
+                                className="btn btn-danger"
+                                onClick={(e) => clickEvent(e)}
+                            >
+                                Submit
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -47,8 +51,7 @@ const footer = () => {
                     <h3>SB</h3>
                     <p>&copy;Copyrights 2022 All Right Reserved</p>
                 </div>
-                <div>
-                </div>
+                <div></div>
                 <div className="follow">
                     <h3>Follow us</h3>
                     <div className="icon_box">
@@ -60,7 +63,6 @@ const footer = () => {
                     </div>
                 </div>
             </div>
-
         </footer>
     );
 };

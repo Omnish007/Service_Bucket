@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { getEmployee } from "../../redux/actions/employeeAction";
 
-const profileCard = ({
+const ProfileCard = ({
     auth,
     id,
     service,
@@ -11,7 +13,10 @@ const profileCard = ({
     createdAt,
     button,
     deleteService,
+    employee,
 }) => {
+    const dispatch = useDispatch();
+
     return (
         <div className="profile_card row">
             <div className="profile_card_image-container col-lg-5 col-md-12">
@@ -30,13 +35,23 @@ const profileCard = ({
                     </h4>
                 </div>
 
-                {button && auth && auth.user.role === "0" && (
-                    <button
-                        className="btn btn-danger profile_card_cancle_btn"
-                        onClick={() => deleteService(id)}
-                    >
-                        Cancle Service
-                    </button>
+                {button &&
+                    auth &&
+                    auth.user.role === "0" &&
+                    employee == undefined && (
+                        <button
+                            className="btn btn-danger profile_card_cancle_btn"
+                            onClick={() => deleteService(id)}
+                        >
+                            Cancle Service
+                        </button>
+                    )}
+
+                {employee !== undefined && (
+                    <p className="profile_card_assigned_employee">
+                        Employee is assign to your order so you can't cancel
+                        order
+                    </p>
                 )}
             </div>
             <div className="col-lg-2 col-md-4 profile_card_price_container">
@@ -51,4 +66,4 @@ const profileCard = ({
     );
 };
 
-export default profileCard;
+export default ProfileCard;

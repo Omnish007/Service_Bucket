@@ -5,6 +5,8 @@ const auth = require("../middleware/auth");
 
 router.get("/getEmployees", auth, adminAuth, employeeCtrl.getEmployees);
 
+router.post("/getEmployee", auth, employeeCtrl.getEmployee);
+
 router.post("/addEmployee", auth, adminAuth, employeeCtrl.addEmployee);
 
 router.post("/addOrder", auth, adminAuth, employeeCtrl.addOrder);

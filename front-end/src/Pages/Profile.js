@@ -16,7 +16,7 @@ const Profile = () => {
 
     useEffect(() => {
         if (auth.token) dispatch(getOrders({ auth }));
-    }, [auth.token, dispatch]);
+    }, [auth.token]);
 
     return (
         <>

@@ -9,21 +9,30 @@ const orderCtrl = {
 
             if (req.user.role !== "2") {
                 order = await Order.find({ user: req.user._id });
+                res.json({
+                    msg: "Getting Orders",
+                    nOfOrders: order.length,
+                    order,
+                });
             } else if (req.user.role === "2") {
                 const user = await User.findById({ _id: req.user._id });
 
-                if (user.orders.length > 0) {
+                if (user?.orders?.length > 0) {
                     order = await User.findById({ _id: req.user._id }).populate(
                         "orders",
                     );
+                    res.json({
+                        msg: "Getting Orders",
+                        nOfOrders: order.length,
+                        order,
+                    });
+                } else {
+                    res.json({
+                        msg: "No orders found",
+                        order: [],
+                    });
                 }
             }
-
-            res.json({
-                msg: "Getting Orders",
-                nOfOrders: order.length,
-                order,
-            });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }

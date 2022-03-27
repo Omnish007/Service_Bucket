@@ -1,6 +1,34 @@
 import { GLOBALTYPES } from "./globalType";
 import { getDataAPI, postDataAPI } from "../../utils/fetchData";
 
+export const getEmployee = (auth, id) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+        const res = await postDataAPI("getEmployee", { id }, auth.token);
+        dispatch({
+            type: GLOBALTYPES.EMPLOYEE,
+            payload: res.data.employee,
+        });
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
+    } catch (error) {
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg,
+                },
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message,
+                },
+            });
+        }
+    }
+};
 export const getEmployees = (auth) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });

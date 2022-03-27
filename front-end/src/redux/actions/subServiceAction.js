@@ -8,7 +8,6 @@ export const getSubService =
             dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
             const res = await getDataAPI(`getSubService/${id}`, auth.token);
-            console.log(res);
 
             dispatch({
                 type: GLOBALTYPES.SUBSERVICE,

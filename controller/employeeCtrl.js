@@ -19,6 +19,21 @@ const employeeCtrl = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    getEmployee: async (req, res) => {
+        try {
+            const { id } = req.body;
+            const employee = await Users.findOne({ _id: id }).select(
+                "-password",
+            );
+
+            res.json({
+                msg: "Getting Employee",
+                employee: employee,
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
 
     addEmployee: async (req, res) => {
         try {

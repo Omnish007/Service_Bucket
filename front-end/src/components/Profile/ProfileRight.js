@@ -16,7 +16,7 @@ const ProfileRight = () => {
     var tabPanels = document.querySelectorAll(".tabcontent");
 
     useEffect(() => {
-        auth.token && dispatch(getOrders({ auth }));
+        auth?.token && dispatch(getOrders({ auth }));
     }, []);
 
     function showPanel(panelIndex, colorCode) {
@@ -60,7 +60,9 @@ const ProfileRight = () => {
                     style={{ display: "block" }}
                     className="tabcontent"
                 >
-                    {auth.user.role === "0" && order.length > 0 ? (
+                    {auth?.user &&
+                    auth.user.role === "0" &&
+                    order.length > 0 ? (
                         <div className="profile_card_container container-fluid">
                             {order.map((ele) =>
                                 ele.status === "0" ? (
@@ -82,6 +84,7 @@ const ProfileRight = () => {
                                             button={true}
                                             deleteService={del}
                                             auth={auth}
+                                            employee={ele?.employee}
                                         />
                                     </React.Fragment>
                                 ) : (
@@ -93,7 +96,9 @@ const ProfileRight = () => {
                         ""
                     )}
 
-                    {auth.user.role === "2" && order.length > 0 ? (
+                    {auth?.user &&
+                    auth.user.role === "2" &&
+                    order.length > 0 ? (
                         <div className="profile_card_container container-fluid">
                             {order.map(
                                 (ele) =>
@@ -143,7 +148,9 @@ const ProfileRight = () => {
                     )}
                 </div>
                 <div id="tab2" className="tabcontent">
-                    {auth.user.role === "0" && order.length > 0 ? (
+                    {auth?.user &&
+                    auth.user.role === "0" &&
+                    order.length > 0 ? (
                         <div className="profile_card_container">
                             {order.map((ele) =>
                                 ele.status === "1" ? (
@@ -173,7 +180,9 @@ const ProfileRight = () => {
                         ""
                     )}
 
-                    {auth.user.role === "2" && order.length > 0 ? (
+                    {auth?.user &&
+                    auth.user.role === "2" &&
+                    order.length > 0 ? (
                         <div className="profile_card_container container-fluid">
                             {order.map(
                                 (ele) =>
