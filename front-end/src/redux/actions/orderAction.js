@@ -47,11 +47,12 @@ export const getOrders =
                     type: GLOBALTYPES.ORDER,
                     payload: [...res.data.order],
                 });
-            } else if (auth.user.role === "2")
+            } else if (auth.user.role === "2") {
                 dispatch({
                     type: GLOBALTYPES.ORDER,
-                    payload: [...res.data.order],
+                    payload: res.data.order,
                 });
+            }
 
             dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
         } catch (error) {
