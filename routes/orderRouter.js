@@ -9,6 +9,8 @@ router.get("/getAllOrders", auth, adminAuth, orderCtrl.getAllOrders);
 
 router.post("/createOrder", auth, orderCtrl.createOrder);
 
+router.post("/orderCompleted", auth, orderCtrl.orderCompleted);
+
 // router.patch("/updateService", authCtrl.updateOrder)
 
 router.delete("/deleteOrder/:id", orderCtrl.deleteOrder);

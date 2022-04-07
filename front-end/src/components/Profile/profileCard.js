@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { getEmployee } from "../../redux/actions/employeeAction";
 
 const ProfileCard = ({
     auth,
@@ -14,8 +13,12 @@ const ProfileCard = ({
     button,
     deleteService,
     employee,
+    changeStatus,
+    completedOrder,
+    employeeName
 }) => {
     const dispatch = useDispatch();
+    const [slider, setSlider] = useState(0);
 
     return (
         <div className="profile_card row">
@@ -52,6 +55,15 @@ const ProfileCard = ({
                         Employee is assign to your order so you can't cancel
                         order
                     </p>
+                )}
+                {changeStatus && (
+                    <div className="profile_card_confirm_button">
+                        <button
+                            onClick={() => completedOrder(id, employeeName)}
+                        >
+                            Order completed?
+                        </button>
+                    </div>
                 )}
             </div>
             <div className="col-lg-2 col-md-4 profile_card_price_container">

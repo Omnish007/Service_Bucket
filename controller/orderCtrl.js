@@ -12,24 +12,24 @@ const orderCtrl = {
                 res.json({
                     msg: "Getting Orders",
                     nOfOrders: order.length,
-                    order,
+                    order
                 });
             } else if (req.user.role === "2") {
                 const user = await User.findById({ _id: req.user._id });
 
                 if (user?.orders?.length > 0) {
                     order = await User.findById({ _id: req.user._id }).populate(
-                        "orders",
+                        "orders"
                     );
                     res.json({
                         msg: "Getting Orders",
                         nOfOrders: order.length,
-                        order,
+                        order: [order]
                     });
                 } else {
                     res.json({
                         msg: "No orders found",
-                        order: [],
+                        order: []
                     });
                 }
             }
@@ -45,7 +45,7 @@ const orderCtrl = {
             res.json({
                 msg: "Getting All Orders",
                 orders: orders,
-                user: req.user,
+                user: req.user
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -71,7 +71,7 @@ const orderCtrl = {
                 state,
                 pinCode,
                 dist,
-                date,
+                date
             });
 
             await newOrder.save();
@@ -80,18 +80,42 @@ const orderCtrl = {
                 { _id: userID },
                 {
                     $push: {
-                        orders: newOrder._doc._id,
-                    },
-                },
+                        orders: newOrder._doc._id
+                    }
+                }
             );
 
             res.json({
                 msg: "Order Successfully Created",
                 newOrder: {
-                    ...newOrder._doc,
+                    ...newOrder._doc
                 },
-                user: req.user,
+                user: req.user
             });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    orderCompleted: async (req, res) => {
+        try {
+            const { id, employee } = req.body;
+
+            await Order.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: { status: "1" }
+                }
+            );
+
+            await User.findByIdAndUpdate(
+                { _id: employee },
+                {
+                    $set: { available: "1" }
+                }
+            );
+
+            res.json({ msg: "Order is completed" });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
@@ -106,18 +130,18 @@ const orderCtrl = {
             const user = await User.findOneAndUpdate(
                 { orders: id },
                 {
-                    $pull: { orders: id },
-                },
+                    $pull: { orders: id }
+                }
             );
 
             res.json({
                 msg: "Order Deleted Successfully",
-                user,
+                user
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
-    },
+    }
 };
 
 module.exports = orderCtrl;

@@ -15,21 +15,21 @@ export const createOrder = (data, auth) => async (dispatch) => {
 
         dispatch({
             type: GLOBALTYPES.ORDER,
-            payload: { success: res.data.msg, ...res.data.newOrder },
+            payload: { success: res.data.msg, ...res.data.newOrder }
         });
 
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                success: res.data.msg,
-            },
+                success: res.data.msg
+            }
         });
     } catch (error) {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: error.response.data.msg,
-            },
+                error: error.response.data.msg
+            }
         });
     }
 };
@@ -45,12 +45,12 @@ export const getOrders =
             if (auth.user.role !== "2") {
                 dispatch({
                     type: GLOBALTYPES.ORDER,
-                    payload: [...res.data.order],
+                    payload: res.data.order
                 });
             } else if (auth.user.role === "2") {
                 dispatch({
                     type: GLOBALTYPES.ORDER,
-                    payload: res.data.order,
+                    payload: res.data.order
                 });
             }
 
@@ -60,15 +60,15 @@ export const getOrders =
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.response.data.msg,
-                    },
+                        error: error.response.data.msg
+                    }
                 });
             } else {
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.message,
-                    },
+                        error: error.message
+                    }
                 });
             }
         }
@@ -84,7 +84,7 @@ export const getAllOrders =
 
             dispatch({
                 type: GLOBALTYPES.ORDER,
-                payload: [...res.data.orders],
+                payload: [...res.data.orders]
             });
 
             dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
@@ -93,15 +93,15 @@ export const getAllOrders =
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.response.data.msg,
-                    },
+                        error: error.response.data.msg
+                    }
                 });
             } else {
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.message,
-                    },
+                        error: error.message
+                    }
                 });
             }
         }
@@ -121,16 +121,45 @@ export const deleteOrder =
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.response.data.msg,
-                    },
+                        error: error.response.data.msg
+                    }
                 });
             } else {
                 dispatch({
                     type: GLOBALTYPES.ALERT,
                     payload: {
-                        error: error.message,
-                    },
+                        error: error.message
+                    }
                 });
             }
         }
     };
+
+export const orderCompleted = (data, auth) => async (dispatch) => {
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
+        const res = await postDataAPI(`orderCompleted`, data, auth.token);
+
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: { success: res.data.msg }
+        });
+    } catch (error) {
+        if (error.response) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.response.data.msg
+                }
+            });
+        } else {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {
+                    error: error.message
+                }
+            });
+        }
+    }
+};

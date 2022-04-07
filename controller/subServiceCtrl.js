@@ -9,7 +9,7 @@ const subServiceCtrl = {
             res.json({
                 msg: "Getting Sub Services",
                 subServices: subServices,
-                user: req.user,
+                user: req.user
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -20,14 +20,14 @@ const subServiceCtrl = {
         try {
             const id = req.params.id;
             const subServices = await SubService.findOne({ _id: id }).populate(
-                "service",
+                "service"
             );
 
             res.json({
                 msg: "Getting Sub Service",
                 subServices: subServices,
                 sName: subServices.service.name,
-                user: req.user,
+                user: req.user
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -45,14 +45,14 @@ const subServiceCtrl = {
                 sName: serviceName,
                 sname: name,
                 simage: image,
-                price,
+                price
             });
 
             await Service.findOneAndUpdate(
                 { name: serviceName },
                 {
-                    $push: { subService: newSubService._id },
-                },
+                    $push: { subService: newSubService._id }
+                }
             );
 
             await newSubService.save();
@@ -60,9 +60,9 @@ const subServiceCtrl = {
             res.json({
                 msg: "Sub Service Created",
                 newSubService: {
-                    ...newSubService._doc,
+                    ...newSubService._doc
                 },
-                user: req.user,
+                user: req.user
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -71,27 +71,26 @@ const subServiceCtrl = {
 
     deleteSubService: async (req, res) => {
         try {
-            console.log(req.body);
             const { _id, service } = req.body;
 
             await Service.findOneAndUpdate(
                 { _id: service._id },
                 {
                     $pull: {
-                        subService: _id,
-                    },
-                },
+                        subService: _id
+                    }
+                }
             );
 
             await SubService.findOneAndDelete({ _id: _id });
 
             res.json({
-                msg: "SubService Deleted",
+                msg: "SubService Deleted"
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
         }
-    },
+    }
 };
 
 module.exports = subServiceCtrl;

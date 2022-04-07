@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import HistoryImage from "../../images/History.png";
 import PendingImage from "../../images/Pending.png";
 import ProfileCard from "./profileCard";
 
-import { getOrders, deleteOrder } from "../../redux/actions/orderAction";
+import {
+    getOrders,
+    deleteOrder,
+    orderCompleted
+} from "../../redux/actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileRight = () => {
@@ -36,6 +40,13 @@ const ProfileRight = () => {
         if (window.confirm("Press a button!"))
             dispatch(deleteOrder({ id, auth }));
         dispatch(getOrders({ auth }));
+    };
+
+    const completedOrder = (id, employee) => {
+        // eslint-disable-next-line no-restricted-globals
+        if (confirm("Are you sure?")) {
+            dispatch(orderCompleted({ id, employee }, auth));
+        }
     };
 
     return (
@@ -89,7 +100,7 @@ const ProfileRight = () => {
                                     </React.Fragment>
                                 ) : (
                                     ""
-                                ),
+                                )
                             )}
                         </div>
                     ) : (
@@ -109,6 +120,7 @@ const ProfileRight = () => {
                                                 <h1 className="hidden">
                                                     {(pending = 1)}
                                                 </h1>
+
                                                 <ProfileCard
                                                     auth={auth}
                                                     id={element._id}
@@ -127,12 +139,19 @@ const ProfileRight = () => {
                                                     }
                                                     button={true}
                                                     deleteService={del}
+                                                    changeStatus={true}
+                                                    completedOrder={
+                                                        completedOrder
+                                                    }
+                                                    employeeName={
+                                                        element.employee
+                                                    }
                                                 />
                                             </React.Fragment>
                                         ) : (
                                             ""
-                                        ),
-                                    ),
+                                        )
+                                    )
                             )}
                         </div>
                     ) : (
@@ -143,6 +162,7 @@ const ProfileRight = () => {
                             <img
                                 className="profile_pending_image"
                                 src={PendingImage}
+                                alt="pending"
                             />
                         </div>
                     )}
@@ -173,7 +193,7 @@ const ProfileRight = () => {
                                     </>
                                 ) : (
                                     ""
-                                ),
+                                )
                             )}
                         </div>
                     ) : (
@@ -215,8 +235,8 @@ const ProfileRight = () => {
                                             </React.Fragment>
                                         ) : (
                                             ""
-                                        ),
-                                    ),
+                                        )
+                                    )
                             )}
                         </div>
                     ) : (
@@ -228,6 +248,7 @@ const ProfileRight = () => {
                             <img
                                 className="profile_history_image"
                                 src={HistoryImage}
+                                alt="history"
                             />
                         </div>
                     )}

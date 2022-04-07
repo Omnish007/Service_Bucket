@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/footer";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getServices } from "../../redux/actions/serviceActions";
 import { getSubService } from "../../redux/actions/subServiceAction";
 import { createOrder } from "../../redux/actions/orderAction";
@@ -13,7 +13,6 @@ const ServiceForm = () => {
     const dispatch = useDispatch();
 
     const { id } = useParams();
-    const [load, setLoad] = useState(false);
     const tarikh = new Date();
     const initialState = {
         sname: "",
@@ -26,25 +25,25 @@ const ServiceForm = () => {
         address: "",
         cardNo: "",
         cvv: "",
-        expiryDate: "",
+        expiryDate: ""
     };
     const [formData, setFormData] = useState(initialState);
-    const [subServices, setSubService] = useState({});
-
-    // const [startdate, setstartdate] = useState(tarikh);
-    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getServices());
         dispatch(getSubService({ id, auth }));
     }, []);
 
-    useEffect(async () => {
-        setFormData({
-            sname: subService.subServices.sname,
-            price: subService.subServices.price,
-            sName: subService.sName,
-        });
+    useEffect(() => {
+        const initialfun = async () => {
+            setFormData({
+                sname: subService.subServices.sname,
+                price: subService.subServices.price,
+                sName: subService.sName
+            });
+        };
+
+        initialfun();
     }, [subService, setFormData]);
 
     const formatCardNumber = (e) => {
@@ -66,7 +65,7 @@ const ServiceForm = () => {
             ...initialState,
             sname: subService.subServices.sname,
             price: subService.subServices.price,
-            sName: subService.sName,
+            sName: subService.sName
         });
     };
 
@@ -130,7 +129,7 @@ const ServiceForm = () => {
                         onChange={(e) =>
                             setFormData({
                                 ...formData,
-                                pinCode: e.target.value,
+                                pinCode: e.target.value
                             })
                         }
                         value={formData.pinCode}
@@ -164,7 +163,7 @@ const ServiceForm = () => {
                         onChange={(e) =>
                             setFormData({
                                 ...formData,
-                                address: e.target.value,
+                                address: e.target.value
                             })
                         }
                         value={formData.address}
@@ -201,7 +200,7 @@ const ServiceForm = () => {
                         onChange={(e) =>
                             setFormData({
                                 ...formData,
-                                expiryDate: e.target.value,
+                                expiryDate: e.target.value
                             })
                         }
                         value={formData.expiryDate}

@@ -270,6 +270,22 @@
     color: rgb(221, 26, 26);
 }
 
+.profile_card_confirm_button {
+    margin: auto;
+}
+
+.profile_card_confirm_button {
+    width: 100%;
+}
+.profile_card_confirm_button button {
+    width: 50%;
+    background: #65a9c6;
+    border: none;
+    padding: 10px 20px;
+    outline: none;
+    color: white;
+}
+
 .edit_profile_container {
     position: fixed;
     width: 100%;
